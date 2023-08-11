@@ -1,12 +1,13 @@
-import { Link } from "react-router-dom";
+import Button from "../components/button";
+import { useNavigate } from "react-router-dom";
 
 const Main = () => {
+  const navigate = useNavigate();
+
   return (
     <div>
       <div>this is main page</div>
-      <Link to="/task">
-        <div>go to task</div>
-      </Link>
+      <Button color="white" name="Start" onClick={() => navigate("/task")} />
     </div>
   );
 };
