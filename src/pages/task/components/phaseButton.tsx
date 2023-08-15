@@ -10,11 +10,19 @@ const PhaseButton = () => {
   const phase: number = useSelector((state: RootState) => state.phase.phase);
 
   const onClick = () => {
-    if (phase == 3) {
-      navigate("/");
-      dispatch(initPhase());
-    } else {
-      dispatch(nextPhase());
+    switch (phase) {
+      case 1:
+        dispatch(nextPhase());
+        navigate("/task/eval");
+        break;
+      case 2:
+        dispatch(nextPhase());
+        navigate("/task/author");
+        break;
+      case 3:
+        dispatch(initPhase());
+        navigate("/");
+        break;
     }
   };
 

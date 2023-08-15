@@ -6,7 +6,7 @@ const phaseSlice = createSlice({
   initialState: rootState.phase,
   reducers: {
     initPhase: (state) => {
-      state.phase = 1;
+      state.phase = 0;
     },
     nextPhase: (state) => {
       if (state.phase < 3) state.phase++;
