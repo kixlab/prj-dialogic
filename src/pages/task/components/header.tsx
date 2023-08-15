@@ -5,13 +5,15 @@ import { RootState } from "@/states/state";
 import { BlackText, BoldText, RegularText } from "@/styles/text";
 import { colors } from "@/styles/colors";
 import HeaderIconImg from "@/assets/dialogic.png";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const phase: number = useSelector((state: RootState) => state.phase.phase);
+  const navigate = useNavigate();
 
   return (
     <HeaderWrapper>
-      <HeaderIcon src={HeaderIconImg} />
+      <HeaderIcon src={HeaderIconImg} onClick={() => navigate("/")} />
       <HeaderStage stage={1} state={phase == 1 ? "OnGoing" : "Done"} />
       <HeaderStage
         stage={2}
@@ -30,6 +32,8 @@ const HeaderIcon = styled.img`
   top: 50%;
   left: 40px;
   transform: translate(-0%, -50%);
+
+  cursor: pointer;
 `;
 
 const HeaderWrapper = styled.div`
@@ -74,7 +78,7 @@ const HeaderStage = (props: HeaderStageProps) => {
   return (
     <HeaderStageWrapper {...props}>
       <HeaderStageNum {...props}>
-        <BlackText text={props.stage.toString()} color={color} size={15} />
+        <BlackText text={props.stage.toString()} color={color} size={14} />
       </HeaderStageNum>
       {props.state == "OnGoing" ? (
         <BoldText text={stageName(props.stage)} color={color} size={17} />
@@ -97,9 +101,9 @@ const HeaderStageWrapper = styled.div<HeaderStageProps>`
 `;
 
 const HeaderStageNum = styled.div<HeaderStageProps>`
-  width: 24px;
-  height: 24px;
-  border-radius: 5px;
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
 
   display: flex;
   align-items: center;

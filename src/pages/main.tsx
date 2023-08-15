@@ -2,12 +2,17 @@ import { useDispatch, useSelector } from "react-redux";
 import Button from "../components/button";
 import { useNavigate } from "react-router-dom";
 import { RootState } from "@/states/state";
-import { nextPhase } from "@/states/phaseSlice";
+import { initPhase, nextPhase } from "@/states/phaseSlice";
+import { useEffect } from "react";
 
 const Main = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const phase: number = useSelector((state: RootState) => state.phase.phase);
+
+  useEffect(() => {
+    dispatch(initPhase());
+  });
 
   const onClick = () => {
     if (phase == 0) {
