@@ -56,7 +56,7 @@ const PhaseButtonWrapper = styled.div<{ done: boolean }>`
       props.done == true && `background-color: ${colors["orange300"]};`}
     ${transition}
   }
-  border-radius: 6px;
+  border-radius: 8px;
 
   display: flex;
   align-items: center;

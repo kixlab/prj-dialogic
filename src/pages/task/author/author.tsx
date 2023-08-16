@@ -18,7 +18,7 @@ const Author = () => {
   return (
     <>
       <SubTask
-        type="short"
+        type="long"
         title="This is the test task1"
         subtitle="This is the test task1 and the subtitle"
         status={getStatus(1, step)}
@@ -27,7 +27,7 @@ const Author = () => {
         task1
       </SubTask>
       <SubTask
-        type="short"
+        type="long"
         title="This is the test task2"
         subtitle="This is the test task2 and the subtitle"
         status={getStatus(2, step)}

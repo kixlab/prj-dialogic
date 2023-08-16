@@ -78,12 +78,12 @@ const HeaderStage = (props: HeaderStageProps) => {
   return (
     <HeaderStageWrapper {...props}>
       <HeaderStageNum {...props}>
-        <BlackText text={props.stage.toString()} color={color} size={14} />
+        <BlackText text={props.stage.toString()} color={color} size={13} />
       </HeaderStageNum>
       {props.state == "OnGoing" ? (
-        <BoldText text={stageName(props.stage)} color={color} size={17} />
+        <BoldText text={stageName(props.stage)} color={color} size={16} />
       ) : (
-        <RegularText text={stageName(props.stage)} color={color} size={17} />
+        <RegularText text={stageName(props.stage)} color={color} size={16} />
       )}
     </HeaderStageWrapper>
   );
@@ -101,8 +101,8 @@ const HeaderStageWrapper = styled.div<HeaderStageProps>`
 `;
 
 const HeaderStageNum = styled.div<HeaderStageProps>`
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
   border-radius: 4px;
 
   display: flex;

@@ -44,7 +44,7 @@ const OutletLayout = styled.div`
   width: 100%;
   height: fit-content;
 
-  padding: 50px 0 0 0;
+  padding: 40px 0 0 0;
   display: flex;
   flex-direction: column;
   align-items: center;
