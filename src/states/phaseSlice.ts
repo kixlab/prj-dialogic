@@ -7,12 +7,17 @@ const phaseSlice = createSlice({
   reducers: {
     initPhase: (state) => {
       state.phase = 0;
+      state.done = false;
+    },
+    donePhase: (state) => {
+      state.done = true;
     },
     nextPhase: (state) => {
+      state.done = false;
       if (state.phase < 3) state.phase++;
     }
   }
 })
 
-export const { initPhase, nextPhase } = phaseSlice.actions;
+export const { initPhase, nextPhase, donePhase } = phaseSlice.actions;
 export default phaseSlice.reducer;

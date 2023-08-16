@@ -17,7 +17,7 @@ const Main = () => {
   const onClick = () => {
     if (phase == 0) {
       dispatch(nextPhase());
-      navigate("/task/gen");
+      navigate("/task");
     }
   };
 

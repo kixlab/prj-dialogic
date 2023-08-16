@@ -1,11 +1,13 @@
 export const rootState: RootState = {
   phase: {
-    phase: 1
+    phase: 0,
+    done: false
   },
 };
 
 export interface RootState {
   phase: {
-    phase: number
+    phase: number,
+    done: boolean,
   };
 }
