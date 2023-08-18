@@ -4,6 +4,10 @@ import { useDispatch } from "react-redux";
 import { donePhase } from "@/states/phaseSlice";
 import { getStatus } from "../utils";
 
+import Upload from "./upload";
+import Trim from "./trim";
+import Script from "./script";
+
 const Gen = () => {
   const [step, setStep] = useState<number>(1);
   const dispatch = useDispatch();
@@ -19,30 +23,30 @@ const Gen = () => {
     <>
       <SubTask
         type="short"
-        title="This is the test task1"
+        title="Upload your video"
         subtitle="This is the test task1 and the subtitle"
         status={getStatus(1, step)}
         onNext={onNext}
       >
-        task1
+        <Upload />
       </SubTask>
       <SubTask
         type="short"
-        title="This is the test task2"
+        title="Trim the video"
         subtitle="This is the test task2 and the subtitle"
         status={getStatus(2, step)}
         onNext={onNext}
       >
-        task2
+        <Trim />
       </SubTask>
       <SubTask
         type="short"
-        title="This is the test task3"
+        title="Confirm the transcript and highlight"
         subtitle="This is the test task3 and the subtitle"
         status={getStatus(3, step)}
         onNext={onNext}
       >
-        task3
+        <Script />
       </SubTask>
       <SubTask
         type="short"

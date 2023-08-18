@@ -3,6 +3,9 @@ export const rootState: RootState = {
     phase: 0,
     done: false
   },
+  gen: {
+    video: null,
+  }
 };
 
 export interface RootState {
@@ -10,4 +13,7 @@ export interface RootState {
     phase: number,
     done: boolean,
   };
+  gen: {
+    video: string | null,
+  }
 }

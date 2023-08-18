@@ -6,7 +6,7 @@ import { store } from "./states/store";
 
 import Main from "./pages/main";
 import Task from "./pages/task/task";
-import "./index.css";
+import "./styles/index.css";
 import Gen from "./pages/task/gen/gen";
 import Eval from "./pages/task/eval/eval";
 import Author from "./pages/task/author/author";
