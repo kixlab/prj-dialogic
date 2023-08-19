@@ -1,17 +1,22 @@
 import { updateVideo } from "@/states/genSlice";
 import { RootState } from "@/states/state";
+import { colors } from "@/styles/colors";
 import { FFmpeg } from "@ffmpeg/ffmpeg";
 import { fetchFile, toBlobURL } from "@ffmpeg/util";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import ReactPlayer from "react-player";
 import { useDispatch, useSelector } from "react-redux";
+import ReactSlider from "react-slider";
+import styled from "styled-components";
 
 const Trim = () => {
+  const dispatch = useDispatch();
   const video: string | null = useSelector(
     (state: RootState) => state.gen.video
   );
-  const dispatch = useDispatch();
+
   const [progress, setProgress] = useState<number>(0);
+  const videoRef = useRef(null);
 
   const onTrim = async () => {
     if (!video) return;
@@ -52,11 +57,68 @@ const Trim = () => {
       )
     );
   };
+
+  const onChange = (value: number | readonly number[], index: number) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const video = videoRef.current as any;
+    if (!video) return;
+
+    const values = value as number[];
+    const ratio: number = values[index] / 1000;
+    video.seekTo(ratio, "fraction");
+  };
+
   return (
     <>
-      {video && <ReactPlayer url={video} controls={true} />}
+      {video && (
+        <ReactPlayer
+          style={{ justifySelf: "stretch" }}
+          ref={videoRef}
+          url={video}
+          controls={true}
+        />
+      )}
+      <TrimSlider
+        onChange={onChange}
+        max={1000}
+        defaultValue={[0, 1000]}
+        renderTrack={Track}
+        renderThumb={Thumb}
+      />{" "}
       <button onClick={onTrim}>Trim {`${progress}% done`}</button>
     </>
   );
 };
 export default Trim;
+
+const TrimSlider = styled(ReactSlider)`
+  width: 100%;
+  height: 25px;
+
+  display: flex;
+  align-items: center;
+`;
+
+const TrimThumb = styled.div`
+  width: 16px;
+  height: 24px;
+
+  border-radius: 5px;
+  background-color: ${colors["green50"]};
+  border: none;
+
+  cursor: grab;
+`;
+
+const TrimTrack = styled.div`
+  justify-self: stretch;
+  height: 16px;
+
+  background: ${(props: any) =>
+    colors[props.index == 1 ? "green200" : "gray100"]};
+  border-radius: 5px;
+`;
+
+const Thumb = (props, state) => <TrimThumb {...props}></TrimThumb>;
+
+const Track = (props, state) => <TrimTrack {...props} index={state.index} />;

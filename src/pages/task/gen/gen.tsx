@@ -33,7 +33,7 @@ const Gen = () => {
       <SubTask
         type="short"
         title="Trim the video"
-        subtitle="This is the test task2 and the subtitle"
+        subtitle="Ensure trimming is completed before clicking Next"
         status={getStatus(2, step)}
         onNext={onNext}
       >
