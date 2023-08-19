@@ -4,6 +4,8 @@ import { ReactNode } from "react";
 import styled from "styled-components";
 import StatusIndicator from "./statusIndicator";
 import { transition } from "@/styles/animation";
+import { useSelector } from "react-redux";
+import { RootState } from "@/states/state";
 
 interface SubTaskProps {
   type: "short" | "long";
@@ -100,21 +102,20 @@ const SubTaskTitleWrapper = styled.div`
 `;
 
 const SubTaskButton = (props: SubTaskProps) => {
+  const next = useSelector((state: RootState) => state.phase.next);
+
   return (
-    <SubTaskButtonWrapper onClick={props.onNext}>
-      <BoldText text="Next" color="green400" size={14} />
+    <SubTaskButtonWrapper onClick={next ? props.onNext : () => {}} next={next}>
+      <BoldText text="Next" color={next ? "green400" : "gray100"} size={14} />
     </SubTaskButtonWrapper>
   );
 };
 
-const SubTaskButtonWrapper = styled.div`
+const SubTaskButtonWrapper = styled.div<{ next: boolean }>`
   width: 110px;
   height: 32px;
 
-  background-color: ${colors["green50"]};
-  &:hover {
-    background-color: ${colors["green100"]};
-  }
+  background-color: ${colors["gray50"]};
   border-radius: 5px;
 
   display: flex;
@@ -122,6 +123,15 @@ const SubTaskButtonWrapper = styled.div`
   justify-content: center;
   align-self: flex-end;
 
-  cursor: pointer;
+  ${(props) =>
+    props.next &&
+    `
+    background-color: ${colors["green50"]};
+    &:hover {
+      background-color: ${colors["green100"]};
+    }
+    cursor: pointer;
+
+  `}
   ${transition}
 `;

@@ -24,7 +24,7 @@ const Gen = () => {
       <SubTask
         type="short"
         title="Upload your video"
-        subtitle="This is the test task1 and the subtitle"
+        subtitle="Choose an English video that is smaller than 25MB in size."
         status={getStatus(1, step)}
         onNext={onNext}
       >
