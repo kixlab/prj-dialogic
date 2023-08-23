@@ -12,8 +12,8 @@ const Task = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (phase == 0) navigate("/");
-    if (phase == 1) navigate("/task/gen");
+    // if (phase == 0) navigate("/");
+    // if (phase == 1) navigate("/task/gen");
   }, []);
 
   return (

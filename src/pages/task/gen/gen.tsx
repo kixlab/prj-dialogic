@@ -7,13 +7,14 @@ import { getStatus } from "../utils";
 import Upload from "./upload";
 import Trim from "./trim";
 import Script from "./script";
+import Scenario from "./scenario";
 
 const Gen = () => {
   const [step, setStep] = useState<number>(1);
   const dispatch = useDispatch();
 
   const onNext = () => {
-    if (step == 5) {
+    if (step == 4) {
       dispatch(donePhase());
     }
     setStep((prevStep) => prevStep + 1);
@@ -33,7 +34,7 @@ const Gen = () => {
       <SubTask
         type="short"
         title="Trim the video"
-        subtitle="Ensure trimming is completed before clicking Next"
+        subtitle="Ensure trimming is completed at least once, before clicking Next"
         status={getStatus(2, step)}
         onNext={onNext}
       >
@@ -50,21 +51,12 @@ const Gen = () => {
       </SubTask>
       <SubTask
         type="short"
-        title="This is the test task4"
+        title="Write the dialogue scenario"
         subtitle="This is the test task4 and the subtitle"
         status={getStatus(4, step)}
         onNext={onNext}
       >
-        task4
-      </SubTask>
-      <SubTask
-        type="short"
-        title="This is the test task5"
-        subtitle="This is the test task5 and the subtitle"
-        status={getStatus(5, step)}
-        onNext={onNext}
-      >
-        task5
+        <Scenario />
       </SubTask>
     </>
   );

@@ -1,4 +1,6 @@
-import { updateVideo } from "@/states/genSlice";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { updateVideo } from "@/states/dataSlice";
+import { doneTask } from "@/states/phaseSlice";
 import { RootState } from "@/states/state";
 import { colors } from "@/styles/colors";
 import { FFmpeg } from "@ffmpeg/ffmpeg";
@@ -12,7 +14,7 @@ import styled from "styled-components";
 const Trim = () => {
   const dispatch = useDispatch();
   const video: string | null = useSelector(
-    (state: RootState) => state.gen.video
+    (state: RootState) => state.data.video
   );
 
   const [progress, setProgress] = useState<number>(0);
@@ -56,6 +58,7 @@ const Trim = () => {
         URL.createObjectURL(new Blob([data.buffer], { type: "video/mp4" }))
       )
     );
+    dispatch(doneTask());
   };
 
   const onChange = (value: number | readonly number[], index: number) => {
@@ -81,7 +84,7 @@ const Trim = () => {
       <TrimSlider
         onChange={onChange}
         max={1000}
-        defaultValue={[0, 1000]}
+        defaultValue={[200, 700]}
         renderTrack={Track}
         renderThumb={Thumb}
       />{" "}
@@ -107,6 +110,10 @@ const TrimThumb = styled.div`
   background-color: ${colors["green50"]};
   border: none;
 
+  &:focus {
+    outline: 2px solid ${colors["green300"]};
+  }
+
   cursor: grab;
 `;
 
@@ -119,6 +126,8 @@ const TrimTrack = styled.div`
   border-radius: 5px;
 `;
 
-const Thumb = (props, state) => <TrimThumb {...props}></TrimThumb>;
+const Thumb = (props: any) => <TrimThumb {...props}></TrimThumb>;
 
-const Track = (props, state) => <TrimTrack {...props} index={state.index} />;
+const Track = (props: any, state: any) => (
+  <TrimTrack {...props} index={state.index} />
+);

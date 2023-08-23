@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { default as phase } from './phaseSlice';
-import { default as gen } from './genSlice';
+import { default as data } from './dataSlice';
 
 export const store = configureStore({
-  reducer: { phase, gen },
+  reducer: { phase, data },
 });
 
 export type RootStore = ReturnType<typeof store.getState>;

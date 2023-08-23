@@ -4,8 +4,9 @@ import { ReactNode } from "react";
 import styled from "styled-components";
 import StatusIndicator from "./statusIndicator";
 import { transition } from "@/styles/animation";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/states/state";
+import { initTask } from "@/states/phaseSlice";
 
 interface SubTaskProps {
   type: "short" | "long";
@@ -102,10 +103,18 @@ const SubTaskTitleWrapper = styled.div`
 `;
 
 const SubTaskButton = (props: SubTaskProps) => {
+  const dispatch = useDispatch();
   const next = useSelector((state: RootState) => state.phase.next);
 
+  const onNext = () => {
+    if (next) {
+      dispatch(initTask());
+      props.onNext();
+    }
+  };
+
   return (
-    <SubTaskButtonWrapper onClick={next ? props.onNext : () => {}} next={next}>
+    <SubTaskButtonWrapper onClick={onNext} next={next}>
       <BoldText text="Next" color={next ? "green400" : "gray100"} size={14} />
     </SubTaskButtonWrapper>
   );

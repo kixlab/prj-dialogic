@@ -1,15 +1,15 @@
-import { initVideo, updateVideo } from "@/states/genSlice";
+import { initVideo, updateVideo } from "@/states/dataSlice";
 import { colors } from "@/styles/colors";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 
-import CloseIconImg from "@/assets/close.svg";
-import VideoIconImg from "@/assets/video.svg";
-import UploadIconImg from "@/assets/upload.svg";
 import { BoldText, RegularText } from "@/styles/text";
 import { getSize } from "./utils";
 import { doneTask, initTask } from "@/states/phaseSlice";
+
+import { IconContext } from "react-icons";
+import { BiVideo, BiX, BiSolidCloudUpload } from "react-icons/bi";
 
 interface FileInfo {
   name: string;
@@ -63,7 +63,14 @@ const UploadContainer = ({
       />
       <BoldText text="Choose the file" color="green300" size={15} />
       <RegularText text="(.mp4) to upload" color="gray300" size={15} />
-      <UploadIcon src={UploadIconImg} />
+      <IconContext.Provider
+        value={{
+          color: colors["gray300"],
+          style: { width: "20px", height: "auto" },
+        }}
+      >
+        <BiSolidCloudUpload />
+      </IconContext.Provider>
     </UploadContainerWrapper>
   );
 };
@@ -90,11 +97,6 @@ const UploadWrapper = styled.input`
   display: none;
 `;
 
-const UploadIcon = styled.img`
-  width: 16px;
-  padding: 4px;
-`;
-
 interface FileContainerProps {
   fileInfo: FileInfo;
   onClose: () => void;
@@ -104,7 +106,14 @@ const FileContainer = (props: FileContainerProps) => {
   return (
     <FileContainerWrapper>
       <FileInfoWrapper>
-        <FileIcon src={VideoIconImg} />
+        <IconContext.Provider
+          value={{
+            color: colors["green400"],
+            style: { width: "25px", height: "auto" },
+          }}
+        >
+          <BiVideo onClick={props.onClose} />
+        </IconContext.Provider>
         <FileTitleWrapper>
           <BoldText text={props.fileInfo.name} color="gray400" size={15} />
           <RegularText
@@ -114,7 +123,15 @@ const FileContainer = (props: FileContainerProps) => {
           />
         </FileTitleWrapper>
       </FileInfoWrapper>
-      <DeleteIcon src={CloseIconImg} onClick={props.onClose} />
+
+      <IconContext.Provider
+        value={{
+          color: colors["green400"],
+          style: { width: "20px", height: "auto", cursor: "pointer" },
+        }}
+      >
+        <BiX onClick={props.onClose} />
+      </IconContext.Provider>
     </FileContainerWrapper>
   );
 };
@@ -150,15 +167,4 @@ const FileTitleWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 2px;
-`;
-
-const FileIcon = styled.img`
-  width: 22px;
-`;
-
-const DeleteIcon = styled.img`
-  width: 10px;
-  cursor: pointer;
-
-  padding: 5px;
 `;

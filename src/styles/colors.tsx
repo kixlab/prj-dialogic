@@ -7,6 +7,7 @@ export const colors: Record<string, string> = {
   gray100: "#F5F5F5",
   gray200: "#D9D9D9",
   gray300: "#8E8E8E",
+  gray350: "#707070",
   gray400: "#4C4C4C",
   green50: "#E9FEF0",
   green100: "#CDF1DA",

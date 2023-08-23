@@ -1,12 +1,16 @@
+import { UtteranceItem } from "@/pages/task/author/utils";
+
 export const rootState: RootState = {
   phase: {
     phase: 0,
     done: false,
     next: false
   },
-  gen: {
+  data: {
     video: null,
-  }
+    script: '',
+    dialogue: [],
+  },
 };
 
 export interface RootState {
@@ -15,7 +19,9 @@ export interface RootState {
     done: boolean,
     next: boolean,
   };
-  gen: {
+  data: {
     video: string | null,
+    script: string,
+    dialogue: UtteranceItem[],
   }
 }

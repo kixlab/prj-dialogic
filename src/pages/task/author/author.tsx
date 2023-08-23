@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { getStatus } from "../utils";
 import SubTask from "../components/subtask";
+import Dialogue from "./dialogue";
 
 const Author = () => {
   const [step, setStep] = useState<number>(1);
@@ -24,7 +25,7 @@ const Author = () => {
         status={getStatus(1, step)}
         onNext={onNext}
       >
-        task1
+        <Dialogue />
       </SubTask>
       <SubTask
         type="long"
