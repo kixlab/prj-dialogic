@@ -1,4 +1,41 @@
+import { BoldText, RegularText } from "@/styles/text";
+import styled from "styled-components";
+import DialogueViewer from "../../components/dialogueViewer";
+
 const ModalBody = () => {
-  return <></>;
+  return (
+    <ModalBodyWrapper>
+      <ModalTitleWrapper>
+        <RegularText text="Dialogic-Lecture" color="gray350" size={12} />
+        <BoldText
+          text="Alice explains photosynthesis herself"
+          color="black"
+          size={20}
+        />
+      </ModalTitleWrapper>
+      <DialogueViewer highlight={[1, 2, 3]} />
+    </ModalBodyWrapper>
+  );
 };
 export default ModalBody;
+
+const ModalBodyWrapper = styled.div`
+  flex: 1;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding: 25px 28px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+`;
+const ModalTitleWrapper = styled.div`
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  gap: 4px;
+`;

@@ -5,14 +5,19 @@ import { BoldText } from "@/styles/text";
 import { getSpeakerName } from "../utils";
 import { UtteranceItem } from "@/states/types";
 import { colors } from "@/styles/colors";
+import { transition } from "@/styles/animation";
 
-const DialogueViewer = () => {
+const DialogueViewer = (props: { highlight?: number[] }) => {
   const dialogue = useSelector((state: RootState) => state.data.dialogue);
 
   return (
     <DialogueViewerWrapper>
-      {dialogue.map((item) => (
-        <DialogueViewItem key={item.id} {...item} />
+      {dialogue.map((item, idx) => (
+        <DialogueViewItem
+          key={item.id}
+          {...item}
+          highlight={props.highlight?.find((el) => el === idx) !== undefined}
+        />
       ))}
     </DialogueViewerWrapper>
   );
@@ -30,17 +35,25 @@ const DialogueViewerWrapper = styled.div`
   gap: 16px;
 `;
 
-const DialogueViewItem = (props: UtteranceItem) => {
+interface DialogueViewItemProps extends UtteranceItem {
+  highlight: boolean;
+}
+
+const DialogueViewItem = (props: DialogueViewItemProps) => {
   return (
     <DialogueViewItemWrapper>
       <DialogueViewSpeaker>
         <BoldText
           text={getSpeakerName(props.speaker)}
-          color="gray300"
+          color={props.highlight ? "gray350" : "gray300"}
           size={13}
         />
       </DialogueViewSpeaker>
-      <DialogueViewUtterance>{props.utterance}</DialogueViewUtterance>
+      <DialogueViewUtterance>
+        <UtteranceMark highlight={props.highlight}>
+          {props.utterance}
+        </UtteranceMark>
+      </DialogueViewUtterance>
     </DialogueViewItemWrapper>
   );
 };
@@ -48,6 +61,7 @@ const DialogueViewItem = (props: UtteranceItem) => {
 const DialogueViewItemWrapper = styled.div`
   width: 100%;
 
+  position: relative;
   box-sizing: border-box;
 
   display: flex;
@@ -77,4 +91,10 @@ const DialogueViewUtterance = styled.div`
   font-size: 15px;
   font-weight: 400;
   line-height: 1.5;
+`;
+
+const UtteranceMark = styled.mark<{ highlight: boolean }>`
+  background-color: ${(props) =>
+    props.highlight ? colors["aqua100"] : "transparent"};
+  ${transition}
 `;

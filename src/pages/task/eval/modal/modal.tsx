@@ -2,11 +2,12 @@ import { colors } from "@/styles/colors";
 
 import styled from "styled-components";
 import ModalSubBody from "./modalSubBody";
+import ModalBody from "./modalBody";
 
 const DialogueModal = ({ onClose }: { onClose: () => void }) => {
   return (
     <DialogueModalWrapper>
-      <DialogueModalBodyWrapper></DialogueModalBodyWrapper>
+      <ModalBody />
       <DialogueModalDivider />
       <ModalSubBody onClick={onClose} />
     </DialogueModalWrapper>

@@ -2,7 +2,7 @@ export const colors: Record<string, string> = {
   white: "#FFFFFF",
   black: "#222222",
   gray50: "#FCFCFC",
-  aqua100: "#9AFAD7",
+  aqua100: "#e3fff3",
   aqua200: "#9AFAD7",
   gray100: "#F5F5F5",
   gray200: "#D9D9D9",

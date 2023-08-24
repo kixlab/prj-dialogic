@@ -82,7 +82,7 @@ const ModalSubBodyInfoWrapper = styled.div`
   height: fit-content;
 
   box-sizing: border-box;
-  padding: 0px 25px 40px 25px;
+  padding: 0px 25px 30px 25px;
 
   display: flex;
   flex-direction: column;
@@ -136,9 +136,13 @@ interface LevelInfoProps {
 const LevelInfo = (props: LevelInfoProps) => {
   return (
     <LevelInfoWrapper>
-      <RegularText text={props.title} color="gray400" size={14} />
-
-      <RegularText text={props.subtitle} color="gray300" size={13} />
+      <BoldText
+        text={"Level " + props.level.toString()}
+        color="green300"
+        size={12}
+      />
+      <RegularText text={props.title} color="gray400" size={13} />
+      <RegularText text={props.subtitle} color="gray350" size={13} />
     </LevelInfoWrapper>
   );
 };
@@ -148,7 +152,7 @@ const LevelInfoWrapper = styled.div`
   height: fit-content;
 
   box-sizing: border-box;
-  padding: 5px;
+  padding: 10px 12px;
   border: 1px solid ${colors["gray200"]};
   border-radius: 5px;
 
