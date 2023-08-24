@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { BoldText, RegularText } from "@/styles/text";
+import { RegularText } from "@/styles/text";
 import { useEffect, useState } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 
@@ -10,12 +10,13 @@ import DialogueItem from "./dialogueItem";
 import { useSelector } from "react-redux";
 import { RootState } from "@/states/state";
 import { useDispatch } from "react-redux";
-import { updateDialogue } from "@/states/dataSlice";
+import { updateDialogue, updateTitle } from "@/states/dataSlice";
 import { AuthorMode, UtteranceItem } from "@/states/types";
 
 const DialogueAuthor = (props: { mode: AuthorMode }) => {
   const dispatch = useDispatch();
   const items = useSelector((state: RootState) => state.data.dialogue);
+  const title = useSelector((state: RootState) => state.data.title);
   const [width, setWidth] = useState<number>(0);
 
   useEffect(() => {
@@ -38,11 +39,13 @@ const DialogueAuthor = (props: { mode: AuthorMode }) => {
   return (
     <DialogueAuthorWrapper>
       <DialogueTitleWrapper>
-        <RegularText text="Dialogue 1" color="gray400" size={13} />
-        <BoldText
-          text="Alice explains photosynthesis herself"
-          color="black"
-          size={20}
+        <RegularText text="Dialogic-Lecture" color="gray350" size={12} />
+        <DialogueTitle
+          value={title}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            dispatch(updateTitle(e.target.value))
+          }
+          style={{ width }}
         />
       </DialogueTitleWrapper>
       <DialogueItemsWrapper id="itemsContainer">
@@ -101,7 +104,16 @@ const DialogueAuthorWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 20px;
+  gap: 10px;
+`;
+
+const DialogueTitle = styled.input`
+  box-sizing: border-box;
+  outline: none;
+  border: none;
+
+  font-size: 20px;
+  font-weight: 700;
 `;
 
 const DialogueTitleWrapper = styled.div`
@@ -111,6 +123,8 @@ const DialogueTitleWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+
+  gap: 1px;
 `;
 
 const DialogueItemsWrapper = styled.div`

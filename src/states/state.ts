@@ -10,6 +10,8 @@ export const rootState: RootState = {
     video: null,
     script: '',
     dialogue: [],
+    title: 'Sample Title',
+    description: 'Sample Description',
     speaker: 2,
   },
   author: {
@@ -27,6 +29,8 @@ export interface RootState {
     video: string | null,
     script: string,
     dialogue: UtteranceItem[],
+    title: string,
+    description: string,
     speaker: number,
   };
   author: {

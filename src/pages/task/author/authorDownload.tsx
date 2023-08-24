@@ -1,13 +1,42 @@
+import { useSelector } from "react-redux";
+import { RootState } from "@/states/state";
 import { colors } from "@/styles/colors";
 import styled from "styled-components";
+import ReactToPrint from "react-to-print";
+
 import TaskContainer from "../components/taskContainer";
 import DialogueViewer from "../components/dialogueViewer";
+import { BoldText, RegularText } from "@/styles/text";
+
+import FeatureButton from "../components/featureButton";
+
+import { RiFileDownloadLine } from "react-icons/ri";
+import { useRef } from "react";
 
 const AuthorDownload = () => {
+  const title = useSelector((state: RootState) => state.data.title);
+  const description = useSelector((state: RootState) => state.data.description);
+  const printRef = useRef(null);
+
   return (
-    <TaskContainer gap={10} padding={true} align="end">
-      <AuthorDownloadWrapper>
-        <AuthorTitle value="Alice explains photosynthesis herself" />
+    <TaskContainer gap={10} padding={true} align="start">
+      <ReactToPrint
+        trigger={() => (
+          <FeatureButton text="Download">
+            <RiFileDownloadLine />
+          </FeatureButton>
+        )}
+        content={() => printRef.current}
+      />
+
+      <AuthorDownloadWrapper ref={printRef}>
+        <AuthorTitleWrapper>
+          <AuthorDescriptionWrapper>
+            <RegularText text="Dialogic-Lecture" color="gray350" size={12} />
+            <RegularText text={description} color="gray350" size={12} />
+          </AuthorDescriptionWrapper>
+          <BoldText text={title} color="black" size={20} />
+        </AuthorTitleWrapper>
         <DialogueViewer />
       </AuthorDownloadWrapper>
     </TaskContainer>
@@ -20,7 +49,7 @@ const AuthorDownloadWrapper = styled.div`
   height: fit-content;
 
   box-sizing: border-box;
-  padding: 25px 25px;
+  padding: 22px 25px;
   border: 1px solid ${colors["gray200"]};
   border-radius: 10px;
 
@@ -29,16 +58,20 @@ const AuthorDownloadWrapper = styled.div`
   align-items: flex-start;
   gap: 20px;
 `;
+const AuthorDescriptionWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`;
 
-const AuthorTitle = styled.input`
-  width: 40%;
-
+const AuthorTitleWrapper = styled.div`
+  width: 100%;
   box-sizing: border-box;
-  padding-bottom: 6px;
-  outline: none;
-  border: none;
-  border-bottom: 2px solid ${colors["green100"]};
 
-  font-size: 20px;
-  font-weight: 700;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  gap: 4px;
 `;

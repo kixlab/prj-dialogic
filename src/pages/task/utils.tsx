@@ -8,3 +8,28 @@ export const getSpeakerName = (speaker: number) => {
   if (speaker == 0) return "Tutor";
   else return "Tutee" + speaker;
 };
+
+const learningStrategy: string[] = [
+  "cognitive conflict",
+  "metacognitive prompting",
+  "cognitive prompting",
+  "spontaneous deep-level reasoning question",
+];
+
+export const getTagTheme = (title: string) => {
+  const idx: number = learningStrategy.findIndex(
+    (strategy) => strategy == title
+  );
+  switch (idx) {
+    case 0:
+      return "pink";
+    case 1:
+      return "purple";
+    case 2:
+      return "yellow";
+    case 3:
+      return "blue";
+    default:
+      return "brown";
+  }
+};

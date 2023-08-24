@@ -25,8 +25,8 @@ const Author = () => {
     <>
       <SubTask
         type="long"
-        title="This is the test task1"
-        subtitle="This is the test task1 and the subtitle"
+        title="Revise the selected dialogue"
+        subtitle="Utilize the toolbox on the left to modify each utterance"
         status={getStatus(1, step)}
         onNext={onNext}
       >
@@ -34,8 +34,8 @@ const Author = () => {
       </SubTask>
       <SubTask
         type="long"
-        title="This is the test task2"
-        subtitle="This is the test task2 and the subtitle"
+        title="Download the final dialogue"
+        subtitle="Click download to save as pdf"
         status={getStatus(2, step)}
         onNext={onNext}
       >

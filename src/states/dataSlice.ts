@@ -29,6 +29,12 @@ const dataSlice = createSlice({
         }
       })
     },
+    updateTitle: (state, action: PayloadAction<string>) => {
+      state.title = action.payload;
+    },
+    updateDescription: (state, action: PayloadAction<string>) => {
+      state.description = action.payload;
+    },
     changeSpeaker: (state, action: PayloadAction<string>) => {
       const utterance = state.dialogue.find((item) => item.id === action.payload);
       if (utterance) {
@@ -49,5 +55,5 @@ const dataSlice = createSlice({
   }
 })
 
-export const { updateVideo, initVideo, updateScript, updateDialogue, updateUtterance, addUtterance, changeSpeaker, duplicateUtterance, deleteUtterance } = dataSlice.actions;
+export const { updateVideo, initVideo, updateScript, updateDialogue, updateUtterance, addUtterance, changeSpeaker, duplicateUtterance, deleteUtterance, updateTitle, updateDescription } = dataSlice.actions;
 export default dataSlice.reducer;
