@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { rootState } from './state';
-import { UtteranceItem } from '@/pages/task/author/utils';
 import { v4 as uuid } from 'uuid';
+import { UtteranceItem } from './types';
 
 const dataSlice = createSlice({
   name: 'data',

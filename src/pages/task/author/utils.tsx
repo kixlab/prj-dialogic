@@ -1,16 +1,5 @@
+import { UtteranceItem } from "@/states/types";
 import { v4 as uuid } from "uuid";
-export type Mode = "magic" | "transcript" | "description";
-
-export interface UtteranceItem {
-  id: string;
-  speaker: number;
-  utterance: string;
-}
-
-export const getSpeakerName = (speaker: number) => {
-  if (speaker == 0) return "Tutor";
-  else return "Tutee" + speaker;
-};
 
 export const dialogueSample: UtteranceItem[] = [
   {

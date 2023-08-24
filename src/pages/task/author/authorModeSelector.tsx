@@ -1,14 +1,14 @@
 import { HiDocumentText } from "react-icons/hi";
 import { ModeButton, ModeButtonContainer } from "../components/modeButton";
 import { BiSolidDetail, BiSolidMagicWand } from "react-icons/bi";
-import { Mode } from "./utils";
+import { AuthorMode } from "@/states/types";
 
-interface AuthorModeProps {
-  mode: Mode;
-  setMode: React.Dispatch<React.SetStateAction<Mode>>;
+interface AuthorModeSelectorProps {
+  mode: AuthorMode;
+  setMode: React.Dispatch<React.SetStateAction<AuthorMode>>;
 }
 
-const AuthorMode = (props: AuthorModeProps) => {
+const AuthorModeSelector = (props: AuthorModeSelectorProps) => {
   return (
     <ModeButtonContainer>
       <ModeButton
@@ -45,4 +45,4 @@ const AuthorMode = (props: AuthorModeProps) => {
   );
 };
 
-export default AuthorMode;
+export default AuthorModeSelector;

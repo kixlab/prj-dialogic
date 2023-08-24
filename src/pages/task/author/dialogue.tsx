@@ -1,20 +1,20 @@
 import { useState } from "react";
 import TaskContainer from "../components/taskContainer";
-import AuthorMode from "./authorMode";
-import { Mode } from "./utils";
 import styled from "styled-components";
 import { colors } from "@/styles/colors";
 import DialogueAuthor from "./dialogueAuthor";
 import AuthorTool from "./authorTool";
+import { AuthorMode } from "@/states/types";
+import AuthorModeSelector from "./authorModeSelector";
 
 const Dialogue = () => {
-  const [mode, setMode] = useState<Mode>("magic");
+  const [mode, setMode] = useState<AuthorMode>("magic");
 
   return (
     <TaskContainer gap={10} padding={true} align="end">
       <DialogueToolWrapper>
         <AuthorTool />
-        <AuthorMode mode={mode} setMode={setMode} />
+        <AuthorModeSelector mode={mode} setMode={setMode} />
       </DialogueToolWrapper>
       <DialogueWrapper>
         <DialogueAuthor mode={mode} />
@@ -55,7 +55,7 @@ const DialogueDivider = styled.div`
   border-left: 1px solid ${colors["gray200"]};
 `;
 
-const TextContainer = styled.div<{ mode: Mode }>`
+const TextContainer = styled.div<{ mode: AuthorMode }>`
   flex: ${(props) => (props.mode == "magic" ? 1 : 0.6)};
   height: fit-content;
 `;

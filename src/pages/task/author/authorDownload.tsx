@@ -1,11 +1,15 @@
 import { colors } from "@/styles/colors";
 import styled from "styled-components";
 import TaskContainer from "../components/taskContainer";
+import DialogueViewer from "../components/dialogueViewer";
 
 const AuthorDownload = () => {
   return (
     <TaskContainer gap={10} padding={true} align="end">
-      <AuthorDownloadWrapper></AuthorDownloadWrapper>
+      <AuthorDownloadWrapper>
+        <AuthorTitle value="Alice explains photosynthesis herself" />
+        <DialogueViewer />
+      </AuthorDownloadWrapper>
     </TaskContainer>
   );
 };
@@ -16,7 +20,7 @@ const AuthorDownloadWrapper = styled.div`
   height: fit-content;
 
   box-sizing: border-box;
-  padding: 25px 20px;
+  padding: 25px 25px;
   border: 1px solid ${colors["gray200"]};
   border-radius: 10px;
 
@@ -24,4 +28,17 @@ const AuthorDownloadWrapper = styled.div`
   flex-direction: column;
   align-items: flex-start;
   gap: 20px;
+`;
+
+const AuthorTitle = styled.input`
+  width: 40%;
+
+  box-sizing: border-box;
+  padding-bottom: 6px;
+  outline: none;
+  border: none;
+  border-bottom: 2px solid ${colors["green100"]};
+
+  font-size: 20px;
+  font-weight: 700;
 `;

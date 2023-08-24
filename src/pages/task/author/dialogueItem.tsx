@@ -11,7 +11,8 @@ import { RootState } from "@/states/state";
 
 import { BoldText } from "@/styles/text";
 import { colors } from "@/styles/colors";
-import { UtteranceItem, getSpeakerName } from "./utils";
+import { getSpeakerName } from "../utils";
+import { UtteranceItem } from "@/states/types";
 
 interface DialogueItemProps extends UtteranceItem {
   isDragging: boolean;

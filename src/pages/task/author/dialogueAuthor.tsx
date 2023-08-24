@@ -5,14 +5,15 @@ import { useEffect, useState } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 
 import styled from "styled-components";
-import { Mode, UtteranceItem, dialogueSample } from "./utils";
+import { dialogueSample } from "./utils";
 import DialogueItem from "./dialogueItem";
 import { useSelector } from "react-redux";
 import { RootState } from "@/states/state";
 import { useDispatch } from "react-redux";
 import { updateDialogue } from "@/states/dataSlice";
+import { AuthorMode, UtteranceItem } from "@/states/types";
 
-const DialogueAuthor = (props: { mode: Mode }) => {
+const DialogueAuthor = (props: { mode: AuthorMode }) => {
   const dispatch = useDispatch();
   const items = useSelector((state: RootState) => state.data.dialogue);
   const [width, setWidth] = useState<number>(0);

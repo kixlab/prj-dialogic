@@ -1,5 +1,5 @@
 import { colors } from "@/styles/colors";
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useState } from "react";
 import { IconContext } from "react-icons";
 import styled from "styled-components";
 
@@ -23,11 +23,6 @@ const AuthorTool = () => {
   const focus: string | null = useSelector(
     (state: RootState) => state.author.focus
   );
-  const dialogue: any = useSelector((state: RootState) => state.data.dialogue);
-
-  useEffect(() => {
-    console.log(dialogue);
-  }, [dialogue]);
 
   return (
     <AuthorToolWrapper>

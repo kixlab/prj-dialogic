@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SubTask from "../components/subtask";
 import { useDispatch } from "react-redux";
 import { donePhase } from "@/states/phaseSlice";
@@ -8,10 +8,15 @@ import Upload from "./upload";
 import Trim from "./trim";
 import Script from "./script";
 import Scenario from "./scenario";
+import { testApi } from "@/apis/lab";
 
 const Gen = () => {
   const [step, setStep] = useState<number>(1);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    testApi();
+  }, []);
 
   const onNext = () => {
     if (step == 4) {

@@ -1,4 +1,4 @@
-import { UtteranceItem } from "@/pages/task/author/utils";
+import { UtteranceItem } from "./types";
 
 export const rootState: RootState = {
   phase: {
