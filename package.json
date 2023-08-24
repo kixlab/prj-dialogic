@@ -13,6 +13,7 @@
     "@ffmpeg/ffmpeg": "^0.12.4",
     "@ffmpeg/util": "^0.12.0",
     "@reduxjs/toolkit": "^1.9.5",
+    "axios": "^1.4.0",
     "firebase": "^10.2.0",
     "firebase-tools": "^12.4.8",
     "react": "^18.2.0",
