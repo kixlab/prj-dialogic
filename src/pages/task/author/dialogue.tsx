@@ -5,13 +5,17 @@ import { Mode } from "./utils";
 import styled from "styled-components";
 import { colors } from "@/styles/colors";
 import DialogueAuthor from "./dialogueAuthor";
+import AuthorTool from "./authorTool";
 
 const Dialogue = () => {
   const [mode, setMode] = useState<Mode>("magic");
 
   return (
     <TaskContainer gap={10} padding={true} align="end">
-      <AuthorMode mode={mode} setMode={setMode} />
+      <DialogueToolWrapper>
+        <AuthorTool />
+        <AuthorMode mode={mode} setMode={setMode} />
+      </DialogueToolWrapper>
       <DialogueWrapper>
         <DialogueAuthor mode={mode} />
         <DialogueDivider />
@@ -22,6 +26,15 @@ const Dialogue = () => {
 };
 
 export default Dialogue;
+
+const DialogueToolWrapper = styled.div`
+  width: 100%;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+`;
 
 const DialogueWrapper = styled.div`
   width: 100%;

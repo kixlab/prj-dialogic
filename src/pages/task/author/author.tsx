@@ -1,9 +1,10 @@
-import { donePhase } from "@/states/phaseSlice";
-import { useState } from "react";
+import { donePhase, doneTask } from "@/states/phaseSlice";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { getStatus } from "../utils";
 import SubTask from "../components/subtask";
 import Dialogue from "./dialogue";
+import AuthorDownload from "./authorDownload";
 
 const Author = () => {
   const [step, setStep] = useState<number>(1);
@@ -15,6 +16,10 @@ const Author = () => {
     }
     setStep((prevStep) => prevStep + 1);
   };
+
+  useEffect(() => {
+    dispatch(doneTask());
+  }, []);
 
   return (
     <>
@@ -34,7 +39,7 @@ const Author = () => {
         status={getStatus(2, step)}
         onNext={onNext}
       >
-        task2
+        <AuthorDownload />
       </SubTask>
     </>
   );

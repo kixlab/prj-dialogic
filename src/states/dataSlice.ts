@@ -1,6 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { rootState } from './state';
 import { UtteranceItem } from '@/pages/task/author/utils';
+import { v4 as uuid } from 'uuid';
 
 const dataSlice = createSlice({
   name: 'data',
@@ -27,10 +28,26 @@ const dataSlice = createSlice({
           item.utterance = utterance;
         }
       })
-
-    }
+    },
+    changeSpeaker: (state, action: PayloadAction<string>) => {
+      const utterance = state.dialogue.find((item) => item.id === action.payload);
+      if (utterance) {
+        utterance.speaker = (utterance.speaker + 1) % state.speaker;
+      }
+    },
+    addUtterance: (state) => {
+      state.dialogue.push({ id: uuid(), speaker: 0, utterance: '' });
+    },
+    duplicateUtterance: (state, action: PayloadAction<string>) => {
+      const idx = state.dialogue.findIndex((item) => item.id === action.payload);
+      state.dialogue.splice(idx, 0, { ...state.dialogue[idx], id: uuid() });
+    },
+    deleteUtterance: (state, action: PayloadAction<string>) => {
+      const idx = state.dialogue.findIndex((item) => item.id === action.payload);
+      state.dialogue.splice(idx, 1);
+    },
   }
 })
 
-export const { updateVideo, initVideo, updateScript, updateDialogue, updateUtterance } = dataSlice.actions;
+export const { updateVideo, initVideo, updateScript, updateDialogue, updateUtterance, addUtterance, changeSpeaker, duplicateUtterance, deleteUtterance } = dataSlice.actions;
 export default dataSlice.reducer;

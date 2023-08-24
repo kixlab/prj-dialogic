@@ -1,6 +1,6 @@
 import { transition } from "@/styles/animation";
 import { colors } from "@/styles/colors";
-import { BoldText, RegularText } from "@/styles/text";
+import { RegularText } from "@/styles/text";
 import { ReactNode } from "react";
 import { IconContext } from "react-icons";
 import styled from "styled-components";
@@ -12,7 +12,7 @@ export const ModeButtonContainer = styled.div`
   box-sizing: border-box;
   padding: 4px;
   background-color: ${colors["gray100"]};
-  border-radius: 12px;
+  border-radius: 5px;
 
   display: flex;
   flex-direction: row;
@@ -41,7 +41,7 @@ export const ModeButton = (props: ModeButtonProps) => {
         {props.children}
       </IconContext.Provider>
       {props.active == true ? (
-        <BoldText text={props.text} color="black" size={13} />
+        <RegularText text={props.text} color="black" size={13} />
       ) : (
         <RegularText text={props.text} color="gray300" size={13} />
       )}
@@ -52,21 +52,21 @@ export const ModeButton = (props: ModeButtonProps) => {
 const ModeButtonWrapper = styled.div<ModeButtonProps>`
   width: ${(props) =>
     props.width == "long"
-      ? "115px"
+      ? "120px"
       : props.width == "medium"
-      ? "105px"
-      : "90px"};
-  height: 30px;
+      ? "110px"
+      : "95px"};
+  height: 32px;
 
   background-color: ${(props) =>
     colors[props.active == true ? "white" : "gray100"]};
-  border-radius: 10px;
+  border-radius: 5px;
 
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  gap: 3px;
+  gap: 5px;
 
   cursor: pointer;
   ${transition}

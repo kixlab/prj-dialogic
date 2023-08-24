@@ -1,28 +1,40 @@
-import { BoldText } from "@/styles/text";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+
 import styled from "styled-components";
-import { UtteranceItem } from "./utils";
-import { colors } from "@/styles/colors";
-import { RxDragHandleDots2 } from "react-icons/rx";
-import { useDispatch } from "react-redux";
-import { updateUtterance } from "@/states/dataSlice";
-import { useEffect, useState } from "react";
 import { IconContext } from "react-icons";
+import { RxDragHandleDots2 } from "react-icons/rx";
+
+import { updateUtterance } from "@/states/dataSlice";
+import { updateFocus } from "@/states/authorSlice";
+import { RootState } from "@/states/state";
+
+import { BoldText } from "@/styles/text";
+import { colors } from "@/styles/colors";
+import { UtteranceItem, getSpeakerName } from "./utils";
 
 interface DialogueItemProps extends UtteranceItem {
   isDragging: boolean;
+  width: number;
 }
 
 const DialogueItem = (props: DialogueItemProps) => {
   const { id, speaker, utterance } = props;
 
-  const [focus, setFocus] = useState<boolean>(false);
+  const focus: string | null = useSelector(
+    (state: RootState) => state.author.focus
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {
     setTimeout(() => {
       setUtteranceContainerHeight();
     }, 1);
-  }, []);
+  }, [props.width]);
+
+  const onFocus = () => {
+    dispatch(updateFocus(id));
+  };
 
   const setUtteranceContainerHeight = () => {
     const utteranceContainer = document.getElementById(
@@ -41,17 +53,19 @@ const DialogueItem = (props: DialogueItemProps) => {
   return (
     <DialogueItemWrapper
       isDragging={props.isDragging}
-      focus={focus}
-      onFocus={() => setFocus(true)}
-      onBlur={() => setFocus(false)}
+      focus={focus === id}
+      onFocus={onFocus}
     >
       <DialogueSpeakerWrapper>
         <IconContext.Provider
-          value={{ color: colors["gray200"], style: { width: "15px" } }}
+          value={{
+            color: colors["gray200"],
+            style: { width: "15px", alignSelf: "center" },
+          }}
         >
           <RxDragHandleDots2 />
         </IconContext.Provider>
-        <BoldText text={speaker} color="gray300" size={14} />
+        <BoldText text={getSpeakerName(speaker)} color="gray300" size={13} />
       </DialogueSpeakerWrapper>
       <DialogueUtterance
         rows={1}
@@ -69,11 +83,14 @@ const DialogueItemWrapper = styled.div<{ isDragging: boolean; focus: boolean }>`
   width: 100%;
 
   box-sizing: border-box;
-  border: 1px solid
-    ${(props) => colors[props.isDragging ? "green200" : "gray100"]};
+  border: 1px solid ${colors["gray100"]};
+  ${(props) => props.focus && `border: 1px solid ${colors["green200"]};`}
+  ${(props) => props.isDragging && `border: 1px solid ${colors["gray200"]};`}
+
   border-radius: 5px;
-  padding: 10px 12px;
-  ${(props) => props.focus && `background-color: ${colors["green100"]};`}
+  padding: 10px 12px 10px 10px;
+  ${(props) =>
+    props.focus && `box-shadow: 0px 0px 0px 4px rgba(233, 254, 240, 0.8);`}
 
   display: flex;
   flex-direction: row;
@@ -81,15 +98,15 @@ const DialogueItemWrapper = styled.div<{ isDragging: boolean; focus: boolean }>`
 `;
 
 const DialogueSpeakerWrapper = styled.div`
+  justify-self: stretch;
   width: 80px;
-  height: fit-content;
 
   margin-top: 2px;
 
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  align-items: center;
+  align-items: flex-start;
   gap: 6px;
 `;
 
@@ -103,9 +120,10 @@ const DialogueUtterance = styled.textarea`
   padding: 0px;
   margin: 0px;
 
-  background-color: none;
+  background-color: transparent;
   color: ${colors["gray400"]};
 
   font-size: 15px;
-  line-height: 1.6;
+  font-weight: 400;
+  line-height: 1.5;
 `;

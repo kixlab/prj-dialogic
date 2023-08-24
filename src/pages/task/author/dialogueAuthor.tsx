@@ -66,13 +66,13 @@ const DialogueAuthor = (props: { mode: Mode }) => {
                         {...provided.dragHandleProps}
                         style={{
                           ...provided.draggableProps.style,
-                          width,
                           padding: "6px 0px",
                         }}
                       >
                         <DialogueItem
                           {...value}
                           isDragging={snapshot.isDragging}
+                          width={width}
                         />
                       </div>
                     )}
