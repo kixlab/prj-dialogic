@@ -12,7 +12,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/': {
-        target: 'http://ec2-43-201-59-27.ap-northeast-2.compute.amazonaws.com/'
+        target: 'http://localhost:80/'
       }
     }
   },
