@@ -34,14 +34,14 @@ const DialogueModalDivider = styled.div`
   border-left: 1px solid ${colors["gray200"]};
 `;
 
-const DialogueModalBodyWrapper = styled.div`
-  flex: 1;
-  overflow: hidden;
-  box-sizing: border-box;
-  padding: 25px 20px;
+// const DialogueModalBodyWrapper = styled.div`
+//   flex: 1;
+//   overflow: hidden;
+//   box-sizing: border-box;
+//   padding: 25px 20px;
 
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 10px;
-`;
+//   display: flex;
+//   flex-direction: column;
+//   align-items: flex-start;
+//   gap: 10px;
+// `;
