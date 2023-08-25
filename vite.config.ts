@@ -10,6 +10,6 @@ export default defineConfig({
     exclude: ["@ffmpeg/ffmpeg", "@ffmpeg/util"],
   },
   server: {
-
+    https: false,
   },
 })
