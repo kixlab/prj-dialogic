@@ -7,7 +7,8 @@ import { ssr } from 'vite-plugin-ssr/plugin'
 export default defineConfig({
   base: 'http://ec2-43-201-59-27.ap-northeast-2.compute.amazonaws.com',
   plugins: [react(), tsconfigPaths(), ssr({
-    baseAssets: 'http://ec2-43-201-59-27.ap-northeast-2.compute.amazonaws.com'
+    baseAssets: 'http://ec2-43-201-59-27.ap-northeast-2.compute.amazonaws.com',
+    baseServer: 'http://ec2-43-201-59-27.ap-northeast-2.compute.amazonaws.com'
   })],
   optimizeDeps: {
     exclude: ["@ffmpeg/ffmpeg", "@ffmpeg/util"],
