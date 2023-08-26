@@ -4,22 +4,48 @@ import { IconContext } from "react-icons";
 import { BiInfoCircle } from "react-icons/bi";
 import styled from "styled-components";
 import TaskContainer from "../components/taskContainer";
+import { useSelector } from "react-redux";
+import { RootState } from "@/states/state";
+import { useDispatch } from "react-redux";
+import { updateScenario } from "@/states/userDataSlice";
+import { tuteeToNumber } from "./utils";
+import { useEffect } from "react";
+import { doneTask } from "@/states/phaseSlice";
 
 const Scenario = () => {
+  const scenario: { tutee: number; context: string; scenario: string } =
+    useSelector((state: RootState) => state.userData.scenario);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(doneTask());
+  }, []);
+
   return (
     <TaskContainer gap={10} padding={true} align="start">
       <ScenarioRowWrapper>
         <ScenarioInput
           title="Number of Tutee"
           description=""
-          placeholder=""
+          value={scenario.tutee.toString()}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            dispatch(
+              updateScenario({
+                ...scenario,
+                tutee: tuteeToNumber(e.target.value),
+              })
+            );
+          }}
           option={false}
           hover={false}
         />
         <ScenarioInput
           title="Learning Context"
           description=""
-          placeholder=""
+          value={scenario.context}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            dispatch(updateScenario({ ...scenario, context: e.target.value }));
+          }}
           option={true}
           hover={true}
         />
@@ -29,7 +55,10 @@ const Scenario = () => {
         <ScenarioInput
           title="Learning Scenario"
           description=""
-          placeholder=""
+          value={scenario.scenario}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            dispatch(updateScenario({ ...scenario, scenario: e.target.value }));
+          }}
           option={true}
           hover={true}
         />
@@ -51,9 +80,10 @@ const ScenarioRowWrapper = styled.div`
 interface ScenarioInputProps {
   title: string;
   description: string;
-  placeholder: string;
+  value: string;
   option: boolean;
   hover: boolean;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const ScenarioInput = (props: ScenarioInputProps) => {
@@ -73,7 +103,7 @@ const ScenarioInput = (props: ScenarioInputProps) => {
           </IconContext.Provider>
         )}
       </ScenarioInputTitleWrapper>
-      <ScenarioInputField />
+      <ScenarioInputField value={props.value} onChange={props.onChange} />
     </ScenarioInputWrapper>
   );
 };

@@ -12,9 +12,10 @@ const dataSlice = createSlice({
     },
     initVideo: (state) => {
       state.video = null;
+      state.fullVideo = null;
     },
-    updateScript: (state, action: PayloadAction<string>) => {
-      state.script = action.payload;
+    updateFullVideo: (state, action: PayloadAction<string>) => {
+      state.fullVideo = action.payload;
     },
     updateDialogue: (state, action: PayloadAction<UtteranceItem[]>) => {
       state.dialogue = action.payload;
@@ -34,6 +35,9 @@ const dataSlice = createSlice({
     },
     updateDescription: (state, action: PayloadAction<string>) => {
       state.description = action.payload;
+    },
+    initDescription: (state) => {
+      state.description = null;
     },
     changeSpeaker: (state, action: PayloadAction<string>) => {
       const utterance = state.dialogue.find((item) => item.id === action.payload);
@@ -55,5 +59,5 @@ const dataSlice = createSlice({
   }
 })
 
-export const { updateVideo, initVideo, updateScript, updateDialogue, updateUtterance, addUtterance, changeSpeaker, duplicateUtterance, deleteUtterance, updateTitle, updateDescription } = dataSlice.actions;
+export const { updateVideo, updateFullVideo, initVideo, updateDialogue, updateUtterance, addUtterance, changeSpeaker, duplicateUtterance, deleteUtterance, initDescription, updateTitle, updateDescription } = dataSlice.actions;
 export default dataSlice.reducer;

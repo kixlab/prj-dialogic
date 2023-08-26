@@ -3,37 +3,73 @@ import { RootState } from "@/states/state";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { Selection, addMarks, getSelections } from "./utils";
+import { addMarks, getSelections } from "./utils";
 import styled from "styled-components";
 import { colors } from "@/styles/colors";
 import { doneTask, initTask } from "@/states/phaseSlice";
-import { updateScript } from "@/states/dataSlice";
+import {
+  updateFullScript,
+  updateRubric,
+  updateScript,
+  updateSelections,
+} from "@/states/userDataSlice";
 
 import { HiStar, HiDocumentText } from "react-icons/hi";
 import { ModeButton, ModeButtonContainer } from "../components/modeButton";
 import TaskContainer from "../components/taskContainer";
+import { getRubric } from "@/apis/lab";
 
 const Script = () => {
   const [edit, setEdit] = useState<boolean>(true);
-  const [selections, setSelections] = useState<Selection[]>([]);
 
   const dispatch = useDispatch();
 
   const video: string | null = useSelector(
     (state: RootState) => state.data.video
   );
-  const script: string = useSelector((state: RootState) => state.data.script);
+  const fullVideo: string | null = useSelector(
+    (state: RootState) => state.data.fullVideo
+  );
+  const script: string | null = useSelector(
+    (state: RootState) => state.userData.script
+  );
+  const fullScript: string | null = useSelector(
+    (state: RootState) => state.userData.fullScript
+  );
+  const rubric: string | null = useSelector(
+    (state: RootState) => state.userData.rubric
+  );
+
+  const selections = useSelector(
+    (state: RootState) => state.userData.selections
+  );
 
   useEffect(() => {
-    if (!video) return;
+    if (!video || !fullVideo) return;
     const asyncWrapper = async () => {
-      const newScript = await getScript(video);
+      let newScript = await getScript(video);
       if (!newScript) return;
 
+      console.log(newScript);
       dispatch(updateScript(newScript));
+
+      newScript = await getScript(fullVideo);
+      if (!newScript) return;
+      console.log(newScript);
+
+      dispatch(updateFullScript(newScript));
     };
     asyncWrapper();
   }, []);
+
+  useEffect(() => {
+    const asyncWrapper = async () => {
+      if (!script) return;
+      const rubric = await getRubric(script);
+      dispatch(updateRubric(rubric));
+    };
+    asyncWrapper();
+  }, [script]);
 
   const setEditContainerHeight = () => {
     const editContainer = document.getElementById(
@@ -47,8 +83,9 @@ const Script = () => {
     const scriptWrapper = document.getElementById(
       "highlightScript"
     ) as HTMLElement;
-    if (!scriptWrapper) return;
+    if (!scriptWrapper || !script) return;
     scriptWrapper.innerHTML = addMarks(script, selections);
+    dispatch(updateSelections(selections));
   };
 
   useEffect(() => {
@@ -59,7 +96,7 @@ const Script = () => {
     // update each container when mode is changed
     if (edit) setEditContainerHeight();
     else {
-      setSelections([]); // init highlights
+      dispatch(updateSelections([])); // init highlights
       setHighlightContainerText();
     }
   }, [edit]);
@@ -67,20 +104,22 @@ const Script = () => {
   useEffect(() => {
     // update highlight marks
     setHighlightContainerText();
-    if (selections.length == 0) dispatch(initTask());
+    if (selections.length == 0 || !fullScript || !rubric) dispatch(initTask());
     else dispatch(doneTask());
-  }, [selections]);
+  }, [selections, fullScript, rubric]);
 
   const onMouseUp = () => {
     const selection = window.getSelection();
-    if (selection) {
+    if (selection && script) {
       const selectionString = selection.toString();
       if (selectionString == " " || selectionString == "") return;
 
       const start = script.indexOf(selectionString);
       const end = start + selectionString.length - 1;
 
-      setSelections(getSelections([...selections, { start, end }]));
+      dispatch(
+        updateSelections(getSelections([...selections, { start, end }]))
+      ); // init highlights
     }
   };
 
@@ -89,7 +128,7 @@ const Script = () => {
   };
 
   return (
-    <TaskContainer gap={10} padding={true} align="start">
+    <TaskContainer gap={10} padding={true} align="end">
       <ModeButtonContainer>
         <ModeButton
           text="Edit"
@@ -106,13 +145,15 @@ const Script = () => {
           active={!edit}
           onClick={() => {
             if (edit) setEdit(false);
-            else setSelections([]);
+            else dispatch(updateSelections([]));
           }}
         >
           <HiStar />
         </ModeButton>
       </ModeButtonContainer>
-      {edit == true ? (
+      {script == null ? (
+        <></>
+      ) : edit == true ? (
         <ScriptEditContainer id="editScript" value={script} onChange={onEdit} />
       ) : (
         <ScriptHighlightContainer id="highlightScript" onMouseUp={onMouseUp} />

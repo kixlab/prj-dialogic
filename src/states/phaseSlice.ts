@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { rootState } from './state';
 
 const phaseSlice = createSlice({
@@ -23,9 +23,12 @@ const phaseSlice = createSlice({
     },
     initTask: (state) => {
       state.next = false;
+    },
+    updateMagic: (state, action: PayloadAction<boolean>) => {
+      state.magic = action.payload
     }
   }
 })
 
-export const { initPhase, nextPhase, donePhase, doneTask, initTask } = phaseSlice.actions;
+export const { initPhase, nextPhase, donePhase, doneTask, initTask, updateMagic } = phaseSlice.actions;
 export default phaseSlice.reducer;

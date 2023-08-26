@@ -2,6 +2,9 @@ import { HiDocumentText } from "react-icons/hi";
 import { ModeButton, ModeButtonContainer } from "../components/modeButton";
 import { BiSolidDetail, BiSolidMagicWand } from "react-icons/bi";
 import { AuthorMode } from "@/states/types";
+import { useDispatch } from "react-redux";
+import { updateTargets } from "@/states/userDataSlice";
+import { updateMagic } from "@/states/phaseSlice";
 
 interface AuthorModeSelectorProps {
   mode: AuthorMode;
@@ -9,6 +12,8 @@ interface AuthorModeSelectorProps {
 }
 
 const AuthorModeSelector = (props: AuthorModeSelectorProps) => {
+  const dispatch = useDispatch();
+
   return (
     <ModeButtonContainer>
       <ModeButton
@@ -17,6 +22,7 @@ const AuthorModeSelector = (props: AuthorModeSelectorProps) => {
         active={props.mode == "description"}
         onClick={() => {
           props.setMode("description");
+          dispatch(updateMagic(false));
         }}
       >
         <BiSolidDetail />
@@ -27,6 +33,8 @@ const AuthorModeSelector = (props: AuthorModeSelectorProps) => {
         active={props.mode == "magic"}
         onClick={() => {
           props.setMode("magic");
+          dispatch(updateTargets([-1, -1]));
+          dispatch(updateMagic(true));
         }}
       >
         <BiSolidMagicWand />
@@ -37,6 +45,7 @@ const AuthorModeSelector = (props: AuthorModeSelectorProps) => {
         active={props.mode == "transcript"}
         onClick={() => {
           props.setMode("transcript");
+          dispatch(updateMagic(false));
         }}
       >
         <HiDocumentText />

@@ -6,6 +6,9 @@ import DialogueAuthor from "./dialogueAuthor";
 import AuthorTool from "./authorTool";
 import { AuthorMode } from "@/states/types";
 import AuthorModeSelector from "./authorModeSelector";
+import Transcript from "./transcript";
+import Description from "./description";
+import Magic from "./magic";
 
 const Dialogue = () => {
   const [mode, setMode] = useState<AuthorMode>("magic");
@@ -19,7 +22,9 @@ const Dialogue = () => {
       <DialogueWrapper>
         <DialogueAuthor mode={mode} />
         <DialogueDivider />
-        <TextContainer mode={mode} />
+        {mode == "transcript" && <Transcript />}
+        {mode == "description" && <Description />}
+        {mode == "magic" && <Magic />}
       </DialogueWrapper>
     </TaskContainer>
   );
@@ -53,9 +58,4 @@ const DialogueDivider = styled.div`
   position: relative;
   left: 2px;
   border-left: 1px solid ${colors["gray200"]};
-`;
-
-const TextContainer = styled.div<{ mode: AuthorMode }>`
-  flex: ${(props) => (props.mode == "magic" ? 1 : 0.6)};
-  height: fit-content;
 `;

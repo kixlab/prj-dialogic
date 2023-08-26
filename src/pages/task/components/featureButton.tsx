@@ -9,6 +9,7 @@ interface FeatureButtonProps {
   text: string;
   onClick?: () => void;
   children: ReactNode;
+  disable?: boolean;
 }
 
 const FeatureButton = (props: FeatureButtonProps) => {
@@ -16,21 +17,23 @@ const FeatureButton = (props: FeatureButtonProps) => {
 
   return (
     <FeatureButtonWrapper
-      onClick={props.onClick}
+      onClick={props.disable !== true ? props.onClick : () => {}}
       onPointerEnter={() => setHover(true)}
       onPointerLeave={() => setHover(false)}
+      disable={props.disable ?? false}
     >
       <IconContext.Provider
         value={{
-          color: colors[hover ? "orange300" : "gray300"],
-          style: { width: "17px", height: "auto" },
+          color:
+            colors[props.disable !== true && hover ? "orange300" : "gray300"],
+          style: { maxWidth: "17px", maxHeight: "14px" },
         }}
       >
         {props.children}
       </IconContext.Provider>
       <BoldText
         text={props.text}
-        color={hover ? "orange300" : "gray300"}
+        color={props.disable !== true && hover ? "orange300" : "gray300"}
         size={12}
       />
     </FeatureButtonWrapper>
@@ -38,7 +41,7 @@ const FeatureButton = (props: FeatureButtonProps) => {
 };
 export default FeatureButton;
 
-const FeatureButtonWrapper = styled.div`
+const FeatureButtonWrapper = styled.div<{ disable: boolean }>`
   width: fit-content;
   height: 35px;
 
@@ -48,8 +51,12 @@ const FeatureButtonWrapper = styled.div`
   border: 1px solid ${colors["gray200"]};
 
   &:hover {
-    background-color: ${colors["orange50"]};
-    border: 1px solid ${colors["orange50"]};
+    ${(props) =>
+      props.disable !== true &&
+      `
+        background-color: ${colors["orange50"]};
+      border: 1px solid ${colors["orange50"]};
+    `}
   }
   border-radius: 5px;
 
@@ -57,8 +64,8 @@ const FeatureButtonWrapper = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  gap: 5px;
+  gap: 3px;
 
-  cursor: pointer;
+  ${(props) => props.disable !== true && `cursor: pointer;`}
   ${transition}
 `;

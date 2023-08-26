@@ -1,4 +1,9 @@
-import { initVideo, updateVideo } from "@/states/dataSlice";
+import {
+  initDescription,
+  initVideo,
+  updateDescription,
+  updateVideo,
+} from "@/states/dataSlice";
 import { colors } from "@/styles/colors";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
@@ -25,6 +30,7 @@ const Upload = () => {
       const { name, size } = e.target.files[0];
       setFileInfo({ name, size });
       dispatch(updateVideo(URL.createObjectURL(e.target.files[0] as Blob)));
+      dispatch(updateDescription(name));
       dispatch(doneTask());
     }
   };
@@ -33,6 +39,7 @@ const Upload = () => {
     // init file upload
     setFileInfo(null);
     dispatch(initVideo());
+    dispatch(initDescription());
     dispatch(initTask());
   };
 

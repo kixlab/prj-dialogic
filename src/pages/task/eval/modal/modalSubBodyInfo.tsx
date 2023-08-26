@@ -1,48 +1,11 @@
 import { BoldText, RegularText } from "@/styles/text";
 import { ReactNode } from "react";
 import styled from "styled-components";
-import { getTagTheme } from "../../utils";
 import Tag, { TagWrapper } from "../../components/tag";
 import { colors } from "@/styles/colors";
 
-const summary =
-  "Alice confused about the order of the photosynthesis process. With tutor’s scaffolding, she could explain each step by herself";
-const strategy: string[] = [
-  "cognitive conflict",
-  "cognitive prompting",
-  "metacognitive prompting",
-
-  "spontaneous deep-level reasoning question",
-];
-
-const pattern: string[] = ["tutor->tutee", "tutee->tutor", "tutor->tutor"];
-
-const level: LevelInfoProps[] = [
-  {
-    title: "Calculating midpoint",
-    level: 4,
-    subtitle:
-      "Description of corresponding level regarding to the key concepts. Lower level indicates a paucity of knowledge",
-  },
-  {
-    title: "Basic notion of binary searcht",
-    level: 2,
-    subtitle:
-      "Description of corresponding level regarding to the key concepts. Lower level indicates a paucity of knowledge",
-  },
-  {
-    title: "Maximum calculation number of binary search",
-    level: 1,
-    subtitle:
-      "Description of corresponding level regarding to the key concepts. Lower level indicates a paucity of knowledge",
-  },
-  {
-    title: "Understanding the depth of binary search tree",
-    level: 3,
-    subtitle:
-      "Description of corresponding level regarding to the key concepts. Lower level indicates a paucity of knowledge",
-  },
-];
+import { summary, strategy, pattern, level, LevelInfoProps } from "./utils";
+import StrategyTag from "../strategyTag";
 
 const ModalSubBodyInfo = () => {
   return (
@@ -51,11 +14,7 @@ const ModalSubBodyInfo = () => {
         <RegularText text={summary} color="gray350" size={14} />
       </ModalInfoContainer>
       <ModalInfoContainer title="Learning Strategy">
-        <InfoTagWrapper>
-          {strategy.map((title) => (
-            <Tag title={title} theme={getTagTheme(title)} />
-          ))}
-        </InfoTagWrapper>
+        <StrategyTag strategy={strategy} />
       </ModalInfoContainer>
       <ModalInfoContainer title="Utterance Pattern">
         <InfoTagWrapper>
@@ -90,16 +49,6 @@ const ModalSubBodyInfoWrapper = styled.div`
   gap: 22px;
 `;
 
-const InfoTagWrapper = styled.div`
-  width: 100%;
-  height: fit-content;
-
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 8px;
-`;
-
 interface ModalInfoContainerProps {
   title: string;
   gap?: number;
@@ -127,11 +76,15 @@ const ModalInfoContainerWrapper = styled.div<{ gap: number }>`
   line-height: 1.3;
 `;
 
-interface LevelInfoProps {
-  title: string;
-  level: number;
-  subtitle: string;
-}
+const InfoTagWrapper = styled.div`
+  width: 100%;
+  height: fit-content;
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 8px;
+`;
 
 const LevelInfo = (props: LevelInfoProps) => {
   return (

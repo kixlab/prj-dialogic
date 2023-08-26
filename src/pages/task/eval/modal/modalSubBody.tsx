@@ -30,7 +30,7 @@ const ModalSubBody = (props: ModalSubBodyProps) => {
 export default ModalSubBody;
 
 const ModalSubBodyWrapper = styled.div`
-  width: 300px;
+  width: 350px;
   height: fit-content;
 
   display: flex;

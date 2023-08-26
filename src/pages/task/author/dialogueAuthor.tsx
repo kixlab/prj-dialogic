@@ -77,6 +77,7 @@ const DialogueAuthor = (props: { mode: AuthorMode }) => {
                           {...value}
                           isDragging={snapshot.isDragging}
                           width={width}
+                          idx={idx}
                         />
                       </div>
                     )}
