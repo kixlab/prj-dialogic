@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 
 import styled from "styled-components";
-import { dialogueSample } from "./utils";
 import DialogueItem from "./dialogueItem";
 import { useSelector } from "react-redux";
 import { RootState } from "@/states/state";
@@ -19,9 +18,6 @@ const DialogueAuthor = (props: { mode: AuthorMode }) => {
   const title = useSelector((state: RootState) => state.dialogue.title);
   const [width, setWidth] = useState<number>(0);
 
-  useEffect(() => {
-    dispatch(updateDialogue([...dialogueSample]));
-  }, []);
   useEffect(() => {
     const itemsContainer = document.getElementById("itemsContainer");
     if (!itemsContainer) return;

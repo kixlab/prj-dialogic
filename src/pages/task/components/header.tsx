@@ -7,19 +7,24 @@ import { colors } from "@/styles/colors";
 import HeaderIconImg from "@/assets/dialogic.png";
 import { useNavigate } from "react-router-dom";
 
-const Header = () => {
+const Header = ({ disable }: { disable: boolean }) => {
   const phase: number = useSelector((state: RootState) => state.phase.phase);
   const navigate = useNavigate();
 
   return (
     <HeaderWrapper>
       <HeaderIcon src={HeaderIconImg} onClick={() => navigate("/")} />
-      <HeaderStage stage={1} state={phase == 1 ? "OnGoing" : "Done"} />
-      <HeaderStage
-        stage={2}
-        state={phase == 2 ? "OnGoing" : phase == 1 ? "Pending" : "Done"}
-      />
-      <HeaderStage stage={3} state={phase == 3 ? "OnGoing" : "Pending"} />
+      {!disable && (
+        <>
+          {" "}
+          <HeaderStage stage={1} state={phase == 1 ? "OnGoing" : "Done"} />
+          <HeaderStage
+            stage={2}
+            state={phase == 2 ? "OnGoing" : phase == 1 ? "Pending" : "Done"}
+          />
+          <HeaderStage stage={3} state={phase == 3 ? "OnGoing" : "Pending"} />
+        </>
+      )}
     </HeaderWrapper>
   );
 };

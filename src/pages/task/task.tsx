@@ -18,7 +18,7 @@ const Task = () => {
 
   return (
     <TaskLayout>
-      <Header />
+      <Header disable={false} />
       <OutletLayout>
         <Outlet />
       </OutletLayout>

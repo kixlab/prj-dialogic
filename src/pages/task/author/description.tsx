@@ -1,7 +1,31 @@
 import styled from "styled-components";
+import { RegularText } from "@/styles/text";
+import { useSelector } from "react-redux";
+import { RootState } from "@/states/state";
+import StrategyTag from "../eval/strategyTag";
+import {
+  ModalInfoContainer,
+  LevelInfoContainer,
+} from "../components/infoContainer";
 
 const Description = () => {
-  return <DescriptionWrapper>hihi</DescriptionWrapper>;
+  const dialogue = useSelector((state: RootState) => state.dialogue);
+
+  return (
+    <DescriptionWrapper>
+      <ModalInfoContainer title="Dialogue Summary" gap={6}>
+        <RegularText text={dialogue.summary} color="gray350" size={14} />
+      </ModalInfoContainer>
+      <ModalInfoContainer title="Learning Strategy">
+        <StrategyTag strategy={dialogue.strategy} />
+      </ModalInfoContainer>
+      <ModalInfoContainer title="Knowledge Level">
+        {dialogue.level.map((lev) => (
+          <LevelInfoContainer {...lev} />
+        ))}
+      </ModalInfoContainer>
+    </DescriptionWrapper>
+  );
 };
 export default Description;
 
@@ -10,7 +34,7 @@ const DescriptionWrapper = styled.div`
   height: fit-content;
 
   box-sizing: border-box;
-  padding: 25px 25px 30px 25px;
+  padding: 30px 25px;
 
   display: flex;
   flex-direction: column;

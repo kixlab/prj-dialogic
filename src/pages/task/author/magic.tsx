@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { RootState } from "@/states/state";
 import { colors } from "@/styles/colors";
 import { BoldText, RegularText } from "@/styles/text";
@@ -6,15 +7,35 @@ import styled from "styled-components";
 import FeatureButton from "../components/featureButton";
 import { BiCheck, BiSolidMagicWand } from "react-icons/bi";
 import { LuMousePointer2 } from "react-icons/lu";
-import { getTargetNum } from "./utils";
+import { dialogueToData, getTargetNum, levelToData } from "./utils";
 import { IconContext } from "react-icons";
 import { useState } from "react";
+import { getVariation } from "@/apis/lab";
 
 const Magic = () => {
   const targets: number[] = useSelector(
     (state: RootState) => state.userData.targets
   );
+  const level = useSelector((state: RootState) => state.dialogue.level);
+  const scenario = useSelector((state: RootState) => state.dialogue.scenario);
+  const dialogue = useSelector((state: RootState) => state.dialogue.dialogue);
+
   const [option, setOption] = useState<boolean>(false);
+
+  const onMagic = async () => {
+    const { wholeUttr, targetUttr } = dialogueToData(dialogue, targets);
+
+    const data: any = {
+      dialogue: wholeUttr,
+      understanding_state: levelToData(level),
+      org_uttrs: targetUttr,
+      teaching_scenario: scenario,
+      preserve_pattern: option,
+    };
+
+    const result = await getVariation(data);
+    console.log(result);
+  };
 
   return (
     <MagicWrapper>
@@ -61,6 +82,7 @@ const Magic = () => {
         <FeatureButton
           text="Magic"
           disable={targets.length == 0 || targets[0] == -1}
+          onClick={onMagic}
         >
           <BiSolidMagicWand />
         </FeatureButton>

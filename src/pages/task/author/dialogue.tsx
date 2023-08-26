@@ -11,7 +11,7 @@ import Description from "./description";
 import Magic from "./magic";
 
 const Dialogue = () => {
-  const [mode, setMode] = useState<AuthorMode>("magic");
+  const [mode, setMode] = useState<AuthorMode>("description");
 
   return (
     <TaskContainer gap={10} padding={true} align="end">

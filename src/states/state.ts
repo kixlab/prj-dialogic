@@ -2,7 +2,8 @@ import { LevelInfo, PatternInfo, UtteranceItem } from "./types";
 
 export const rootState: RootState = {
   phase: {
-    phase: 0,
+    base: false,
+    phase: 2,
     done: false,
     next: false,
     magic: false,
@@ -42,6 +43,7 @@ export const rootState: RootState = {
 
 export interface RootState {
   phase: {
+    base: boolean;
     phase: number,
     done: boolean,
     next: boolean,
@@ -62,7 +64,7 @@ export interface RootState {
   data: {
     video: string | null,
     fullVideo: string | null,
-    description: string | null,
+    description: string,
   };
   dialogue: {
     title: string,

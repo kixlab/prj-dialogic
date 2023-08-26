@@ -5,6 +5,9 @@ const phaseSlice = createSlice({
   name: 'phase',
   initialState: rootState.phase,
   reducers: {
+    updateBase: (state, action: PayloadAction<boolean>) => {
+      state.base = action.payload;
+    },
     initPhase: (state) => {
       state.phase = 0;
       state.next = false;
@@ -30,5 +33,5 @@ const phaseSlice = createSlice({
   }
 })
 
-export const { initPhase, nextPhase, donePhase, doneTask, initTask, updateMagic } = phaseSlice.actions;
+export const { updateBase, initPhase, nextPhase, donePhase, doneTask, initTask, updateMagic } = phaseSlice.actions;
 export default phaseSlice.reducer;
