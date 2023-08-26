@@ -33,7 +33,11 @@ const AuthorDownload = () => {
         <AuthorTitleWrapper>
           <AuthorDescriptionWrapper>
             <RegularText text="Dialogic-Lecture" color="gray350" size={12} />
-            <RegularText text={description} color="gray350" size={12} />
+            <RegularText
+              text={description ?? "Sample Description"}
+              color="gray350"
+              size={12}
+            />
           </AuthorDescriptionWrapper>
           <BoldText text={title} color="black" size={20} />
         </AuthorTitleWrapper>
