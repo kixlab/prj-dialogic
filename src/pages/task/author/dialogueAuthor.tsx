@@ -10,13 +10,13 @@ import DialogueItem from "./dialogueItem";
 import { useSelector } from "react-redux";
 import { RootState } from "@/states/state";
 import { useDispatch } from "react-redux";
-import { updateDialogue, updateTitle } from "@/states/dataSlice";
+import { updateDialogue, updateTitle } from "@/states/dialogueSlice";
 import { AuthorMode, UtteranceItem } from "@/states/types";
 
 const DialogueAuthor = (props: { mode: AuthorMode }) => {
   const dispatch = useDispatch();
-  const items = useSelector((state: RootState) => state.data.dialogue);
-  const title = useSelector((state: RootState) => state.data.title);
+  const items = useSelector((state: RootState) => state.dialogue.dialogue);
+  const title = useSelector((state: RootState) => state.dialogue.title);
   const [width, setWidth] = useState<number>(0);
 
   useEffect(() => {

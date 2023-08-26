@@ -1,4 +1,4 @@
-import { UtteranceItem } from "./types";
+import { LevelInfo, PatternInfo, UtteranceItem } from "./types";
 
 export const rootState: RootState = {
   phase: {
@@ -22,10 +22,18 @@ export const rootState: RootState = {
   data: {
     video: null,
     fullVideo: null,
-    dialogue: [],
-    title: 'Sample Title',
     description: 'Sample Description',
+  },
+  dialogue: {
+    title: 'Sample Title',
+    summary: 'Sample Summary',
+    strategy: [],
+    pattern: [],
+    patternHover: null,
+    dialogue: [],
     speaker: 2,
+    level: [],
+    scenario: 'Sample Scenario'
   },
   author: {
     focus: null,
@@ -54,11 +62,18 @@ export interface RootState {
   data: {
     video: string | null,
     fullVideo: string | null,
-
-    dialogue: UtteranceItem[],
-    title: string,
     description: string | null,
+  };
+  dialogue: {
+    title: string,
+    summary: string,
+    strategy: string[],
+    pattern: PatternInfo[],
+    patternHover: number | null,
+    dialogue: UtteranceItem[],
     speaker: number,
+    level: LevelInfo[]
+    scenario: string
   };
   author: {
     focus: string | null,

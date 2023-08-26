@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { donePhase, doneTask, initTask } from "@/states/phaseSlice";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -9,13 +10,15 @@ import { RootState } from "@/states/state";
 import DialogueModal from "./modal/modal";
 import styled from "styled-components";
 import DialogueCard from "./dialogueCard";
-import { updateDialogue } from "@/states/dataSlice";
+import { updateDialogue } from "@/states/dialogueSlice";
 import { getDialogue } from "@/apis/lab";
 import { getSelectionString } from "../gen/utils";
+import { dummy } from "./modal/utils";
 
 const Eval = () => {
   const [step, setStep] = useState<number>(1);
-  const dialogue = useSelector((state: RootState) => state.data.dialogue);
+  const [data, setData] = useState<any[]>(Object.values(dummy));
+  const dialogue = useSelector((state: RootState) => state.dialogue.dialogue);
 
   const script = useSelector((state: RootState) => state.userData.script);
   const fullScript = useSelector(
@@ -83,12 +86,44 @@ const Eval = () => {
           {dialogue.length == 0 ? (
             <>
               <DialogueCardWrapper>
-                <DialogueCard />
-                <DialogueCard />
+                <DialogueCard
+                  idx={0 + 1}
+                  strategy={data[0].teaching_strategies}
+                  summary={data[0].learning_objective}
+                  patterns={data[0].patterns}
+                  scenario={data[0].teaching_scenario}
+                  level={data[0].understanding_states}
+                  dialogue={data[0].uttrs}
+                />
+                <DialogueCard
+                  idx={1 + 1}
+                  strategy={data[1].teaching_strategies}
+                  summary={data[1].learning_objective}
+                  patterns={data[1].patterns}
+                  scenario={data[1].teaching_scenario}
+                  level={data[1].understanding_states}
+                  dialogue={data[1].uttrs}
+                />{" "}
               </DialogueCardWrapper>
               <DialogueCardWrapper>
-                <DialogueCard />
-                <DialogueCard />
+                <DialogueCard
+                  idx={2 + 1}
+                  strategy={data[2].teaching_strategies}
+                  summary={data[2].learning_objective}
+                  patterns={data[2].patterns}
+                  scenario={data[2].teaching_scenario}
+                  level={data[2].understanding_states}
+                  dialogue={data[2].uttrs}
+                />{" "}
+                <DialogueCard
+                  idx={3 + 1}
+                  strategy={data[3].teaching_strategies}
+                  summary={data[3].learning_objective}
+                  patterns={data[3].patterns}
+                  scenario={data[3].teaching_scenario}
+                  level={data[3].understanding_states}
+                  dialogue={data[3].uttrs}
+                />
               </DialogueCardWrapper>
             </>
           ) : (

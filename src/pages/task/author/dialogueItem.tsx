@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { IconContext } from "react-icons";
 import { RxDragHandleDots2 } from "react-icons/rx";
 
-import { updateUtterance } from "@/states/dataSlice";
+import { updateUtterance } from "@/states/dialogueSlice";
 import { updateFocus } from "@/states/authorSlice";
 import { RootState } from "@/states/state";
 

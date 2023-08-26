@@ -8,7 +8,7 @@ import { colors } from "@/styles/colors";
 import { transition } from "@/styles/animation";
 
 const DialogueViewer = (props: { highlight?: number[] }) => {
-  const dialogue = useSelector((state: RootState) => state.data.dialogue);
+  const dialogue = useSelector((state: RootState) => state.dialogue.dialogue);
 
   return (
     <DialogueViewerWrapper>

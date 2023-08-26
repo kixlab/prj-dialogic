@@ -14,7 +14,7 @@ import { RiFileDownloadLine } from "react-icons/ri";
 import { useRef } from "react";
 
 const AuthorDownload = () => {
-  const title = useSelector((state: RootState) => state.data.title);
+  const title = useSelector((state: RootState) => state.dialogue.title);
   const description = useSelector((state: RootState) => state.data.description);
   const printRef = useRef(null);
 

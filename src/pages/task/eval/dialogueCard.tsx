@@ -1,41 +1,67 @@
-import { updateDialogue } from "@/states/dataSlice";
+import {
+  updateDialogue,
+  updateLevel,
+  updatePattern,
+  updateSpeaker,
+  updateStrategy,
+  updateSummary,
+  updateTitle,
+  updateScenario,
+} from "@/states/dialogueSlice";
 import { colors } from "@/styles/colors";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { dialogueSample } from "../author/utils";
 import { BoldText, RegularText } from "@/styles/text";
-import { level, strategy, summary } from "./modal/utils";
+import { levelToState, uttrToState } from "./modal/utils";
 
 import StrategyTag from "./strategyTag";
 
-const DialogueCard = () => {
+interface DialogueCardProps {
+  idx: number;
+  strategy: string[];
+  summary: string;
+  patterns: number[][];
+  scenario: string;
+  level: string[][];
+  dialogue: string[][];
+}
+
+const DialogueCard = (props: DialogueCardProps) => {
   const dispatch = useDispatch();
+  const title = "Dialogue " + props.idx;
 
   const onClick = () => {
-    dispatch(updateDialogue([...dialogueSample]));
+    const { pattern, speaker, dialogue } = uttrToState(
+      props.dialogue,
+      props.patterns
+    );
+    dispatch(updateTitle("Dialogue " + props.idx));
+    dispatch(updateSummary(props.summary));
+    dispatch(updateStrategy(props.strategy));
+    dispatch(updatePattern(pattern));
+    dispatch(updateSpeaker(speaker));
+    dispatch(updateLevel(levelToState(props.level)));
+    dispatch(updateScenario(props.scenario));
+    dispatch(updateDialogue(dialogue));
   };
 
   return (
     <DialogueCardWrapper onClick={onClick}>
       <CardTitleWrapper>
-        <RegularText text="Dialogue 1" color="gray350" size={12} />
-        <BoldText
-          text="Alice explains photosynthesis herself"
-          color="black"
-          size={20}
-        />
+        {/* <RegularText text="Dialogue 1" color="gray350" size={12} /> */}
+        <BoldText text={title} color="black" size={20} />
       </CardTitleWrapper>
       <CardSubtitleWrapper>
-        <StrategyTag strategy={strategy} />
-        <RegularText text={summary} color="gray350" size={14} />
+        <StrategyTag strategy={props.strategy} />
+        <RegularText text={props.summary} color="gray350" size={14} />
       </CardSubtitleWrapper>
       <CardDivider />
       <CardLevelWrapper>
-        {level.map((el) => (
-          <CardLevelSummary key={el.title}>
-            <RegularText text={el.title} color="gray300" size={13} />
+        {props.level.map((el) => (
+          <CardLevelSummary key={el[0].split(":")[1]}>
+            <RegularText text={el[0].split(":")[1]} color="gray300" size={13} />
             <BoldText
-              text={"Level " + el.level.toString()}
+              text={"Level " + el[1].split(":")[1]}
               color="green300"
               size={12}
             />

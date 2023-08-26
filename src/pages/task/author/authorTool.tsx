@@ -15,7 +15,7 @@ import {
   changeSpeaker,
   deleteUtterance,
   duplicateUtterance,
-} from "@/states/dataSlice";
+} from "@/states/dialogueSlice";
 import { initFocus } from "@/states/authorSlice";
 
 const AuthorTool = () => {

@@ -1,19 +1,29 @@
 import { BoldText, RegularText } from "@/styles/text";
 import styled from "styled-components";
 import DialogueViewer from "../../components/dialogueViewer";
+import { useSelector } from "react-redux";
+import { RootState } from "@/states/state";
 
 const ModalBody = () => {
+  const title = useSelector((state: RootState) => state.dialogue.title);
+  const pattern = useSelector((state: RootState) => state.dialogue.pattern);
+  const patternHover = useSelector(
+    (state: RootState) => state.dialogue.patternHover
+  );
+
   return (
     <ModalBodyWrapper>
       <ModalTitleWrapper>
-        <RegularText text="Dialogic-Lecture" color="gray350" size={12} />
-        <BoldText
-          text="Alice explains photosynthesis herself"
-          color="black"
-          size={20}
-        />
+        <RegularText text={"Selected Dialogue"} color="gray350" size={12} />
+        <BoldText text={title} color="black" size={20} />
       </ModalTitleWrapper>
-      <DialogueViewer highlight={[1, 2, 3]} />
+      <DialogueViewer
+        highlight={
+          patternHover !== null
+            ? [pattern[patternHover].start, pattern[patternHover].end]
+            : []
+        }
+      />
     </ModalBodyWrapper>
   );
 };

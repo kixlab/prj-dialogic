@@ -4,31 +4,51 @@ import styled from "styled-components";
 import Tag, { TagWrapper } from "../../components/tag";
 import { colors } from "@/styles/colors";
 
-import { summary, strategy, pattern, level, LevelInfoProps } from "./utils";
 import StrategyTag from "../strategyTag";
+import { useSelector } from "react-redux";
+import { RootState } from "@/states/state";
+import { LevelInfo } from "@/states/types";
+import { useDispatch } from "react-redux";
+import { updatePatternHover } from "@/states/dialogueSlice";
 
 const ModalSubBodyInfo = () => {
+  const dialogue = useSelector((state: RootState) => state.dialogue);
+  const dispatch = useDispatch();
+
+  const onPatternHover = (idx: number) => {
+    dispatch(updatePatternHover(idx));
+  };
+  const outPatternHover = () => {
+    dispatch(updatePatternHover(null));
+  };
+
   return (
     <ModalSubBodyInfoWrapper>
       <ModalInfoContainer title="Dialogue Summary" gap={6}>
-        <RegularText text={summary} color="gray350" size={14} />
+        <RegularText text={dialogue.summary} color="gray350" size={14} />
       </ModalInfoContainer>
       <ModalInfoContainer title="Learning Strategy">
-        <StrategyTag strategy={strategy} />
+        <StrategyTag strategy={dialogue.strategy} />
       </ModalInfoContainer>
       <ModalInfoContainer title="Utterance Pattern">
         <InfoTagWrapper>
-          {pattern.map((title) => (
-            <TagWrapper>
-              <Tag title={title} theme={"gray"} />
+          {dialogue.pattern.map((el, idx) => (
+            <TagWrapper
+              onPointerEnter={() => onPatternHover(idx)}
+              onPointerLeave={outPatternHover}
+            >
+              <Tag
+                title={el.title}
+                theme={idx === dialogue.patternHover ? "yellow" : "gray"}
+              />
             </TagWrapper>
           ))}
         </InfoTagWrapper>
       </ModalInfoContainer>
 
       <ModalInfoContainer title="Knowledge Level">
-        {level.map((lev) => (
-          <LevelInfo {...lev} />
+        {dialogue.level.map((lev) => (
+          <LevelInfoContainer {...lev} />
         ))}
       </ModalInfoContainer>
     </ModalSubBodyInfoWrapper>
@@ -86,7 +106,7 @@ const InfoTagWrapper = styled.div`
   gap: 8px;
 `;
 
-const LevelInfo = (props: LevelInfoProps) => {
+const LevelInfoContainer = (props: LevelInfo) => {
   return (
     <LevelInfoWrapper>
       <BoldText
