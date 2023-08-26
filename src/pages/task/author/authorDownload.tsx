@@ -34,7 +34,7 @@ const AuthorDownload = () => {
           <AuthorDescriptionWrapper>
             <RegularText text="Dialogic-Lecture" color="gray350" size={12} />
             <RegularText
-              text={description ?? "Sample Description"}
+              text={description == null ? "Sample Description" : description}
               color="gray350"
               size={12}
             />
