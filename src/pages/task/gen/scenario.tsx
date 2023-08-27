@@ -8,9 +8,14 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/states/state";
 import { useDispatch } from "react-redux";
 import { updateScenario } from "@/states/userDataSlice";
-import { tuteeToNumber } from "./utils";
-import { useEffect } from "react";
+import {
+  contextDescription,
+  learningDescription,
+  tuteeToNumber,
+} from "./utils";
+import { useEffect, useState } from "react";
 import { doneTask } from "@/states/phaseSlice";
+import InfoBubble from "../components/infoBubble";
 
 const Scenario = () => {
   const scenario: { tutee: number; context: string; scenario: string } =
@@ -41,7 +46,7 @@ const Scenario = () => {
         />
         <ScenarioInput
           title="Learning Context"
-          description=""
+          description={contextDescription}
           value={scenario.context}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             dispatch(updateScenario({ ...scenario, context: e.target.value }));
@@ -51,10 +56,9 @@ const Scenario = () => {
         />
       </ScenarioRowWrapper>
       <ScenarioRowWrapper>
-        {" "}
         <ScenarioInput
           title="Learning Scenario"
-          description=""
+          description={learningDescription}
           value={scenario.scenario}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             dispatch(updateScenario({ ...scenario, scenario: e.target.value }));
@@ -87,16 +91,34 @@ interface ScenarioInputProps {
 }
 
 const ScenarioInput = (props: ScenarioInputProps) => {
+  const [hover, setHover] = useState<boolean>(false);
+
   return (
     <ScenarioInputWrapper {...props}>
-      <ScenarioInputTitleWrapper>
-        <BoldText text={props.title} color="gray350" size={14} />
+      <ScenarioInputTitleWrapper
+        onPointerEnter={() => setHover(true)}
+        onPointerLeave={() => setHover(false)}
+      >
+        {props.hover && hover && (
+          <InfoBubble
+            text={props.description}
+            bottom={15}
+            align="left"
+            size="large"
+          />
+        )}
+        <BoldText text={props.title} color="gray300" size={15} />
         {!props.option && <BoldText text="*" color="green300" size={14} />}
         {props.hover && (
           <IconContext.Provider
             value={{
-              color: colors["gray350"],
-              style: { width: "18px", height: "auto", cursor: "pointer" },
+              color: colors["gray300"],
+              style: {
+                width: "18px",
+                height: "18px",
+                cursor: "pointer",
+                marginTop: "1px",
+              },
             }}
           >
             <BiInfoCircle />
@@ -118,9 +140,11 @@ const ScenarioInputWrapper = styled.div<ScenarioInputProps>`
   gap: 10px;
 `;
 const ScenarioInputTitleWrapper = styled.div`
+  position: relative;
+
   display: flex;
   flex-direction: row;
-  gap: 2px;
+  gap: 3px;
 `;
 const ScenarioInputField = styled.input`
   width: 100%;

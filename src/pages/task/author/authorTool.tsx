@@ -17,6 +17,7 @@ import {
   duplicateUtterance,
 } from "@/states/dialogueSlice";
 import { initFocus } from "@/states/authorSlice";
+import InfoBubble from "../components/infoBubble";
 
 const AuthorTool = () => {
   const dispatch = useDispatch();
@@ -97,7 +98,9 @@ const AuthorToolBox = (props: AuthorToolBoxProps) => {
       onPointerLeave={() => setHover(false)}
       onClick={props.active ? props.onClick : () => {}}
     >
-      {hover && <AuthorToolText text={props.text} />}
+      {hover && (
+        <InfoBubble text={props.text} bottom={35} align="center" size="small" />
+      )}
       <IconContext.Provider
         value={{
           color:
@@ -142,60 +145,4 @@ const AuthorToolBoxWrapper = styled.div<{ active: boolean }>`
 
   cursor: pointer;
   ${transition}
-`;
-
-const AuthorToolText = ({ text }: { text: string }) => {
-  return (
-    <AuthorToolTextWrapper>
-      <AuthorToolTextContainer>
-        <AuthorText>{text}</AuthorText>
-      </AuthorToolTextContainer>
-      <AuthorTriangle />
-    </AuthorToolTextWrapper>
-  );
-};
-
-const AuthorToolTextWrapper = styled.div`
-  width: fit-content;
-  height: fit-content;
-
-  position: absolute;
-  bottom: 35px;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  opacity: 0.9;
-`;
-
-const AuthorToolTextContainer = styled.div`
-  width: fit-content;
-  height: fit-content;
-
-  box-sizing: border-box;
-  padding: 4px 7px;
-  background-color: ${colors["gray400"]};
-  border-radius: 2px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-const AuthorText = styled.div`
-  color: ${colors["white"]};
-  font-size: 9px;
-  white-space: nowrap;
-`;
-
-const AuthorTriangle = styled.div`
-  width: 8px;
-  height: 8px;
-
-  position: relative;
-  bottom: 5px;
-
-  background-color: ${colors["gray400"]};
-  transform: rotate(45deg);
 `;
