@@ -5,6 +5,9 @@ const authorSlice = createSlice({
   name: 'author',
   initialState: rootState.author,
   reducers: {
+    initAuthor: (state) => {
+      state.focus = null;
+    },
     updateFocus: (state, action: PayloadAction<string>) => {
       state.focus = action.payload;
     },
@@ -14,5 +17,5 @@ const authorSlice = createSlice({
   }
 })
 
-export const { updateFocus, initFocus } = authorSlice.actions;
+export const { initAuthor, updateFocus, initFocus } = authorSlice.actions;
 export default authorSlice.reducer;

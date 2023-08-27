@@ -8,6 +8,10 @@ import styled from "styled-components";
 import { colors } from "@/styles/colors";
 import { transition } from "@/styles/animation";
 import { BoldText } from "@/styles/text";
+import { initAuthor } from "@/states/authorSlice";
+import { initData } from "@/states/dataSlice";
+import { initDialoue } from "@/states/dialogueSlice";
+import { initUserData } from "@/states/userDataSlice";
 
 const Main = () => {
   const navigate = useNavigate();
@@ -16,6 +20,10 @@ const Main = () => {
 
   useEffect(() => {
     dispatch(initPhase());
+    dispatch(initAuthor());
+    dispatch(initData());
+    dispatch(initDialoue());
+    dispatch(initUserData());
   });
 
   const onStart = (base: boolean) => {

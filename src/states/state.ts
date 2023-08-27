@@ -3,7 +3,7 @@ import { LevelInfo, PatternInfo, UtteranceItem } from "./types";
 export const rootState: RootState = {
   phase: {
     base: false,
-    phase: 2,
+    phase: 0,
     done: false,
     next: false,
     magic: false,

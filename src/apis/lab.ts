@@ -9,9 +9,10 @@ export const getRubric = async (script: string) => {
   })
 }
 
-export const getDialogue = async (data: any): any[] => {
+export const getDialogue = async (data: any): Promise<any[]> => {
   return new Promise((res) => {
     setTimeout(() => {
+      console.log(data);
       res(dummy as any);
     }, 1000);
   })

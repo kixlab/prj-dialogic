@@ -11,12 +11,19 @@ import { BoldText, RegularText } from "@/styles/text";
 import FeatureButton from "../components/featureButton";
 
 import { RiFileDownloadLine } from "react-icons/ri";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
+import { useDispatch } from "react-redux";
+import { doneTask } from "@/states/phaseSlice";
 
 const AuthorDownload = () => {
   const title = useSelector((state: RootState) => state.dialogue.title);
   const description = useSelector((state: RootState) => state.data.description);
+  const dispatch = useDispatch();
   const printRef = useRef(null);
+
+  useEffect(() => {
+    dispatch(doneTask());
+  }, []);
 
   return (
     <TaskContainer gap={10} padding={true} align="start">

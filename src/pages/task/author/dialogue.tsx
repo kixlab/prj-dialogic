@@ -9,15 +9,18 @@ import AuthorModeSelector from "./authorModeSelector";
 import Transcript from "./transcript";
 import Description from "./description";
 import Magic from "./magic";
+import { useSelector } from "react-redux";
+import { RootState } from "@/states/state";
 
 const Dialogue = () => {
-  const [mode, setMode] = useState<AuthorMode>("description");
+  const [mode, setMode] = useState<AuthorMode>("transcript");
+  const base = useSelector((state: RootState) => state.phase.base);
 
   return (
     <TaskContainer gap={10} padding={true} align="end">
       <DialogueToolWrapper>
         <AuthorTool />
-        <AuthorModeSelector mode={mode} setMode={setMode} />
+        {!base && <AuthorModeSelector mode={mode} setMode={setMode} />}
       </DialogueToolWrapper>
       <DialogueWrapper>
         <DialogueAuthor mode={mode} />

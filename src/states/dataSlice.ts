@@ -6,6 +6,11 @@ const dataSlice = createSlice({
   name: 'data',
   initialState: rootState.data,
   reducers: {
+    initData: (state) => {
+      state.video = null;
+      state.fullVideo = null;
+      state.description = 'Sample Description';
+    },
     updateVideo: (state, action: PayloadAction<string>) => {
       state.video = action.payload;
     },
@@ -21,7 +26,7 @@ const dataSlice = createSlice({
       state.description = action.payload;
     },
     initDescription: (state) => {
-      state.description = null;
+      state.description = 'Sample Description';
     },
 
 
@@ -29,5 +34,5 @@ const dataSlice = createSlice({
   }
 })
 
-export const { updateVideo, updateFullVideo, initVideo, initDescription, updateDescription } = dataSlice.actions;
+export const { initData, updateVideo, updateFullVideo, initVideo, initDescription, updateDescription } = dataSlice.actions;
 export default dataSlice.reducer;

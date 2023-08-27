@@ -37,7 +37,7 @@ const Gen = () => {
       <SubTask
         type="short"
         title="Trim the video"
-        subtitle="Ensure trimming is completed at least once, before clicking Next"
+        subtitle="Ensure trimming is completed, before clicking Next. Trim can be done only once."
         status={getStatus(2, step)}
         onNext={onNext}
       >
@@ -45,8 +45,16 @@ const Gen = () => {
       </SubTask>
       <SubTask
         type="short"
-        title="Confirm the transcript and highlight"
-        subtitle="This is the test task3 and the subtitle"
+        title={
+          base
+            ? "Confirm the transcript"
+            : "Confirm the transcript and highlight"
+        }
+        subtitle={
+          base
+            ? "Directly edit the auto-generated transcript."
+            : "Directly edit the auto-generated transcript. Highlight the part where the learner might have difficult."
+        }
         status={getStatus(3, step)}
         onNext={onNext}
       >
@@ -56,7 +64,7 @@ const Gen = () => {
         <SubTask
           type="short"
           title="Write the dialogue scenario"
-          subtitle="This is the test task4 and the subtitle"
+          subtitle="Make sure to fill the number of tutees, while the remaining fields are optional."
           status={getStatus(4, step)}
           onNext={onNext}
         >

@@ -6,6 +6,18 @@ const userDataSlice = createSlice({
   name: 'userData',
   initialState: rootState.userData,
   reducers: {
+    initUserData: (state) => {
+      state.script = null;
+      state.fullScript = null;
+      state.selections = [];
+      state.targets = [];
+      state.scenario = {
+        tutee: 1,
+        context: '',
+        scenario: '',
+      },
+        state.rubric = null;
+    },
     updateScript: (state, action: PayloadAction<string>) => {
       state.script = action.payload;
     },
@@ -27,5 +39,5 @@ const userDataSlice = createSlice({
   }
 })
 
-export const { updateScript, updateFullScript, updateSelections, updateScenario, updateRubric, updateTargets } = userDataSlice.actions;
+export const { initUserData, updateScript, updateFullScript, updateSelections, updateScenario, updateRubric, updateTargets } = userDataSlice.actions;
 export default userDataSlice.reducer;

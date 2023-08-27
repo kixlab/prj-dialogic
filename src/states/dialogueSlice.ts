@@ -7,6 +7,17 @@ const dialogueSlice = createSlice({
   name: 'dialogue',
   initialState: rootState.dialogue,
   reducers: {
+    initDialoue: (state) => {
+      state.title = 'Sample Title';
+      state.summary = 'Sample Summary';
+      state.strategy = [];
+      state.pattern = [];
+      state.patternHover = null;
+      state.dialogue = [];
+      state.speaker = 2;
+      state.level = [];
+      state.scenario = 'Sample Scenario';
+    },
     updateTitle: (state, action: PayloadAction<string>) => {
       state.title = action.payload;
     },
@@ -66,5 +77,5 @@ const dialogueSlice = createSlice({
   }
 })
 
-export const { updateTitle, updateDialogue, updatePatternHover, updateLevel, updatePattern, updateScenario, updateSpeaker, updateStrategy, updateSummary, updateUtterance, addUtterance, changeSpeaker, duplicateUtterance, deleteUtterance } = dialogueSlice.actions;
+export const { initDialoue, updateTitle, updateDialogue, updatePatternHover, updateLevel, updatePattern, updateScenario, updateSpeaker, updateStrategy, updateSummary, updateUtterance, addUtterance, changeSpeaker, duplicateUtterance, deleteUtterance } = dialogueSlice.actions;
 export default dialogueSlice.reducer;

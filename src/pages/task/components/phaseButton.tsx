@@ -31,6 +31,7 @@ const PhaseButton = () => {
       case 3:
         dispatch(initPhase());
         navigate("/");
+        window.location.reload();
         break;
     }
   };

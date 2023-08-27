@@ -12,6 +12,8 @@ const phaseSlice = createSlice({
       state.phase = 0;
       state.next = false;
       state.done = false;
+      state.magic = false;
+      state.base = false;
     },
     donePhase: (state) => {
       state.done = true;

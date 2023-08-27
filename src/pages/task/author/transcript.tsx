@@ -22,13 +22,13 @@ const TranscriptWrapper = styled.div`
   height: fit-content;
 
   box-sizing: border-box;
-  padding: 30px 25px;
+  padding: 43px 25px 30px 25px;
 
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
-  gap: 20px;
+  gap: 12px;
 `;
 
 const TranscriptContainer = styled.div`
