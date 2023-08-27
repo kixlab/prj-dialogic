@@ -18,7 +18,7 @@ import { BiRefresh } from "react-icons/bi";
 
 const Eval = () => {
   const [step, setStep] = useState<number>(1);
-  const [reload, setReload] = useState<number>(0); // -1 indicates reload ends
+  const [reload, setReload] = useState<number>(0);
   const [data, setData] = useState<any[]>([]);
   const dialogue = useSelector((state: RootState) => state.dialogue.dialogue);
 
@@ -82,11 +82,25 @@ const Eval = () => {
     dispatch(initTask());
   };
 
-  const onReload = () => {
-    if (4 * (reload + 2) > data.length) return;
-
-    if (reload == 3) setReload(-1);
-    else setReload((prev) => prev + 1);
+  const onReload = async () => {
+    setReload((prev) => prev + 1);
+    if (reload % 2 != 0) {
+      setData([]);
+      if (!script) return;
+      const data = {
+        full_script: fullScript,
+        selected_script: script,
+        highlights: getSelectionString(script, selections),
+        teaching_scenario: {
+          number_tutee: scenario.tutee,
+          learning_context: scenario.context,
+          learning_scenario: scenario.scenario,
+        },
+        rubric,
+      };
+      const dialogues = await getDialogue(data);
+      setData(Object.values(dialogues));
+    }
   };
 
   return (
@@ -94,9 +108,9 @@ const Eval = () => {
       <SubTask
         type="long"
         title="Select a one dialogue"
-        subtitle={`Select a dialogue you want to revise. You can reload ${
-          3 - reload
-        } more times.`}
+        subtitle={
+          "Select a dialogue you want to revise. Click the reload button to get more dialogues."
+        }
         status={getStatus(1, step)}
         onNext={onNext}
       >
@@ -105,52 +119,52 @@ const Eval = () => {
             <DialogueCardContainer>
               <FeatureButton
                 text="Reload"
-                disable={reload == -1}
                 onClick={onReload}
+                disable={data.length == 0}
               >
                 <BiRefresh />
               </FeatureButton>
               {data.length !== 0 && (
                 <DialogueCardWrapper>
                   <DialogueCard
-                    idx={0 + (reload + 1)}
-                    strategy={data[reload].teaching_strategies}
-                    summary={data[reload].learning_objective}
-                    patterns={data[reload].patterns}
-                    scenario={data[reload].teaching_scenario}
-                    level={data[reload].understanding_states}
-                    dialogue={data[reload].uttrs}
+                    idx={4 * reload + 1}
+                    strategy={data[4 * (reload % 2)].teaching_strategies}
+                    summary={data[4 * (reload % 2)].learning_objective}
+                    patterns={data[4 * (reload % 2)].patterns}
+                    scenario={data[4 * (reload % 2)].teaching_scenario}
+                    level={data[4 * (reload % 2)].understanding_states}
+                    dialogue={data[4 * (reload % 2)].uttrs}
                   />
                   <DialogueCard
-                    idx={1 + (reload + 1)}
-                    strategy={data[reload + 1].teaching_strategies}
-                    summary={data[reload + 1].learning_objective}
-                    patterns={data[reload + 1].patterns}
-                    scenario={data[reload + 1].teaching_scenario}
-                    level={data[reload + 1].understanding_states}
-                    dialogue={data[reload + 1].uttrs}
+                    idx={4 * reload + 2}
+                    strategy={data[4 * (reload % 2) + 1].teaching_strategies}
+                    summary={data[4 * (reload % 2) + 1].learning_objective}
+                    patterns={data[4 * (reload % 2) + 1].patterns}
+                    scenario={data[4 * (reload % 2) + 1].teaching_scenario}
+                    level={data[4 * (reload % 2) + 1].understanding_states}
+                    dialogue={data[4 * (reload % 2) + 1].uttrs}
                   />{" "}
                 </DialogueCardWrapper>
               )}
               {data.length !== 0 && (
                 <DialogueCardWrapper>
                   <DialogueCard
-                    idx={2 + (reload + 1)}
-                    strategy={data[reload + 2].teaching_strategies}
-                    summary={data[reload + 2].learning_objective}
-                    patterns={data[reload + 2].patterns}
-                    scenario={data[reload + 2].teaching_scenario}
-                    level={data[reload + 2].understanding_states}
-                    dialogue={data[reload + 2].uttrs}
+                    idx={4 * reload + 3}
+                    strategy={data[4 * (reload % 2) + 2].teaching_strategies}
+                    summary={data[4 * (reload % 2) + 2].learning_objective}
+                    patterns={data[4 * (reload % 2) + 2].patterns}
+                    scenario={data[4 * (reload % 2) + 2].teaching_scenario}
+                    level={data[4 * (reload % 2) + 2].understanding_states}
+                    dialogue={data[4 * (reload % 2) + 2].uttrs}
                   />{" "}
                   <DialogueCard
-                    idx={3 + (reload + 1)}
-                    strategy={data[reload + 3].teaching_strategies}
-                    summary={data[reload + 3].learning_objective}
-                    patterns={data[reload + 3].patterns}
-                    scenario={data[reload + 3].teaching_scenario}
-                    level={data[reload + 3].understanding_states}
-                    dialogue={data[reload + 3].uttrs}
+                    idx={4 * reload + 4}
+                    strategy={data[4 * (reload % 2) + 3].teaching_strategies}
+                    summary={data[4 * (reload % 2) + 3].learning_objective}
+                    patterns={data[4 * (reload % 2) + 3].patterns}
+                    scenario={data[4 * (reload % 2) + 3].teaching_scenario}
+                    level={data[4 * (reload % 2) + 3].understanding_states}
+                    dialogue={data[4 * (reload % 2) + 3].uttrs}
                   />
                 </DialogueCardWrapper>
               )}

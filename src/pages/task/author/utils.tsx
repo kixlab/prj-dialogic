@@ -1,5 +1,12 @@
 import { LevelInfo, UtteranceItem } from "@/states/types";
 
+export const varDummy = [
+  "Tutee [Answering]: Water is an example of a compound because it’s made up of two different elements, Hydrogen and Oxygen.\nTutor [Scaffolding]: Exactly, Emily! Water (H2O) is a great example of a compound because it contains two different elements - Hydrogen and Oxygen. Now let’s try to distinguish it further. Can you tell me whether Helium gas (He) is a compound, a molecule, or neither?\nTutee [Answering]: Helium gas (He) is not a compound because it’s composed of a single element.",
+  "Tutee [Answering]: Water is an example of a compound because it’s made up of two different elements, Hydrogen and Oxygen.\nTutor [Scaffolding]: Exactly, Emily! Water (H2O) is a great example of a compound because it contains two different elements - Hydrogen and Oxygen. Now let’s try to distinguish it further. Can you tell me whether Helium gas (He) is a compound, a molecule, or neither?\nTutee [Answering]: Helium gas (He) is not a compound because it’s composed of a single element.",
+  "Tutee [Answering]: Water is an example of a compound because it’s made up of two different elements, Hydrogen and Oxygen.\nTutor [Scaffolding]: Exactly, Emily! Water (H2O) is a great example of a compound because it contains two different elements - Hydrogen and Oxygen. Now let’s try to distinguish it further. Can you tell me whether Helium gas (He) is a compound, a molecule, or neither?\nTutee [Answering]: Helium gas (He) is not a compound because it’s composed of a single element.",
+  "Tutee [Answering]: Water is an example of a compound because it’s made up of two different elements, Hydrogen and Oxygen.\nTutor [Scaffolding]: Exactly, Emily! Water (H2O) is a great example of a compound because it contains two different elements - Hydrogen and Oxygen. Now let’s try to distinguish it further. Can you tell me whether Helium gas (He) is a compound, a molecule, or neither?\nTutee [Answering]: Helium gas (He) is not a compound because it’s composed of a single element.",
+];
+
 export const getTargetNum = (targets: number[]): number => {
   if (targets.length == 0 || targets[0] == -1) return 0;
   else return targets[1] - targets[0] + 1;

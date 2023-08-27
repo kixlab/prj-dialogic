@@ -125,6 +125,10 @@ export const dummy = {
   dialogue_2: { ...sampleData },
   dialogue_3: { ...sampleData },
   dialogue_4: { ...sampleData },
+  dialogue_5: { ...sampleData },
+  dialogue_6: { ...sampleData },
+  dialogue_7: { ...sampleData },
+  dialogue_8: { ...sampleData },
 };
 
 export interface LevelInfoProps {
