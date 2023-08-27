@@ -10,6 +10,7 @@ const dataSlice = createSlice({
       state.video = null;
       state.fullVideo = null;
       state.description = 'Sample Description';
+      state.magicItem = null;
     },
     updateVideo: (state, action: PayloadAction<string>) => {
       state.video = action.payload;
@@ -28,11 +29,16 @@ const dataSlice = createSlice({
     initDescription: (state) => {
       state.description = 'Sample Description';
     },
-
+    updateMagicItem: (state, action: PayloadAction<number>) => {
+      state.magicItem = action.payload;
+    },
+    initMagicItem: (state) => {
+      state.magicItem = null;
+    }
 
 
   }
 })
 
-export const { initData, updateVideo, updateFullVideo, initVideo, initDescription, updateDescription } = dataSlice.actions;
+export const { updateMagicItem, initMagicItem, initData, updateVideo, updateFullVideo, initVideo, initDescription, updateDescription } = dataSlice.actions;
 export default dataSlice.reducer;

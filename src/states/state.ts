@@ -24,6 +24,7 @@ export const rootState: RootState = {
     video: null,
     fullVideo: null,
     description: 'Sample Description',
+    magicItem: null,
   },
   dialogue: {
     title: 'Sample Title',
@@ -65,6 +66,7 @@ export interface RootState {
     video: string | null,
     fullVideo: string | null,
     description: string,
+    magicItem: number | null,
   };
   dialogue: {
     title: string,

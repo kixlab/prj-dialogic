@@ -16,6 +16,7 @@ export const colors: Record<string, string> = {
   green400: "#036666",
   orange50: "#FFE3CA",
   orange100: "#FFBA92",
+  orange150: "#ff9a78",
   orange200: "#FB7D6C",
   orange300: "#FD675E",
 };

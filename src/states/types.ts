@@ -3,6 +3,13 @@ export interface UtteranceItem {
   speaker: number;
   utterance: string;
 }
+
+export interface VariationItem {
+  speaker: number;
+  category: string;
+  utterance: string;
+}
+
 export type AuthorMode = "magic" | "transcript" | "description";
 
 export interface LevelInfo {

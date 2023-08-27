@@ -5,24 +5,48 @@ import { BoldText, RegularText } from "@/styles/text";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import FeatureButton from "../components/featureButton";
-import { BiCheck, BiSolidMagicWand } from "react-icons/bi";
+import { BiCheck, BiCommentDots, BiSolidMagicWand } from "react-icons/bi";
 import { LuMousePointer2 } from "react-icons/lu";
-import { dialogueToData, getTargetNum, levelToData } from "./utils";
+import { dialogueToData, getTargetNum, levelToData, varToState } from "./utils";
 import { IconContext } from "react-icons";
 import { useState } from "react";
 import { getVariation } from "@/apis/lab";
+import { VariationItem } from "@/states/types";
+import MagicItem from "./magicItem";
+import { useDispatch } from "react-redux";
+import { initMagicItem, updateMagicItem } from "@/states/dataSlice";
+import { updateUtterance } from "@/states/dialogueSlice";
 
 const Magic = () => {
   const targets: number[] = useSelector(
     (state: RootState) => state.userData.targets
   );
+  const [magic, setMagic] = useState<VariationItem[][]>([]);
+  const dispatch = useDispatch();
+
+  const magicItem = useSelector((state: RootState) => state.data.magicItem);
   const level = useSelector((state: RootState) => state.dialogue.level);
   const scenario = useSelector((state: RootState) => state.dialogue.scenario);
   const dialogue = useSelector((state: RootState) => state.dialogue.dialogue);
 
   const [option, setOption] = useState<boolean>(false);
 
+  const applyMagic = () => {
+    if (!magicItem || magic[magicItem].length !== targets[1] - targets[0] + 1)
+      return;
+
+    magic[magicItem].forEach((el, idx) => {
+      const newUtter = { ...dialogue[targets[0] + idx] };
+      newUtter.speaker = el.speaker;
+      newUtter.utterance = el.utterance;
+      dispatch(updateUtterance(newUtter));
+    });
+    dispatch(initMagicItem());
+    setMagic([]);
+  };
+
   const onMagic = async () => {
+    setMagic([]);
     const { wholeUttr, targetUttr } = dialogueToData(dialogue, targets);
 
     const data: any = {
@@ -32,9 +56,7 @@ const Magic = () => {
       teaching_scenario: scenario,
       preserve_pattern: option,
     };
-
-    const result = await getVariation(data);
-    console.log(result);
+    setMagic(varToState(await getVariation(data)));
   };
 
   return (
@@ -88,6 +110,25 @@ const Magic = () => {
         </FeatureButton>
       </MagicTopWrapper>
       <MagicDivider />
+      <MagicItemWrapper>
+        {magic.map((el, idx) => (
+          <MagicItem
+            key={idx}
+            data={el}
+            onClick={() => {
+              dispatch(updateMagicItem(idx));
+            }}
+            active={magicItem === idx}
+          />
+        ))}
+        <FeatureButton
+          text="Apply"
+          onClick={applyMagic}
+          disable={magicItem == null}
+        >
+          <BiCommentDots />
+        </FeatureButton>
+      </MagicItemWrapper>
     </MagicWrapper>
   );
 };
@@ -105,6 +146,16 @@ const MagicWrapper = styled.div`
   align-items: flex-start;
   justify-content: flex-start;
   gap: 20px;
+`;
+const MagicItemWrapper = styled.div`
+  width: 100%;
+  height: fit-content;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-start;
+  gap: 15px;
 `;
 
 const MagicTitleWrapper = styled.div`
@@ -177,7 +228,7 @@ const OptionContainer = styled.div<{ option: boolean }>`
 
   border: 1px solid ${(props) => colors[props.option ? "orange100" : "gray200"]};
 
-  ${(props) => props.option && `background-color: ${colors["orange100"]};`}
+  ${(props) => props.option && `background-color: ${colors["orange150"]};`}
 
   cursor: pointer;
 `;
