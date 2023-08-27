@@ -56,14 +56,12 @@ const Eval = () => {
         },
         rubric,
       };
-      console.log("request", data);
-      console.log("hi2");
-
+      console.log("first request");
       const dialogues = await getDialogue(data);
       setData(Object.values(dialogues));
     };
     asyncWrapper();
-  });
+  }, []);
 
   useEffect(() => {
     if (dialogue.length == 0) dispatch(initTask());
@@ -98,6 +96,7 @@ const Eval = () => {
         },
         rubric,
       };
+      console.log("reload request");
       const dialogues = await getDialogue(data);
       setData(Object.values(dialogues));
     }

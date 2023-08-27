@@ -11,6 +11,7 @@ export const getRubric = async (script: string) => {
 }
 
 export const getDialogue = async (data: any): Promise<any[]> => {
+  console.log('getDialogue')
   // return new Promise((res) => {
   //   setTimeout(() => {
   //     console.log(data);
