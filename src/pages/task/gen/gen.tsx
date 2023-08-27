@@ -8,15 +8,18 @@ import Upload from "./upload";
 import Trim from "./trim";
 import Script from "./script";
 import Scenario from "./scenario";
+import { useSelector } from "react-redux";
+import { RootState } from "@/states/state";
 
 const Gen = () => {
   const [step, setStep] = useState<number>(1);
+  const base = useSelector((state: RootState) => state.phase.base);
   const dispatch = useDispatch();
 
   const onNext = () => {
-    if (step == 4) {
+    if (base && step == 4) {
       dispatch(donePhase());
-    }
+    } else if (step == 3) dispatch(donePhase());
     setStep((prevStep) => prevStep + 1);
   };
 
@@ -49,15 +52,17 @@ const Gen = () => {
       >
         <Script />
       </SubTask>
-      <SubTask
-        type="short"
-        title="Write the dialogue scenario"
-        subtitle="This is the test task4 and the subtitle"
-        status={getStatus(4, step)}
-        onNext={onNext}
-      >
-        <Scenario />
-      </SubTask>
+      {!base && (
+        <SubTask
+          type="short"
+          title="Write the dialogue scenario"
+          subtitle="This is the test task4 and the subtitle"
+          status={getStatus(4, step)}
+          onNext={onNext}
+        >
+          <Scenario />
+        </SubTask>
+      )}
     </>
   );
 };

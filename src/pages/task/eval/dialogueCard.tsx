@@ -15,6 +15,8 @@ import { BoldText, RegularText } from "@/styles/text";
 import { levelToState, uttrToState } from "./modal/utils";
 
 import StrategyTag from "./strategyTag";
+import { useSelector } from "react-redux";
+import { RootState } from "@/states/state";
 
 interface DialogueCardProps {
   idx: number;
@@ -29,6 +31,7 @@ interface DialogueCardProps {
 const DialogueCard = (props: DialogueCardProps) => {
   const dispatch = useDispatch();
   const title = "Dialogue " + props.idx;
+  const base = useSelector((state: RootState) => state.phase.base);
 
   const onClick = () => {
     const { pattern, speaker, dialogue } = uttrToState(
@@ -51,23 +54,32 @@ const DialogueCard = (props: DialogueCardProps) => {
         {/* <RegularText text="Dialogue 1" color="gray350" size={12} /> */}
         <BoldText text={title} color="black" size={20} />
       </CardTitleWrapper>
-      <CardSubtitleWrapper>
-        <StrategyTag strategy={props.strategy} />
-        <RegularText text={props.summary} color="gray350" size={14} />
-      </CardSubtitleWrapper>
+      {!base && (
+        <CardSubtitleWrapper>
+          <StrategyTag strategy={props.strategy} />
+          <RegularText text={props.summary} color="gray350" size={14} />
+        </CardSubtitleWrapper>
+      )}
+
       <CardDivider />
-      <CardLevelWrapper>
-        {props.level.map((el) => (
-          <CardLevelSummary key={el[0].split(":")[1]}>
-            <RegularText text={el[0].split(":")[1]} color="gray300" size={13} />
-            <BoldText
-              text={"Level " + el[1].split(":")[1]}
-              color="green300"
-              size={12}
-            />
-          </CardLevelSummary>
-        ))}
-      </CardLevelWrapper>
+      {!base && (
+        <CardLevelWrapper>
+          {props.level.map((el) => (
+            <CardLevelSummary key={el[0].split(":")[1]}>
+              <RegularText
+                text={el[0].split(":")[1]}
+                color="gray300"
+                size={13}
+              />
+              <BoldText
+                text={"Level " + el[1].split(":")[1]}
+                color="green300"
+                size={12}
+              />
+            </CardLevelSummary>
+          ))}
+        </CardLevelWrapper>
+      )}
     </DialogueCardWrapper>
   );
 };

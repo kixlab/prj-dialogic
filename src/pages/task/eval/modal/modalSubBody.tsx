@@ -3,14 +3,18 @@ import { IconContext } from "react-icons";
 import { BiX } from "react-icons/bi";
 import styled from "styled-components";
 import ModalSubBodyInfo from "./modalSubBodyInfo";
+import { useSelector } from "react-redux";
+import { RootState } from "@/states/state";
 
 interface ModalSubBodyProps {
   onClick: () => void;
 }
 
 const ModalSubBody = (props: ModalSubBodyProps) => {
+  const base = useSelector((state: RootState) => state.phase.base);
+
   return (
-    <ModalSubBodyWrapper>
+    <ModalSubBodyWrapper base={base}>
       <ModalSubHeaderWrapper>
         <ModalIconWrapper onClick={props.onClick}>
           <IconContext.Provider
@@ -23,14 +27,14 @@ const ModalSubBody = (props: ModalSubBodyProps) => {
           </IconContext.Provider>
         </ModalIconWrapper>
       </ModalSubHeaderWrapper>
-      <ModalSubBodyInfo />
+      {!base && <ModalSubBodyInfo />}
     </ModalSubBodyWrapper>
   );
 };
 export default ModalSubBody;
 
-const ModalSubBodyWrapper = styled.div`
-  width: 350px;
+const ModalSubBodyWrapper = styled.div<{ base: boolean }>`
+  width: ${(props) => (props.base ? "60px" : "350px")};
   height: fit-content;
 
   display: flex;

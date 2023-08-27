@@ -13,11 +13,13 @@ import DialogueCard from "./dialogueCard";
 import { updateDialogue } from "@/states/dialogueSlice";
 import { getDialogue } from "@/apis/lab";
 import { getSelectionString } from "../gen/utils";
-import { dummy } from "./modal/utils";
+import FeatureButton from "../components/featureButton";
+import { BiRefresh } from "react-icons/bi";
 
 const Eval = () => {
   const [step, setStep] = useState<number>(1);
-  const [data, setData] = useState<any[]>(Object.values(dummy));
+  const [reload, setReload] = useState<number>(0); // -1 indicates reload ends
+  const [data, setData] = useState<any[]>([]);
   const dialogue = useSelector((state: RootState) => state.dialogue.dialogue);
 
   const script = useSelector((state: RootState) => state.userData.script);
@@ -33,9 +35,14 @@ const Eval = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    console.log(data);
+  }, [data]);
+
+  useEffect(() => {
     //{full_script:string, selected_script:string, highlights:List[string], teaching_scenario:str, rubric:str}
     //scenario는 {“number_tutee”: N, “learning_context”: learning_context, “learning_scenario”: learning_scenario
     const asyncWrapper = async () => {
+      console.log("hi");
       if (!script || !fullScript || !rubric) return;
 
       const data = {
@@ -50,8 +57,10 @@ const Eval = () => {
         rubric,
       };
       console.log("request", data);
+      console.log("hi2");
+
       const dialogues = await getDialogue(data);
-      console.log(dialogues);
+      setData(Object.values(dialogues));
     };
     asyncWrapper();
   });
@@ -73,59 +82,79 @@ const Eval = () => {
     dispatch(initTask());
   };
 
+  const onReload = () => {
+    if (4 * (reload + 2) > data.length) return;
+
+    if (reload == 3) setReload(-1);
+    else setReload((prev) => prev + 1);
+  };
+
   return (
     <>
       <SubTask
         type="long"
         title="Select a one dialogue"
-        subtitle="This is the test task1 and the subtitle"
+        subtitle={`Select a dialogue you want to revise. You can reload ${
+          3 - reload
+        } more times.`}
         status={getStatus(1, step)}
         onNext={onNext}
       >
         <TaskContainer gap={15} padding={true} align="start">
           {dialogue.length == 0 ? (
-            <>
-              <DialogueCardWrapper>
-                <DialogueCard
-                  idx={0 + 1}
-                  strategy={data[0].teaching_strategies}
-                  summary={data[0].learning_objective}
-                  patterns={data[0].patterns}
-                  scenario={data[0].teaching_scenario}
-                  level={data[0].understanding_states}
-                  dialogue={data[0].uttrs}
-                />
-                <DialogueCard
-                  idx={1 + 1}
-                  strategy={data[1].teaching_strategies}
-                  summary={data[1].learning_objective}
-                  patterns={data[1].patterns}
-                  scenario={data[1].teaching_scenario}
-                  level={data[1].understanding_states}
-                  dialogue={data[1].uttrs}
-                />{" "}
-              </DialogueCardWrapper>
-              <DialogueCardWrapper>
-                <DialogueCard
-                  idx={2 + 1}
-                  strategy={data[2].teaching_strategies}
-                  summary={data[2].learning_objective}
-                  patterns={data[2].patterns}
-                  scenario={data[2].teaching_scenario}
-                  level={data[2].understanding_states}
-                  dialogue={data[2].uttrs}
-                />{" "}
-                <DialogueCard
-                  idx={3 + 1}
-                  strategy={data[3].teaching_strategies}
-                  summary={data[3].learning_objective}
-                  patterns={data[3].patterns}
-                  scenario={data[3].teaching_scenario}
-                  level={data[3].understanding_states}
-                  dialogue={data[3].uttrs}
-                />
-              </DialogueCardWrapper>
-            </>
+            <DialogueCardContainer>
+              <FeatureButton
+                text="Reload"
+                disable={reload == -1}
+                onClick={onReload}
+              >
+                <BiRefresh />
+              </FeatureButton>
+              {data.length !== 0 && (
+                <DialogueCardWrapper>
+                  <DialogueCard
+                    idx={0 + (reload + 1)}
+                    strategy={data[reload].teaching_strategies}
+                    summary={data[reload].learning_objective}
+                    patterns={data[reload].patterns}
+                    scenario={data[reload].teaching_scenario}
+                    level={data[reload].understanding_states}
+                    dialogue={data[reload].uttrs}
+                  />
+                  <DialogueCard
+                    idx={1 + (reload + 1)}
+                    strategy={data[reload + 1].teaching_strategies}
+                    summary={data[reload + 1].learning_objective}
+                    patterns={data[reload + 1].patterns}
+                    scenario={data[reload + 1].teaching_scenario}
+                    level={data[reload + 1].understanding_states}
+                    dialogue={data[reload + 1].uttrs}
+                  />{" "}
+                </DialogueCardWrapper>
+              )}
+              {data.length !== 0 && (
+                <DialogueCardWrapper>
+                  <DialogueCard
+                    idx={2 + (reload + 1)}
+                    strategy={data[reload + 2].teaching_strategies}
+                    summary={data[reload + 2].learning_objective}
+                    patterns={data[reload + 2].patterns}
+                    scenario={data[reload + 2].teaching_scenario}
+                    level={data[reload + 2].understanding_states}
+                    dialogue={data[reload + 2].uttrs}
+                  />{" "}
+                  <DialogueCard
+                    idx={3 + (reload + 1)}
+                    strategy={data[reload + 3].teaching_strategies}
+                    summary={data[reload + 3].learning_objective}
+                    patterns={data[reload + 3].patterns}
+                    scenario={data[reload + 3].teaching_scenario}
+                    level={data[reload + 3].understanding_states}
+                    dialogue={data[reload + 3].uttrs}
+                  />
+                </DialogueCardWrapper>
+              )}
+            </DialogueCardContainer>
           ) : (
             <DialogueModal onClose={onClose} />
           )}
@@ -144,4 +173,15 @@ const DialogueCardWrapper = styled.div`
   display: flex;
   flex-direction: row;
   gap: 15px;
+`;
+
+const DialogueCardContainer = styled.div`
+  width: 100%;
+  height: fit-content;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 10px;
 `;

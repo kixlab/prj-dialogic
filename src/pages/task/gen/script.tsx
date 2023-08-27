@@ -21,6 +21,7 @@ import { getRubric } from "@/apis/lab";
 
 const Script = () => {
   const [edit, setEdit] = useState<boolean>(true);
+  const base = useSelector((state: RootState) => state.phase.base);
 
   const dispatch = useDispatch();
 
@@ -104,7 +105,8 @@ const Script = () => {
   useEffect(() => {
     // update highlight marks
     setHighlightContainerText();
-    if (selections.length == 0 || !fullScript || !rubric) dispatch(initTask());
+    if ((!base && selections.length == 0) || !fullScript || !rubric)
+      dispatch(initTask());
     else dispatch(doneTask());
   }, [selections, fullScript, rubric]);
 
@@ -129,31 +131,33 @@ const Script = () => {
 
   return (
     <TaskContainer gap={10} padding={true} align="end">
-      <ModeButtonContainer>
-        <ModeButton
-          text="Edit"
-          width="short"
-          active={edit}
-          onClick={() => setEdit(true)}
-        >
-          <HiDocumentText />
-        </ModeButton>
+      {!base && (
+        <ModeButtonContainer>
+          <ModeButton
+            text="Edit"
+            width="short"
+            active={edit}
+            onClick={() => setEdit(true)}
+          >
+            <HiDocumentText />
+          </ModeButton>
 
-        <ModeButton
-          text="Highlight"
-          width="long"
-          active={!edit}
-          onClick={() => {
-            if (edit) setEdit(false);
-            else dispatch(updateSelections([]));
-          }}
-        >
-          <HiStar />
-        </ModeButton>
-      </ModeButtonContainer>
+          <ModeButton
+            text="Highlight"
+            width="long"
+            active={!edit}
+            onClick={() => {
+              if (edit) setEdit(false);
+              else dispatch(updateSelections([]));
+            }}
+          >
+            <HiStar />
+          </ModeButton>
+        </ModeButtonContainer>
+      )}
       {script == null ? (
         <></>
-      ) : edit == true ? (
+      ) : base == true || edit == true ? (
         <ScriptEditContainer id="editScript" value={script} onChange={onEdit} />
       ) : (
         <ScriptHighlightContainer id="highlightScript" onMouseUp={onMouseUp} />

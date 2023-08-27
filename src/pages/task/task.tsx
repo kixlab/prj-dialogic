@@ -9,11 +9,16 @@ import { colors } from "@/styles/colors";
 
 const Task = () => {
   const phase: number = useSelector((state: RootState) => state.phase.phase);
+  const base: boolean = useSelector((state: RootState) => state.phase.base);
+
   const navigate = useNavigate();
 
   useEffect(() => {
     if (phase == 0) navigate("/");
-    if (phase == 1) navigate("/task/gen");
+    if (phase == 1) {
+      if (base) navigate("/base/gen");
+      else navigate("/task/gen");
+    }
   }, []);
 
   return (

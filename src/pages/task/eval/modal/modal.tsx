@@ -3,12 +3,16 @@ import { colors } from "@/styles/colors";
 import styled from "styled-components";
 import ModalSubBody from "./modalSubBody";
 import ModalBody from "./modalBody";
+import { useSelector } from "react-redux";
+import { RootState } from "@/states/state";
 
 const DialogueModal = ({ onClose }: { onClose: () => void }) => {
+  const base = useSelector((state: RootState) => state.phase.base);
+
   return (
     <DialogueModalWrapper>
       <ModalBody />
-      <DialogueModalDivider />
+      {!base && <DialogueModalDivider />}
       <ModalSubBody onClick={onClose} />
     </DialogueModalWrapper>
   );

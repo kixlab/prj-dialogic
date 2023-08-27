@@ -11,6 +11,7 @@ const PhaseButton = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const phase: number = useSelector((state: RootState) => state.phase.phase);
+  const base: boolean = useSelector((state: RootState) => state.phase.base);
   const done: boolean = useSelector((state: RootState) => state.phase.done);
 
   const onClick = () => {
@@ -19,11 +20,13 @@ const PhaseButton = () => {
     switch (phase) {
       case 1:
         dispatch(nextPhase());
-        navigate("/task/eval");
+        if (base) navigate("/base/eval");
+        else navigate("/task/eval");
         break;
       case 2:
         dispatch(nextPhase());
-        navigate("/task/author");
+        if (base) navigate("/base/author");
+        else navigate("/task/author");
         break;
       case 3:
         dispatch(initPhase());
