@@ -85,7 +85,7 @@ const SubTaskTitle = (props: SubTaskProps) => {
       {props.status == "onGoing" ? (
         <BoldText text={props.title} color="black" size={17} />
       ) : (
-        <RegularText text={props.title} color="black" size={16} />
+        <RegularText text={props.title} color="black" size={17} />
       )}
       {props.status == "onGoing" && (
         <RegularText text={props.subtitle} color="gray400" size={15} />

@@ -27,6 +27,8 @@ const StatusIndicatorWrapper = styled.div<StatusIndicatorProps>`
   width: 20px;
   height: 20px;
 
+  margin-top: 1px;
+
   background-color: ${(props) =>
     colors[
       props.status == "pending"

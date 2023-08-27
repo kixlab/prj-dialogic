@@ -34,7 +34,7 @@ const FeatureButton = (props: FeatureButtonProps) => {
       <BoldText
         text={props.text}
         color={props.disable !== true && hover ? "orange300" : "gray300"}
-        size={12}
+        size={14}
       />
     </FeatureButtonWrapper>
   );
@@ -43,10 +43,10 @@ export default FeatureButton;
 
 const FeatureButtonWrapper = styled.div<{ disable: boolean }>`
   width: fit-content;
-  height: 35px;
+  height: 40px;
 
   box-sizing: border-box;
-  padding: 0px 15px;
+  padding: 0px 20px;
   background-color: ${colors["white"]};
   border: 1px solid ${colors["gray200"]};
 

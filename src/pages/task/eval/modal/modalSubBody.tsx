@@ -1,6 +1,6 @@
 import { colors } from "@/styles/colors";
 import { IconContext } from "react-icons";
-import { BiX } from "react-icons/bi";
+import { BiArrowBack } from "react-icons/bi";
 import styled from "styled-components";
 import ModalSubBodyInfo from "./modalSubBodyInfo";
 import { useSelector } from "react-redux";
@@ -23,7 +23,7 @@ const ModalSubBody = (props: ModalSubBodyProps) => {
               style: { width: "18px", height: "auto" },
             }}
           >
-            <BiX />
+            <BiArrowBack />
           </IconContext.Provider>
         </ModalIconWrapper>
       </ModalSubHeaderWrapper>
