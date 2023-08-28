@@ -73,9 +73,15 @@ const dialogueSlice = createSlice({
       const idx = state.dialogue.findIndex((item) => item.id === action.payload);
       state.dialogue.splice(idx, 1);
     },
-
+    replaceUtterance: (state, action: PayloadAction<{ targets: number[], dialogue: UtteranceItem[] }>) => {
+      const { targets, dialogue } = action.payload;
+      for (let i = 0; i < targets[1] - targets[0] + 1; i++) {
+        state.dialogue.splice(targets[0], 1); // delete origin dialogue
+      }
+      state.dialogue.splice(targets[0], 0, ...dialogue); //add new dialogue
+    }
   }
 })
 
-export const { initDialoue, updateTitle, updateDialogue, updatePatternHover, updateLevel, updatePattern, updateScenario, updateSpeaker, updateStrategy, updateSummary, updateUtterance, addUtterance, changeSpeaker, duplicateUtterance, deleteUtterance } = dialogueSlice.actions;
+export const { replaceUtterance, initDialoue, updateTitle, updateDialogue, updatePatternHover, updateLevel, updatePattern, updateScenario, updateSpeaker, updateStrategy, updateSummary, updateUtterance, addUtterance, changeSpeaker, duplicateUtterance, deleteUtterance } = dialogueSlice.actions;
 export default dialogueSlice.reducer;

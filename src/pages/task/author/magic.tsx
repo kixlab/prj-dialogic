@@ -11,13 +11,14 @@ import { dialogueToData, getTargetNum, levelToData, varToState } from "./utils";
 import { IconContext } from "react-icons";
 import { useState } from "react";
 import { getVariation } from "@/apis/lab";
-import { VariationItem } from "@/states/types";
+import { UtteranceItem, VariationItem } from "@/states/types";
 import MagicItem from "./magicItem";
 import { useDispatch } from "react-redux";
 import { initMagicItem, updateMagicItem } from "@/states/dataSlice";
-import { duplicateUtterance, updateUtterance } from "@/states/dialogueSlice";
+import { replaceUtterance } from "@/states/dialogueSlice";
 import Loading from "../components/loading";
 import { updateLoading } from "@/states/phaseSlice";
+import { v4 as uuid } from "uuid";
 
 const Magic = () => {
   const targets: number[] = useSelector(
@@ -35,18 +36,16 @@ const Magic = () => {
   const [option, setOption] = useState<boolean>(false);
 
   const applyMagic = () => {
-    if (!magicItem) return;
-    const dupNum = magic[magicItem].length - (targets[1] - targets[0] + 1);
-    for (let i = 0; i < dupNum; i++) {
-      dispatch(duplicateUtterance(dialogue[targets[0]].id));
-    }
+    if (magicItem == null) return;
 
-    magic[magicItem].forEach((el, idx) => {
-      const newUtter = { ...dialogue[targets[0] + idx] };
-      newUtter.speaker = el.speaker;
-      newUtter.utterance = el.utterance;
-      dispatch(updateUtterance(newUtter));
-    });
+    const newDialogue: UtteranceItem[] = magic[magicItem].map((el) => ({
+      id: uuid(),
+      speaker: el.speaker,
+      utterance: el.utterance,
+    }));
+
+    dispatch(replaceUtterance({ targets, dialogue: newDialogue }));
+
     dispatch(initMagicItem());
     setMagic([]);
   };
