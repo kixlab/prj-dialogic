@@ -44,10 +44,6 @@ const DialogueItem = (props: DialogueItemProps) => {
     dispatch(updateFocus(id));
   };
 
-  useEffect(() => {
-    console.log(targets[0], targets[1]);
-  }, [targets]);
-
   const onMagicClick = () => {
     if (!magic) return;
 

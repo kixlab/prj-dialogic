@@ -51,12 +51,10 @@ const Script = () => {
       let newScript = await getScript(video);
       if (!newScript) return;
 
-      console.log(newScript);
       dispatch(updateScript(newScript));
 
       newScript = await getScript(fullVideo);
       if (!newScript) return;
-      console.log(newScript);
 
       dispatch(updateFullScript(newScript));
     };

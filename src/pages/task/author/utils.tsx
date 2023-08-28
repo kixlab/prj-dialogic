@@ -1,12 +1,5 @@
 import { LevelInfo, UtteranceItem, VariationItem } from "@/states/types";
 
-export const varDummy = [
-  "Tutee [Answering]: Water is an example of a compound because it’s made up of two different elements, Hydrogen and Oxygen.\nTutor [Scaffolding]: Exactly, Emily! Water (H2O) is a great example of a compound because it contains two different elements - Hydrogen and Oxygen. Now let’s try to distinguish it further. Can you tell me whether Helium gas (He) is a compound, a molecule, or neither?\nTutee [Answering]: Helium gas (He) is not a compound because it’s composed of a single element.",
-  "Tutee [Answering]: Water is an example of a compound because it’s made up of two different elements, Hydrogen and Oxygen.\nTutor [Scaffolding]: Exactly, Emily! Water (H2O) is a great example of a compound because it contains two different elements - Hydrogen and Oxygen. Now let’s try to distinguish it further. Can you tell me whether Helium gas (He) is a compound, a molecule, or neither?\nTutee [Answering]: Helium gas (He) is not a compound because it’s composed of a single element.",
-  "Tutee [Answering]: Water is an example of a compound because it’s made up of two different elements, Hydrogen and Oxygen.\nTutor [Scaffolding]: Exactly, Emily! Water (H2O) is a great example of a compound because it contains two different elements - Hydrogen and Oxygen. Now let’s try to distinguish it further. Can you tell me whether Helium gas (He) is a compound, a molecule, or neither?\nTutee [Answering]: Helium gas (He) is not a compound because it’s composed of a single element.",
-  "Tutee [Answering]: Water is an example of a compound because it’s made up of two different elements, Hydrogen and Oxygen.\nTutor [Scaffolding]: Exactly, Emily! Water (H2O) is a great example of a compound because it contains two different elements - Hydrogen and Oxygen. Now let’s try to distinguish it further. Can you tell me whether Helium gas (He) is a compound, a molecule, or neither?\nTutee [Answering]: Helium gas (He) is not a compound because it’s composed of a single element.",
-];
-
 export const varToState = (variations: string[]): VariationItem[][] => {
   const result: VariationItem[][] = [];
 
@@ -14,7 +7,9 @@ export const varToState = (variations: string[]): VariationItem[][] => {
     const variation: VariationItem[] = [];
     el.split("\n").forEach((uttr) => {
       let speaker = 0;
-      const speakerName = uttr.split(" [")[0];
+      const speakerName = uttr.includes("[")
+        ? uttr.split(" [")[0]
+        : uttr.split(" :")[0];
       if (speakerName.includes("Tutor")) speaker = 0;
       else if (speakerName.includes("Tutee")) {
         const tuteeNum = speakerName.split("Tutee")[1];
@@ -22,7 +17,9 @@ export const varToState = (variations: string[]): VariationItem[][] => {
         else speaker = parseInt(tuteeNum);
       } else speaker = 1;
 
-      const category = uttr.split("[")[1].split("]")[0];
+      const category = uttr.includes("[")
+        ? uttr.split("[")[1].split("]")[0]
+        : "";
       const utterance = uttr.split(": ")[1];
       variation.push({ speaker, category, utterance });
     });
@@ -44,17 +41,12 @@ export const isTarget = (targets: number[], idx: number) => {
   return false;
 };
 
-// export interface LevelInfo {
-//   title: string;
-//   level: number;
-//   subtitle: string;
-// }
-
-export const levelToData = (level: LevelInfo[]) => {
-  const result = [];
+export const levelToData = (level: LevelInfo[]): string[][] => {
+  const result: string[][] = [];
   level.forEach((el) => {
     result.push(["CONCEPT: " + el.title, "LEVEL: " + el.level, el.subtitle]);
   });
+  return result;
 };
 
 const utterItemToString = (item: UtteranceItem) => {

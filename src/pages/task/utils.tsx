@@ -10,10 +10,10 @@ export const getSpeakerName = (speaker: number) => {
 };
 
 const learningStrategy: string[] = [
-  "cognitive conflict",
-  "metacognitive prompting",
-  "cognitive prompting",
-  "spontaneous deep-level reasoning question",
+  "Cognitive conflict",
+  "Metacognitive prompting",
+  "Cognitive prompting",
+  "Deep-level reasoning questions",
 ];
 
 export const getTagTheme = (title: string) => {

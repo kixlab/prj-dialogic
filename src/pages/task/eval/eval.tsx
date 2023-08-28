@@ -18,7 +18,6 @@ import { BiRefresh } from "react-icons/bi";
 
 const Eval = () => {
   const [step, setStep] = useState<number>(1);
-  const [reload, setReload] = useState<number>(0);
   const [data, setData] = useState<any[]>([]);
   const dialogue = useSelector((state: RootState) => state.dialogue.dialogue);
 
@@ -35,14 +34,9 @@ const Eval = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log(data);
-  }, [data]);
-
-  useEffect(() => {
     //{full_script:string, selected_script:string, highlights:List[string], teaching_scenario:str, rubric:str}
     //scenario는 {“number_tutee”: N, “learning_context”: learning_context, “learning_scenario”: learning_scenario
     const asyncWrapper = async () => {
-      console.log("hi");
       if (!script || !fullScript || !rubric) return;
 
       const data = {
@@ -56,7 +50,6 @@ const Eval = () => {
         },
         rubric,
       };
-      console.log("first request");
       const dialogues = await getDialogue(data);
       setData(Object.values(dialogues));
     };
@@ -81,25 +74,21 @@ const Eval = () => {
   };
 
   const onReload = async () => {
-    setReload((prev) => prev + 1);
-    if (reload % 2 != 0) {
-      setData([]);
-      if (!script) return;
-      const data = {
-        full_script: fullScript,
-        selected_script: script,
-        highlights: getSelectionString(script, selections),
-        teaching_scenario: {
-          number_tutee: scenario.tutee,
-          learning_context: scenario.context,
-          learning_scenario: scenario.scenario,
-        },
-        rubric,
-      };
-      console.log("reload request");
-      const dialogues = await getDialogue(data);
-      setData(Object.values(dialogues));
-    }
+    setData([]);
+    if (!script) return;
+    const data = {
+      full_script: fullScript,
+      selected_script: script,
+      highlights: getSelectionString(script, selections),
+      teaching_scenario: {
+        number_tutee: scenario.tutee,
+        learning_context: scenario.context,
+        learning_scenario: scenario.scenario,
+      },
+      rubric,
+    };
+    const dialogues = await getDialogue(data);
+    setData(Object.values(dialogues));
   };
 
   return (
@@ -126,44 +115,44 @@ const Eval = () => {
               {data.length !== 0 && (
                 <DialogueCardWrapper>
                   <DialogueCard
-                    idx={4 * reload + 1}
-                    strategy={data[4 * (reload % 2)].teaching_strategies}
-                    summary={data[4 * (reload % 2)].learning_objective}
-                    patterns={data[4 * (reload % 2)].patterns}
-                    scenario={data[4 * (reload % 2)].teaching_scenario}
-                    level={data[4 * (reload % 2)].understanding_states}
-                    dialogue={data[4 * (reload % 2)].uttrs}
+                    idx={1}
+                    strategy={data[0].teaching_strategies}
+                    summary={data[0].learning_objective}
+                    patterns={data[0].patterns}
+                    scenario={data[0].teaching_scenario}
+                    level={data[0].understanding_states}
+                    dialogue={data[0].uttrs}
                   />
                   <DialogueCard
-                    idx={4 * reload + 2}
-                    strategy={data[4 * (reload % 2) + 1].teaching_strategies}
-                    summary={data[4 * (reload % 2) + 1].learning_objective}
-                    patterns={data[4 * (reload % 2) + 1].patterns}
-                    scenario={data[4 * (reload % 2) + 1].teaching_scenario}
-                    level={data[4 * (reload % 2) + 1].understanding_states}
-                    dialogue={data[4 * (reload % 2) + 1].uttrs}
+                    idx={2}
+                    strategy={data[1].teaching_strategies}
+                    summary={data[1].learning_objective}
+                    patterns={data[1].patterns}
+                    scenario={data[1].teaching_scenario}
+                    level={data[1].understanding_states}
+                    dialogue={data[1].uttrs}
                   />{" "}
                 </DialogueCardWrapper>
               )}
               {data.length !== 0 && (
                 <DialogueCardWrapper>
                   <DialogueCard
-                    idx={4 * reload + 3}
-                    strategy={data[4 * (reload % 2) + 2].teaching_strategies}
-                    summary={data[4 * (reload % 2) + 2].learning_objective}
-                    patterns={data[4 * (reload % 2) + 2].patterns}
-                    scenario={data[4 * (reload % 2) + 2].teaching_scenario}
-                    level={data[4 * (reload % 2) + 2].understanding_states}
-                    dialogue={data[4 * (reload % 2) + 2].uttrs}
+                    idx={3}
+                    strategy={data[2].teaching_strategies}
+                    summary={data[2].learning_objective}
+                    patterns={data[2].patterns}
+                    scenario={data[2].teaching_scenario}
+                    level={data[2].understanding_states}
+                    dialogue={data[2].uttrs}
                   />{" "}
                   <DialogueCard
-                    idx={4 * reload + 4}
-                    strategy={data[4 * (reload % 2) + 3].teaching_strategies}
-                    summary={data[4 * (reload % 2) + 3].learning_objective}
-                    patterns={data[4 * (reload % 2) + 3].patterns}
-                    scenario={data[4 * (reload % 2) + 3].teaching_scenario}
-                    level={data[4 * (reload % 2) + 3].understanding_states}
-                    dialogue={data[4 * (reload % 2) + 3].uttrs}
+                    idx={4}
+                    strategy={data[3].teaching_strategies}
+                    summary={data[3].learning_objective}
+                    patterns={data[3].patterns}
+                    scenario={data[3].teaching_scenario}
+                    level={data[3].understanding_states}
+                    dialogue={data[3].uttrs}
                   />
                 </DialogueCardWrapper>
               )}

@@ -62,11 +62,11 @@ interface HeaderStageProps {
 const stageName = (stage: number): string => {
   switch (stage) {
     case 1:
-      return "Generation";
+      return "Initial Generation";
     case 2:
       return "Evaluation";
     case 3:
-      return "Authoring";
+      return "Refinement";
     default:
       return "Undefined";
   }

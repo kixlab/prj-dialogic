@@ -22,6 +22,7 @@ const Magic = () => {
     (state: RootState) => state.userData.targets
   );
   const [magic, setMagic] = useState<VariationItem[][]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
   const dispatch = useDispatch();
 
   const magicItem = useSelector((state: RootState) => state.data.magicItem);
@@ -46,6 +47,7 @@ const Magic = () => {
   };
 
   const onMagic = async () => {
+    setLoading(true);
     setMagic([]);
     const { wholeUttr, targetUttr } = dialogueToData(dialogue, targets);
 
@@ -57,6 +59,7 @@ const Magic = () => {
       preserve_pattern: option,
     };
     setMagic(varToState(await getVariation(data)));
+    setLoading(false);
   };
 
   return (
@@ -103,7 +106,7 @@ const Magic = () => {
         </MagicTitleWrapper>
         <FeatureButton
           text="Magic"
-          disable={targets.length == 0 || targets[0] == -1}
+          disable={targets.length == 0 || targets[0] == -1 || loading == true}
           onClick={onMagic}
         >
           <BiSolidMagicWand />
