@@ -22,6 +22,10 @@ export const getSelections = (prevSelections: Selection[]): Selection[] => {
     const lastSelection = selections[selections.length - 1];
 
     if (currSelection.start <= lastSelection.end) {
+      console.log(
+        lastSelection.end,
+        Math.max(lastSelection.end, currSelection.end)
+      );
       // overlapped
       lastSelection.end = Math.max(lastSelection.end, currSelection.end);
     } else {

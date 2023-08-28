@@ -67,7 +67,7 @@ const dialogueSlice = createSlice({
     },
     duplicateUtterance: (state, action: PayloadAction<string>) => {
       const idx = state.dialogue.findIndex((item) => item.id === action.payload);
-      state.dialogue.splice(idx, 0, { ...state.dialogue[idx], id: uuid() });
+      state.dialogue.splice(idx + 1, 0, { ...state.dialogue[idx], id: uuid() });
     },
     deleteUtterance: (state, action: PayloadAction<string>) => {
       const idx = state.dialogue.findIndex((item) => item.id === action.payload);

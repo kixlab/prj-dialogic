@@ -7,6 +7,7 @@ export const rootState: RootState = {
     done: false,
     next: false,
     magic: false,
+    loading: false,
   },
   userData: {
     script: null,
@@ -49,6 +50,7 @@ export interface RootState {
     done: boolean,
     next: boolean,
     magic: boolean,
+    loading: boolean,
   };
   userData: {
     script: string | null,

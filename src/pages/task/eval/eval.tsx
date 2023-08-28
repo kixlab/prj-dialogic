@@ -1,5 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { donePhase, doneTask, initTask } from "@/states/phaseSlice";
+import {
+  donePhase,
+  doneTask,
+  initTask,
+  updateLoading,
+} from "@/states/phaseSlice";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { getStatus } from "../utils";
@@ -15,10 +20,12 @@ import { getDialogue } from "@/apis/lab";
 import { getSelectionString } from "../gen/utils";
 import FeatureButton from "../components/featureButton";
 import { BiRefresh } from "react-icons/bi";
+import Loading from "../components/loading";
 
 const Eval = () => {
   const [step, setStep] = useState<number>(1);
   const [data, setData] = useState<any[]>([]);
+  const loading = useSelector((state: RootState) => state.phase.loading);
   const dialogue = useSelector((state: RootState) => state.dialogue.dialogue);
 
   const script = useSelector((state: RootState) => state.userData.script);
@@ -38,6 +45,7 @@ const Eval = () => {
     //scenario는 {“number_tutee”: N, “learning_context”: learning_context, “learning_scenario”: learning_scenario
     const asyncWrapper = async () => {
       if (!script || !fullScript || !rubric) return;
+      dispatch(updateLoading(true));
 
       const data = {
         full_script: fullScript,
@@ -52,6 +60,7 @@ const Eval = () => {
       };
       const dialogues = await getDialogue(data);
       setData(Object.values(dialogues));
+      dispatch(updateLoading(false));
     };
     asyncWrapper();
   }, []);
@@ -74,6 +83,7 @@ const Eval = () => {
   };
 
   const onReload = async () => {
+    dispatch(updateLoading(true));
     setData([]);
     if (!script) return;
     const data = {
@@ -89,6 +99,7 @@ const Eval = () => {
     };
     const dialogues = await getDialogue(data);
     setData(Object.values(dialogues));
+    dispatch(updateLoading(false));
   };
 
   return (
@@ -112,6 +123,8 @@ const Eval = () => {
               >
                 <BiRefresh />
               </FeatureButton>
+              {loading && <Loading />}
+
               {data.length !== 0 && (
                 <DialogueCardWrapper>
                   <DialogueCard

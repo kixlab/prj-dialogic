@@ -31,9 +31,12 @@ const phaseSlice = createSlice({
     },
     updateMagic: (state, action: PayloadAction<boolean>) => {
       state.magic = action.payload
+    },
+    updateLoading: (state, action: PayloadAction<boolean>) => {
+      state.loading = action.payload
     }
   }
 })
 
-export const { updateBase, initPhase, nextPhase, donePhase, doneTask, initTask, updateMagic } = phaseSlice.actions;
+export const { updateLoading, updateBase, initPhase, nextPhase, donePhase, doneTask, initTask, updateMagic } = phaseSlice.actions;
 export default phaseSlice.reducer;

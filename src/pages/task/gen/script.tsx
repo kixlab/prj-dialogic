@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addMarks, getSelections } from "./utils";
 import styled from "styled-components";
 import { colors } from "@/styles/colors";
-import { doneTask, initTask } from "@/states/phaseSlice";
+import { doneTask, initTask, updateLoading } from "@/states/phaseSlice";
 import {
   updateFullScript,
   updateRubric,
@@ -18,10 +18,12 @@ import { HiStar, HiDocumentText } from "react-icons/hi";
 import { ModeButton, ModeButtonContainer } from "../components/modeButton";
 import TaskContainer from "../components/taskContainer";
 import { getRubric } from "@/apis/lab";
+import Loading from "../components/loading";
 
 const Script = () => {
   const [edit, setEdit] = useState<boolean>(true);
   const base = useSelector((state: RootState) => state.phase.base);
+  const loading = useSelector((state: RootState) => state.phase.loading);
 
   const dispatch = useDispatch();
 
@@ -48,6 +50,7 @@ const Script = () => {
   useEffect(() => {
     if (!video || !fullVideo) return;
     const asyncWrapper = async () => {
+      dispatch(updateLoading(true));
       let newScript = await getScript(video);
       if (!newScript) return;
 
@@ -57,9 +60,14 @@ const Script = () => {
       if (!newScript) return;
 
       dispatch(updateFullScript(newScript));
+      dispatch(updateLoading(false));
     };
     asyncWrapper();
   }, []);
+
+  useEffect(() => {
+    if (!loading) setEditContainerHeight();
+  }, [loading]);
 
   useEffect(() => {
     const asyncWrapper = async () => {
@@ -86,10 +94,6 @@ const Script = () => {
     scriptWrapper.innerHTML = addMarks(script, selections);
     dispatch(updateSelections(selections));
   };
-
-  useEffect(() => {
-    setEditContainerHeight();
-  }, [script]);
 
   useEffect(() => {
     // update each container when mode is changed
@@ -153,8 +157,8 @@ const Script = () => {
           </ModeButton>
         </ModeButtonContainer>
       )}
-      {script == null ? (
-        <></>
+      {loading == true || script == null ? (
+        <Loading />
       ) : base == true || edit == true ? (
         <ScriptEditContainer id="editScript" value={script} onChange={onEdit} />
       ) : (

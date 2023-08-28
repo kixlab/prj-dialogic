@@ -15,16 +15,18 @@ import { VariationItem } from "@/states/types";
 import MagicItem from "./magicItem";
 import { useDispatch } from "react-redux";
 import { initMagicItem, updateMagicItem } from "@/states/dataSlice";
-import { updateUtterance } from "@/states/dialogueSlice";
+import { duplicateUtterance, updateUtterance } from "@/states/dialogueSlice";
+import Loading from "../components/loading";
+import { updateLoading } from "@/states/phaseSlice";
 
 const Magic = () => {
   const targets: number[] = useSelector(
     (state: RootState) => state.userData.targets
   );
   const [magic, setMagic] = useState<VariationItem[][]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
   const dispatch = useDispatch();
 
+  const loading = useSelector((state: RootState) => state.phase.loading);
   const magicItem = useSelector((state: RootState) => state.data.magicItem);
   const level = useSelector((state: RootState) => state.dialogue.level);
   const scenario = useSelector((state: RootState) => state.dialogue.scenario);
@@ -33,8 +35,11 @@ const Magic = () => {
   const [option, setOption] = useState<boolean>(false);
 
   const applyMagic = () => {
-    if (!magicItem || magic[magicItem].length !== targets[1] - targets[0] + 1)
-      return;
+    if (!magicItem) return;
+    const dupNum = magic[magicItem].length - (targets[1] - targets[0] + 1);
+    for (let i = 0; i < dupNum; i++) {
+      dispatch(duplicateUtterance(dialogue[targets[0]].id));
+    }
 
     magic[magicItem].forEach((el, idx) => {
       const newUtter = { ...dialogue[targets[0] + idx] };
@@ -47,7 +52,7 @@ const Magic = () => {
   };
 
   const onMagic = async () => {
-    setLoading(true);
+    dispatch(updateLoading(true));
     setMagic([]);
     const { wholeUttr, targetUttr } = dialogueToData(dialogue, targets);
 
@@ -59,7 +64,7 @@ const Magic = () => {
       preserve_pattern: option,
     };
     setMagic(varToState(await getVariation(data)));
-    setLoading(false);
+    dispatch(updateLoading(false));
   };
 
   return (
@@ -113,6 +118,7 @@ const Magic = () => {
         </FeatureButton>
       </MagicTopWrapper>
       <MagicDivider />
+      {loading && <Loading />}
       <MagicItemWrapper>
         {magic.map((el, idx) => (
           <MagicItem
