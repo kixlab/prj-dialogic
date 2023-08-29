@@ -58,7 +58,7 @@ const Eval = () => {
       };
       const dialogues = await getDialogue(data);
 
-      dispatch(updateGeneration(dialogues));
+      dispatch(updateGeneration(Object.values(dialogues)));
       dispatch(updateLoading(false));
     };
     asyncWrapper();

@@ -18,9 +18,9 @@ const Gen = () => {
   const dispatch = useDispatch();
 
   const onNext = () => {
-    if (base && step == 4) {
+    if (base && step == 3) {
       dispatch(donePhase());
-    } else if (step == 3) dispatch(donePhase());
+    } else if (step == 4) dispatch(donePhase());
     setStep((prevStep) => prevStep + 1);
   };
 
