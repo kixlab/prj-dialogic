@@ -17,6 +17,7 @@ import { levelToState, uttrToState } from "./modal/utils";
 import StrategyTag from "./strategyTag";
 import { useSelector } from "react-redux";
 import { RootState } from "@/states/state";
+import { text } from "@/states/constant";
 
 interface DialogueCardProps {
   idx: number;
@@ -30,7 +31,7 @@ interface DialogueCardProps {
 
 const DialogueCard = (props: DialogueCardProps) => {
   const dispatch = useDispatch();
-  const title = "Dialogue " + props.idx;
+  const title = text.phase_2.task_1.card_1 + " " + props.idx;
   const base = useSelector((state: RootState) => state.phase.base);
 
   const onClick = () => {
@@ -38,7 +39,7 @@ const DialogueCard = (props: DialogueCardProps) => {
       props.dialogue,
       props.patterns
     );
-    dispatch(updateTitle("Dialogue " + props.idx));
+    dispatch(updateTitle(title));
     dispatch(updateSummary(props.summary));
     dispatch(updateStrategy(props.strategy));
     dispatch(updatePattern(pattern));

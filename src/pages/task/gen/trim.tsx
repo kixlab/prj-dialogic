@@ -18,6 +18,7 @@ import TaskContainer from "../components/taskContainer";
 import FeatureButton from "../components/featureButton";
 import { FaCut } from "react-icons/fa";
 import { getTimeRange } from "./utils";
+import { text } from "@/states/constant";
 
 const Trim = () => {
   const dispatch = useDispatch();
@@ -113,7 +114,11 @@ const Trim = () => {
 
   return (
     <TaskContainer gap={5} padding={true} align="start">
-      <FeatureButton text="Trim" onClick={onTrim} disable={trim}>
+      <FeatureButton
+        text={text.phase_1.task_2.button_1}
+        onClick={onTrim}
+        disable={trim}
+      >
         <FaCut />
       </FeatureButton>
       <ReactPlayer

@@ -19,6 +19,7 @@ import { ModeButton, ModeButtonContainer } from "../components/modeButton";
 import TaskContainer from "../components/taskContainer";
 import { getRubric } from "@/apis/lab";
 import Loading from "../components/loading";
+import { text } from "@/states/constant";
 
 const Script = () => {
   const [edit, setEdit] = useState<boolean>(true);
@@ -136,7 +137,7 @@ const Script = () => {
       {!base && (
         <ModeButtonContainer>
           <ModeButton
-            text="Edit"
+            text={text.phase_1.task_3.button_1}
             width="short"
             active={edit}
             onClick={() => setEdit(true)}
@@ -145,7 +146,7 @@ const Script = () => {
           </ModeButton>
 
           <ModeButton
-            text="Highlight"
+            text={text.phase_1.task_3.button_2}
             width="long"
             active={!edit}
             onClick={() => {

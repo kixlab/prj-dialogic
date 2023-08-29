@@ -19,6 +19,7 @@ import { replaceUtterance } from "@/states/dialogueSlice";
 import Loading from "../components/loading";
 import { updateLoading } from "@/states/phaseSlice";
 import { v4 as uuid } from "uuid";
+import { text } from "@/states/constant";
 
 const Magic = () => {
   const targets: number[] = useSelector(
@@ -72,10 +73,16 @@ const Magic = () => {
         <MagicTitleWrapper>
           <MagicInputWrapper>
             <MagicTextWrapper>
-              <BoldText text="Target" color="gray400" size={15} />
+              <BoldText
+                text={text.phase_3.task_1.button_4.title}
+                color="gray400"
+                size={15}
+              />
             </MagicTextWrapper>
             <FeatureButton
-              text={`${getTargetNum(targets)} selected`}
+              text={`${getTargetNum(targets)} ${
+                text.phase_3.task_1.button_4.description
+              }`}
               disable={true}
             >
               <LuMousePointer2 />
@@ -83,7 +90,11 @@ const Magic = () => {
           </MagicInputWrapper>
           <MagicInputWrapper>
             <MagicTextWrapper>
-              <BoldText text="Option" color="gray400" size={15} />
+              <BoldText
+                text={text.phase_3.task_1.button_5.title}
+                color="gray400"
+                size={15}
+              />
             </MagicTextWrapper>
             <MagicOptionWrapper>
               <OptionContainer
@@ -100,7 +111,7 @@ const Magic = () => {
                 </IconContext.Provider>
 
                 <RegularText
-                  text="Perserve the origin utterance pattern"
+                  text={text.phase_3.task_1.button_5.description}
                   color={option ? "white" : "gray300"}
                   size={13}
                 />
@@ -109,7 +120,7 @@ const Magic = () => {
           </MagicInputWrapper>
         </MagicTitleWrapper>
         <FeatureButton
-          text="Magic"
+          text={text.phase_3.task_1.button_2}
           disable={targets.length == 0 || targets[0] == -1 || loading == true}
           onClick={onMagic}
         >
@@ -130,7 +141,7 @@ const Magic = () => {
           />
         ))}
         <FeatureButton
-          text="Apply"
+          text={text.phase_3.task_1.button_6}
           onClick={applyMagic}
           disable={magicItem == null}
         >
@@ -178,7 +189,7 @@ const MagicTitleWrapper = styled.div`
 `;
 
 const MagicTextWrapper = styled.div`
-  width: 45px;
+  width: 60px;
 `;
 
 const MagicInputWrapper = styled.div`

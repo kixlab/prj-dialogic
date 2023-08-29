@@ -5,6 +5,7 @@ import { getStatus } from "../utils";
 import SubTask from "../components/subtask";
 import Dialogue from "./dialogue";
 import AuthorDownload from "./authorDownload";
+import { text } from "@/states/constant";
 
 const Author = () => {
   const [step, setStep] = useState<number>(1);
@@ -25,8 +26,8 @@ const Author = () => {
     <>
       <SubTask
         type="long"
-        title="Revise the selected dialogue"
-        subtitle="Directly modify or utilize the toolbox on the left for each utterance. Alter the sequence of utterances through drag-and-drop. Provide a title for the final dialogue."
+        title={text.phase_3.task_1.title}
+        subtitle={text.phase_3.task_1.description}
         status={getStatus(1, step)}
         onNext={onNext}
       >
@@ -34,8 +35,8 @@ const Author = () => {
       </SubTask>
       <SubTask
         type="long"
-        title="Download the final dialogue"
-        subtitle="Click download to save as pdf."
+        title={text.phase_3.task_2.title}
+        subtitle={text.phase_3.task_2.description}
         status={getStatus(2, step)}
         onNext={onNext}
       >

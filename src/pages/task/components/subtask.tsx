@@ -7,6 +7,7 @@ import { transition } from "@/styles/animation";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/states/state";
 import { initTask } from "@/states/phaseSlice";
+import { text } from "@/states/constant";
 
 interface SubTaskProps {
   type: "short" | "long";
@@ -115,7 +116,11 @@ const SubTaskButton = (props: SubTaskProps) => {
 
   return (
     <SubTaskButtonWrapper onClick={onNext} next={next}>
-      <BoldText text="Next" color={next ? "green400" : "gray100"} size={14} />
+      <BoldText
+        text={text.buttons.task}
+        color={next ? "green400" : "gray100"}
+        size={14}
+      />
     </SubTaskButtonWrapper>
   );
 };

@@ -14,6 +14,7 @@ import { RiFileDownloadLine } from "react-icons/ri";
 import { useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { doneTask } from "@/states/phaseSlice";
+import { text } from "@/states/constant";
 
 const AuthorDownload = () => {
   const title = useSelector((state: RootState) => state.dialogue.title);
@@ -29,7 +30,7 @@ const AuthorDownload = () => {
     <TaskContainer gap={10} padding={true} align="start">
       <ReactToPrint
         trigger={() => (
-          <FeatureButton text="Download">
+          <FeatureButton text={text.phase_3.task_2.button_1}>
             <RiFileDownloadLine />
           </FeatureButton>
         )}

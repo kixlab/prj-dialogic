@@ -1,3 +1,5 @@
+import { text } from "@/states/constant";
+
 export const getStatus = (stepNum: number, step: number) => {
   if (stepNum < step) return "done";
   else if (stepNum == step) return "onGoing";
@@ -5,8 +7,8 @@ export const getStatus = (stepNum: number, step: number) => {
 };
 
 export const getSpeakerName = (speaker: number) => {
-  if (speaker == 0) return "Tutor";
-  else return "Tutee" + speaker;
+  if (speaker == 0) return text.dialoge.tutor;
+  else return text.dialoge.tutee + speaker;
 };
 
 const learningStrategy: string[] = [

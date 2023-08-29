@@ -15,6 +15,7 @@ import { doneTask, initTask } from "@/states/phaseSlice";
 
 import { IconContext } from "react-icons";
 import { BiVideo, BiX, BiSolidCloudUpload } from "react-icons/bi";
+import { text } from "@/states/constant";
 
 interface FileInfo {
   name: string;
@@ -68,8 +69,16 @@ const UploadContainer = ({
         onChange={onUpload}
         accept="video/mp4"
       />
-      <BoldText text="Choose the file" color="green300" size={15} />
-      <RegularText text="(.mp4) to upload" color="gray300" size={15} />
+      <BoldText
+        text={text.phase_1.task_1.button_1}
+        color="green300"
+        size={15}
+      />
+      <RegularText
+        text={text.phase_1.task_1.button_2}
+        color="gray300"
+        size={15}
+      />
       <IconContext.Provider
         value={{
           color: colors["gray300"],

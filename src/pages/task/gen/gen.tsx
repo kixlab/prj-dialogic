@@ -10,6 +10,7 @@ import Script from "./script";
 import Scenario from "./scenario";
 import { useSelector } from "react-redux";
 import { RootState } from "@/states/state";
+import { text } from "@/states/constant";
 
 const Gen = () => {
   const [step, setStep] = useState<number>(1);
@@ -27,8 +28,8 @@ const Gen = () => {
     <>
       <SubTask
         type="short"
-        title="Upload your video"
-        subtitle="Choose an English video that is smaller than 25MB in size."
+        title={text.phase_1.task_1.title}
+        subtitle={text.phase_1.task_1.description}
         status={getStatus(1, step)}
         onNext={onNext}
       >
@@ -36,8 +37,8 @@ const Gen = () => {
       </SubTask>
       <SubTask
         type="short"
-        title="Trim the video"
-        subtitle="Ensure trimming is completed, before clicking Next. Trim can be done only once."
+        title={text.phase_1.task_2.title}
+        subtitle={text.phase_1.task_2.description}
         status={getStatus(2, step)}
         onNext={onNext}
       >
@@ -45,15 +46,9 @@ const Gen = () => {
       </SubTask>
       <SubTask
         type="short"
-        title={
-          base
-            ? "Confirm the transcript"
-            : "Confirm the transcript and highlight"
-        }
+        title={text.phase_1[base == true ? "task_3_base" : "task_3"].title}
         subtitle={
-          base
-            ? "Directly edit the auto-generated transcript."
-            : "Directly edit the auto-generated transcript. Highlight the part where the learner might have difficult."
+          text.phase_1[base == true ? "task_3_base" : "task_3"].description
         }
         status={getStatus(3, step)}
         onNext={onNext}
@@ -63,8 +58,8 @@ const Gen = () => {
       {!base && (
         <SubTask
           type="short"
-          title="Write the dialogue scenario"
-          subtitle="Make sure to fill the number of tutees, while the remaining fields are optional."
+          title={text.phase_1.task_4.title}
+          subtitle={text.phase_1.task_4.description}
           status={getStatus(4, step)}
           onNext={onNext}
         >

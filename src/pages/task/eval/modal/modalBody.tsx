@@ -3,6 +3,7 @@ import styled from "styled-components";
 import DialogueViewer from "../../components/dialogueViewer";
 import { useSelector } from "react-redux";
 import { RootState } from "@/states/state";
+import { text } from "@/states/constant";
 
 const ModalBody = () => {
   const title = useSelector((state: RootState) => state.dialogue.title);
@@ -14,7 +15,11 @@ const ModalBody = () => {
   return (
     <ModalBodyWrapper>
       <ModalTitleWrapper>
-        <RegularText text={"Selected Dialogue"} color="gray350" size={12} />
+        <RegularText
+          text={text.phase_2.task_1.modal_0}
+          color="gray350"
+          size={12}
+        />
         <BoldText text={title} color="black" size={20} />
       </ModalTitleWrapper>
       <DialogueViewer

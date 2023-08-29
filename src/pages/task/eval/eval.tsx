@@ -21,6 +21,7 @@ import { getSelectionString } from "../gen/utils";
 import FeatureButton from "../components/featureButton";
 import { BiRefresh } from "react-icons/bi";
 import Loading from "../components/loading";
+import { text } from "@/states/constant";
 
 const Eval = () => {
   const [step, setStep] = useState<number>(1);
@@ -106,10 +107,8 @@ const Eval = () => {
     <>
       <SubTask
         type="long"
-        title="Select a one dialogue"
-        subtitle={
-          "Select a dialogue you want to revise. Click the reload button to get more dialogues."
-        }
+        title={text.phase_2.task_1.title}
+        subtitle={text.phase_2.task_1.description}
         status={getStatus(1, step)}
         onNext={onNext}
       >
@@ -117,7 +116,7 @@ const Eval = () => {
           {dialogue.length == 0 ? (
             <DialogueCardContainer>
               <FeatureButton
-                text="Reload"
+                text={text.phase_2.task_1.button_1}
                 onClick={onReload}
                 disable={data.length == 0}
               >

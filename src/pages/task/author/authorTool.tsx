@@ -18,6 +18,7 @@ import {
 } from "@/states/dialogueSlice";
 import { initFocus } from "@/states/authorSlice";
 import InfoBubble from "../components/infoBubble";
+import { text } from "@/states/constant";
 
 const AuthorTool = () => {
   const dispatch = useDispatch();
@@ -29,7 +30,7 @@ const AuthorTool = () => {
     <AuthorToolWrapper>
       <AuthorToolBox
         active={true}
-        text="Add Utterance"
+        text={text.phase_3.task_1.description_1}
         onClick={() => {
           dispatch(addUtterance());
         }}
@@ -38,7 +39,7 @@ const AuthorTool = () => {
       </AuthorToolBox>
       <AuthorToolBox
         active={focus !== null}
-        text="Change Speaker"
+        text={text.phase_3.task_1.description_2}
         onClick={() => {
           if (focus) dispatch(changeSpeaker(focus));
         }}
@@ -47,7 +48,7 @@ const AuthorTool = () => {
       </AuthorToolBox>{" "}
       <AuthorToolBox
         active={focus !== null}
-        text="Duplicate Utterance"
+        text={text.phase_3.task_1.description_3}
         onClick={() => {
           if (focus) dispatch(duplicateUtterance(focus));
         }}
@@ -56,7 +57,7 @@ const AuthorTool = () => {
       </AuthorToolBox>{" "}
       <AuthorToolBox
         active={focus !== null}
-        text="Discard Utterance"
+        text={text.phase_3.task_1.description_4}
         onClick={() => {
           if (focus) {
             dispatch(deleteUtterance(focus));

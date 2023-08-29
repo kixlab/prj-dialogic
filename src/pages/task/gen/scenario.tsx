@@ -8,14 +8,11 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/states/state";
 import { useDispatch } from "react-redux";
 import { updateScenario } from "@/states/userDataSlice";
-import {
-  contextDescription,
-  learningDescription,
-  tuteeToNumber,
-} from "./utils";
+import { tuteeToNumber } from "./utils";
 import { useEffect, useState } from "react";
 import { doneTask } from "@/states/phaseSlice";
 import InfoBubble from "../components/infoBubble";
+import { text } from "@/states/constant";
 
 const Scenario = () => {
   const scenario: { tutee: number; context: string; scenario: string } =
@@ -30,7 +27,7 @@ const Scenario = () => {
     <TaskContainer gap={10} padding={true} align="start">
       <ScenarioRowWrapper>
         <ScenarioInput
-          title="Number of Tutee"
+          title={text.phase_1.task_4.button_1}
           description=""
           value={scenario.tutee.toString()}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,8 +42,8 @@ const Scenario = () => {
           hover={false}
         />
         <ScenarioInput
-          title="Learning Context"
-          description={contextDescription}
+          title={text.phase_1.task_4.button_2.title}
+          description={text.phase_1.task_4.button_2.description}
           value={scenario.context}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             dispatch(updateScenario({ ...scenario, context: e.target.value }));
@@ -57,8 +54,8 @@ const Scenario = () => {
       </ScenarioRowWrapper>
       <ScenarioRowWrapper>
         <ScenarioInput
-          title="Learning Scenario"
-          description={learningDescription}
+          title={text.phase_1.task_4.button_3.title}
+          description={text.phase_1.task_4.button_3.description}
           value={scenario.scenario}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             dispatch(updateScenario({ ...scenario, scenario: e.target.value }));

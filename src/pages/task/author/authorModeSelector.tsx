@@ -5,6 +5,7 @@ import { AuthorMode } from "@/states/types";
 import { useDispatch } from "react-redux";
 import { updateTargets } from "@/states/userDataSlice";
 import { updateMagic } from "@/states/phaseSlice";
+import { text } from "@/states/constant";
 
 interface AuthorModeSelectorProps {
   mode: AuthorMode;
@@ -17,7 +18,7 @@ const AuthorModeSelector = (props: AuthorModeSelectorProps) => {
   return (
     <ModeButtonContainer>
       <ModeButton
-        text="Description"
+        text={text.phase_3.task_1.button_1}
         width="long"
         active={props.mode == "description"}
         onClick={() => {
@@ -28,7 +29,7 @@ const AuthorModeSelector = (props: AuthorModeSelectorProps) => {
         <BiSolidDetail />
       </ModeButton>
       <ModeButton
-        text="Magic"
+        text={text.phase_3.task_1.button_2}
         width="short"
         active={props.mode == "magic"}
         onClick={() => {
@@ -40,7 +41,7 @@ const AuthorModeSelector = (props: AuthorModeSelectorProps) => {
         <BiSolidMagicWand />
       </ModeButton>
       <ModeButton
-        text="Transcript"
+        text={text.phase_3.task_1.button_3}
         width="medium"
         active={props.mode == "transcript"}
         onClick={() => {

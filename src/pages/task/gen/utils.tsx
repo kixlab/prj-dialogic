@@ -3,12 +3,6 @@ export interface Selection {
   end: number;
 }
 
-export const learningDescription =
-  "[example]\nas if a tutor deliberately present incorrect problem scenarios and asking a tutee to explain where the error lies\nas if a tutor collaboratively worked through problems that the tutee initially struggled with.\nas if a tutor is guiding two tutees, Tom and Emily.";
-
-export const contextDescription =
-  "[example]\nThis is a science class in the 2nd grade of middle school.\nThis is a physics class for the third year of high school.";
-
 export const getSelections = (prevSelections: Selection[]): Selection[] => {
   if (prevSelections.length <= 1) {
     return prevSelections; // No need to merge

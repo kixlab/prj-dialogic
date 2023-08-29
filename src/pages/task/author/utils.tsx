@@ -1,3 +1,4 @@
+import { text } from "@/states/constant";
 import { LevelInfo, UtteranceItem, VariationItem } from "@/states/types";
 
 export const varToState = (variations: string[]): VariationItem[][] => {
@@ -50,8 +51,8 @@ export const levelToData = (level: LevelInfo[]): string[][] => {
 };
 
 const utterItemToString = (item: UtteranceItem) => {
-  let speaker = "Tutee";
-  if (item.speaker == 0) speaker = "Tutor";
+  let speaker = text.dialoge.tutee;
+  if (item.speaker == 0) speaker = text.dialoge.tutor;
   else speaker += item.speaker.toString();
 
   return speaker + " : " + item.utterance + "\n";

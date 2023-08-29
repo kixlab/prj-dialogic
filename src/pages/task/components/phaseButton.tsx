@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { BoldText } from "@/styles/text";
 import { colors } from "@/styles/colors";
 import { transition } from "@/styles/animation";
+import { text } from "@/states/constant";
 
 const PhaseButton = () => {
   const navigate = useNavigate();
@@ -39,7 +40,13 @@ const PhaseButton = () => {
   return (
     <PhaseButtonWrapper onClick={onClick} done={done}>
       <BoldText
-        text={phase == 3 ? (done == true ? "🎉Done" : "Done") : "Continue"}
+        text={
+          phase == 3
+            ? done == true
+              ? "🎉" + text.buttons.done
+              : text.buttons.done
+            : text.buttons.phase
+        }
         color="white"
         size={14}
       />

@@ -11,6 +11,7 @@ import {
   ModalInfoContainer,
   LevelInfoContainer,
 } from "../../components/infoContainer";
+import { text } from "@/states/constant";
 
 const ModalSubBodyInfo = () => {
   const dialogue = useSelector((state: RootState) => state.dialogue);
@@ -25,13 +26,13 @@ const ModalSubBodyInfo = () => {
 
   return (
     <ModalSubBodyInfoWrapper>
-      <ModalInfoContainer title="Dialogue Summary" gap={6}>
+      <ModalInfoContainer title={text.phase_2.task_1.modal_1} gap={6}>
         <RegularText text={dialogue.summary} color="gray350" size={14} />
       </ModalInfoContainer>
-      <ModalInfoContainer title="Learning Strategy">
+      <ModalInfoContainer title={text.phase_2.task_1.modal_2}>
         <StrategyTag strategy={dialogue.strategy} />
       </ModalInfoContainer>
-      <ModalInfoContainer title="Utterance Pattern">
+      <ModalInfoContainer title={text.phase_2.task_1.modal_3}>
         <InfoTagWrapper>
           {dialogue.pattern.map((el, idx) => (
             <TagWrapper
@@ -47,7 +48,7 @@ const ModalSubBodyInfo = () => {
         </InfoTagWrapper>
       </ModalInfoContainer>
 
-      <ModalInfoContainer title="Knowledge Level">
+      <ModalInfoContainer title={text.phase_2.task_1.modal_4}>
         {dialogue.level.map((lev) => (
           <LevelInfoContainer {...lev} />
         ))}

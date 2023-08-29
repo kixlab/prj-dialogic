@@ -6,6 +6,7 @@ import { BlackText, BoldText, RegularText } from "@/styles/text";
 import { colors } from "@/styles/colors";
 import HeaderIconImg from "@/assets/dialogic.png";
 import { useNavigate } from "react-router-dom";
+import { text } from "@/states/constant";
 
 const Header = ({ disable }: { disable: boolean }) => {
   const phase: number = useSelector((state: RootState) => state.phase.phase);
@@ -62,11 +63,11 @@ interface HeaderStageProps {
 const stageName = (stage: number): string => {
   switch (stage) {
     case 1:
-      return "Initial Generation";
+      return text.phase_1.title;
     case 2:
-      return "Evaluation";
+      return text.phase_2.title;
     case 3:
-      return "Refinement";
+      return text.phase_3.title;
     default:
       return "Undefined";
   }
