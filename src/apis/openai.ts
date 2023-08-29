@@ -9,7 +9,7 @@ export const getScript = async (url: string): Promise<string | void> => {
       const formData = new FormData();
       formData.append('file', file, 'input.mp4');
       formData.append('model', 'whisper-1');
-      formData.append('language', 'en');
+      formData.append('language', 'ko');
       // Now you have the Blob representing the mp4 video
       // You can use the 'blob' variable here
 

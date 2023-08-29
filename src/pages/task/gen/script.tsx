@@ -9,7 +9,6 @@ import { colors } from "@/styles/colors";
 import { doneTask, initTask, updateLoading } from "@/states/phaseSlice";
 import {
   updateFullScript,
-  updateRubric,
   updateScript,
   updateSelections,
 } from "@/states/userDataSlice";
@@ -17,7 +16,6 @@ import {
 import { HiStar, HiDocumentText } from "react-icons/hi";
 import { ModeButton, ModeButtonContainer } from "../components/modeButton";
 import TaskContainer from "../components/taskContainer";
-import { getRubric } from "@/apis/lab";
 import Loading from "../components/loading";
 import { text } from "@/states/constant";
 
@@ -39,9 +37,6 @@ const Script = () => {
   );
   const fullScript: string | null = useSelector(
     (state: RootState) => state.userData.fullScript
-  );
-  const rubric: string | null = useSelector(
-    (state: RootState) => state.userData.rubric
   );
 
   const selections = useSelector(
@@ -67,17 +62,10 @@ const Script = () => {
   }, []);
 
   useEffect(() => {
-    if (!loading) setEditContainerHeight();
+    if (!loading) {
+      setEditContainerHeight();
+    }
   }, [loading]);
-
-  useEffect(() => {
-    const asyncWrapper = async () => {
-      if (!script) return;
-      const rubric = await getRubric(script);
-      dispatch(updateRubric(rubric));
-    };
-    asyncWrapper();
-  }, [script]);
 
   const setEditContainerHeight = () => {
     const editContainer = document.getElementById(
@@ -108,10 +96,9 @@ const Script = () => {
   useEffect(() => {
     // update highlight marks
     setHighlightContainerText();
-    if ((!base && selections.length == 0) || !fullScript || !rubric)
-      dispatch(initTask());
+    if ((!base && selections.length == 0) || !fullScript) dispatch(initTask());
     else dispatch(doneTask());
-  }, [selections, fullScript, rubric]);
+  }, [selections, fullScript]);
 
   const onMouseUp = () => {
     const selection = window.getSelection();

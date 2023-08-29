@@ -1,32 +1,39 @@
-import { colors } from "@/styles/colors";
-import { BoldText } from "@/styles/text";
-import { IconContext } from "react-icons";
-import { BiInfoCircle } from "react-icons/bi";
 import styled from "styled-components";
 import TaskContainer from "../components/taskContainer";
 import { useSelector } from "react-redux";
 import { RootState } from "@/states/state";
 import { useDispatch } from "react-redux";
-import { updateScenario } from "@/states/userDataSlice";
+import { updateRubric, updateScenario } from "@/states/userDataSlice";
 import { tuteeToNumber } from "./utils";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { doneTask } from "@/states/phaseSlice";
-import InfoBubble from "../components/infoBubble";
 import { text } from "@/states/constant";
+import InputContainer from "../components/inputContainer";
+import { getRubric } from "@/apis/lab";
 
 const Scenario = () => {
-  const scenario: { tutee: number; context: string; scenario: string } =
-    useSelector((state: RootState) => state.userData.scenario);
   const dispatch = useDispatch();
 
+  const scenario: { tutee: number; context: string; scenario: string } =
+    useSelector((state: RootState) => state.userData.scenario);
+  const script: string | null = useSelector(
+    (state: RootState) => state.userData.script
+  );
+
   useEffect(() => {
-    dispatch(doneTask());
+    const asyncWrapper = async () => {
+      if (!script) return;
+      const rubric = await getRubric(script);
+      dispatch(updateRubric(rubric.rubric));
+      dispatch(doneTask());
+    };
+    asyncWrapper();
   }, []);
 
   return (
     <TaskContainer gap={10} padding={true} align="start">
       <ScenarioRowWrapper>
-        <ScenarioInput
+        <InputContainer
           title={text.phase_1.task_4.button_1}
           description=""
           value={scenario.tutee.toString()}
@@ -41,7 +48,7 @@ const Scenario = () => {
           option={false}
           hover={false}
         />
-        <ScenarioInput
+        <InputContainer
           title={text.phase_1.task_4.button_2.title}
           description={text.phase_1.task_4.button_2.description}
           value={scenario.context}
@@ -53,7 +60,7 @@ const Scenario = () => {
         />
       </ScenarioRowWrapper>
       <ScenarioRowWrapper>
-        <ScenarioInput
+        <InputContainer
           title={text.phase_1.task_4.button_3.title}
           description={text.phase_1.task_4.button_3.description}
           value={scenario.scenario}
@@ -76,87 +83,4 @@ const ScenarioRowWrapper = styled.div`
   display: flex;
   flex-direction: row;
   gap: 20px;
-`;
-
-interface ScenarioInputProps {
-  title: string;
-  description: string;
-  value: string;
-  option: boolean;
-  hover: boolean;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-}
-
-const ScenarioInput = (props: ScenarioInputProps) => {
-  const [hover, setHover] = useState<boolean>(false);
-
-  return (
-    <ScenarioInputWrapper {...props}>
-      <ScenarioInputTitleWrapper
-        onPointerEnter={() => setHover(true)}
-        onPointerLeave={() => setHover(false)}
-      >
-        {props.hover && hover && (
-          <InfoBubble
-            text={props.description}
-            bottom={15}
-            align="left"
-            size="large"
-          />
-        )}
-        <BoldText text={props.title} color="gray300" size={15} />
-        {!props.option && <BoldText text="*" color="green300" size={14} />}
-        {props.hover && (
-          <IconContext.Provider
-            value={{
-              color: colors["gray300"],
-              style: {
-                width: "18px",
-                height: "18px",
-                cursor: "pointer",
-                marginTop: "1px",
-              },
-            }}
-          >
-            <BiInfoCircle />
-          </IconContext.Provider>
-        )}
-      </ScenarioInputTitleWrapper>
-      <ScenarioInputField value={props.value} onChange={props.onChange} />
-    </ScenarioInputWrapper>
-  );
-};
-
-const ScenarioInputWrapper = styled.div<ScenarioInputProps>`
-  flex: 1;
-  height: fit-content;
-
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 10px;
-`;
-const ScenarioInputTitleWrapper = styled.div`
-  position: relative;
-
-  display: flex;
-  flex-direction: row;
-  gap: 3px;
-`;
-const ScenarioInputField = styled.input`
-  width: 100%;
-  height: 40px;
-
-  background-color: ${colors["gray50"]};
-  border: 1px solid ${colors["gray200"]};
-  border-radius: 10px;
-  outline: none;
-
-  &:focus {
-    outline: none;
-    border: 1.5px solid ${colors["green200"]};
-  }
-
-  box-sizing: border-box;
-  padding: 10px 15px;
 `;

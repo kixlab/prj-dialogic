@@ -58,6 +58,7 @@ const InfoBubbleContainer = styled.div<InfoBubbleProps>`
 const AuthorText = styled.div<InfoBubbleProps>`
   color: ${colors["white"]};
   font-size: ${(props) => (props.size == "small" ? "11px" : "12px")};
+
   white-space: pre;
 `;
 

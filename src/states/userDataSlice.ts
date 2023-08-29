@@ -35,9 +35,13 @@ const userDataSlice = createSlice({
     },
     updateTargets: (state, action: PayloadAction<number[]>) => {
       state.targets = action.payload;
+    },
+    updateReasons: (state, action: PayloadAction<{ idx: number, reason: string }>) => {
+      const { idx, reason } = action.payload;
+      state.reasons[idx] = reason;
     }
   }
 })
 
-export const { initUserData, updateScript, updateFullScript, updateSelections, updateScenario, updateRubric, updateTargets } = userDataSlice.actions;
+export const { updateReasons, initUserData, updateScript, updateFullScript, updateSelections, updateScenario, updateRubric, updateTargets } = userDataSlice.actions;
 export default userDataSlice.reducer;

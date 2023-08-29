@@ -14,6 +14,7 @@ import { getDialogue } from "@/apis/lab";
 import { getSelectionString } from "../gen/utils";
 import styled from "styled-components";
 import { initGeneration, updateGeneration } from "@/states/dataSlice";
+import LevelTable from "./levelTable";
 
 const Result = () => {
   const dispatch = useDispatch();
@@ -116,6 +117,7 @@ const Result = () => {
               />
             </DialogueCardWrapper>
           )}
+          <LevelTable />
         </DialogueCardContainer>
       ) : (
         <DialogueModal onClose={onClose} />

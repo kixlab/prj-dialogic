@@ -20,6 +20,7 @@ export const rootState: RootState = {
       scenario: '',
     },
     rubric: null,
+    reasons: ['', '']
   },
   data: {
     video: null,
@@ -64,6 +65,7 @@ export interface RootState {
       scenario: string,
     },
     rubric: string | null,
+    reasons: string[],
   };
   data: {
     video: string | null,

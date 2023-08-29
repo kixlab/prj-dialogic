@@ -12,7 +12,7 @@ import { colors } from "@/styles/colors";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { BoldText, RegularText } from "@/styles/text";
-import { levelToState, uttrToState } from "./modal/utils";
+import { levelToState, uttrToState } from "./utils";
 
 import StrategyTag from "./strategyTag";
 import { useSelector } from "react-redux";
@@ -73,7 +73,7 @@ const DialogueCard = (props: DialogueCardProps) => {
                 size={13}
               />
               <BoldText
-                text={"Level " + el[1].split(":")[1]}
+                text={text.phase_2.task_2.card_2 + " " + el[1].split(":")[1]}
                 color="green300"
                 size={12}
               />

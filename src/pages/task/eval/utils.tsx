@@ -5,11 +5,16 @@ export const rubricToState = (rubric: string) => {
   const parse = rubric.split(">> ");
   const result: { concept: string; level: string[] }[] = [];
   parse.splice(0, 1); // remove instruction
+
   parse.forEach((el) => {
-    const concept = el.split(": ")[1].split("\n")[0];
+    const concept = el.split("[")[1].split("]")[0];
+
     const level = [];
-    for (let i = 0; i < 4; i++)
-      level.push(el.split(": ")[i + 2].split("\n")[0]);
+    for (let i = 0; i < 3; i++)
+      level.push(el.split("> ")[i + 1].split("\n")[0]);
+
+    level.push(el.split("> ")[4]);
+
     result.push({ concept, level });
   });
   return result;
