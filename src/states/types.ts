@@ -23,3 +23,12 @@ export interface PatternInfo {
   start: number;
   end: number;
 }
+
+export interface GenerationItem {
+  teaching_strategies: string[];
+  learning_objective: string;
+  patterns: number[][];
+  teaching_scenario: string;
+  understanding_states: string[][];
+  uttrs: string[][];
+}

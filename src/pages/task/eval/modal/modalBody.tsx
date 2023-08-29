@@ -16,7 +16,7 @@ const ModalBody = () => {
     <ModalBodyWrapper>
       <ModalTitleWrapper>
         <RegularText
-          text={text.phase_2.task_1.modal_0}
+          text={text.phase_2.task_2.modal_0}
           color="gray350"
           size={12}
         />

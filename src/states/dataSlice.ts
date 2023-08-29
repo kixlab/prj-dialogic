@@ -1,5 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { rootState } from './state';
+import { GenerationItem } from './types';
 
 
 const dataSlice = createSlice({
@@ -34,11 +35,17 @@ const dataSlice = createSlice({
     },
     initMagicItem: (state) => {
       state.magicItem = null;
+    },
+    updateGeneration: (state, action: PayloadAction<GenerationItem[]>) => {
+      state.generation = action.payload;
+    },
+    initGeneration: (state) => {
+      state.generation = [];
     }
 
 
   }
 })
 
-export const { updateMagicItem, initMagicItem, initData, updateVideo, updateFullVideo, initVideo, initDescription, updateDescription } = dataSlice.actions;
+export const { updateGeneration, initGeneration, updateMagicItem, initMagicItem, initData, updateVideo, updateFullVideo, initVideo, initDescription, updateDescription } = dataSlice.actions;
 export default dataSlice.reducer;

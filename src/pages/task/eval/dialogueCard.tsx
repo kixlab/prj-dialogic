@@ -31,7 +31,7 @@ interface DialogueCardProps {
 
 const DialogueCard = (props: DialogueCardProps) => {
   const dispatch = useDispatch();
-  const title = text.phase_2.task_1.card_1 + " " + props.idx;
+  const title = text.phase_2.task_2.card_1 + " " + props.idx;
   const base = useSelector((state: RootState) => state.phase.base);
 
   const onClick = () => {

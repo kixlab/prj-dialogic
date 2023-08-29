@@ -1,4 +1,4 @@
-import { LevelInfo, PatternInfo, UtteranceItem } from "./types";
+import { GenerationItem, LevelInfo, PatternInfo, UtteranceItem } from "./types";
 
 export const rootState: RootState = {
   phase: {
@@ -26,6 +26,7 @@ export const rootState: RootState = {
     fullVideo: null,
     description: 'Sample Description',
     magicItem: null,
+    generation: [],
   },
   dialogue: {
     title: 'Sample Title',
@@ -69,6 +70,7 @@ export interface RootState {
     fullVideo: string | null,
     description: string,
     magicItem: number | null,
+    generation: GenerationItem[]
   };
   dialogue: {
     title: string,

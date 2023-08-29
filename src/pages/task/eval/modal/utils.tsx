@@ -1,6 +1,20 @@
 import { LevelInfo, PatternInfo, UtteranceItem } from "@/states/types";
 import { v4 as uuid } from "uuid";
 
+export const rubricToState = (rubric: string) => {
+  const parse = rubric.split(">> ");
+  const result: { concept: string; level: string[] }[] = [];
+  parse.splice(0, 1); // remove instruction
+  parse.forEach((el) => {
+    const concept = el.split(": ")[1].split("\n")[0];
+    const level = [];
+    for (let i = 0; i < 4; i++)
+      level.push(el.split(": ")[i + 2].split("\n")[0]);
+    result.push({ concept, level });
+  });
+  return result;
+};
+
 export const levelToState = (level: string[][]): LevelInfo[] => {
   const result: LevelInfo[] = [];
   level.forEach((el) => {

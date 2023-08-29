@@ -6,6 +6,7 @@ const { VITE_LAB_HOST } = import.meta.env;
 
 export const getRubric = async (script: string) => {
   return axios.post(VITE_LAB_HOST + '/create_rubric', { selected_script: script }).then((res: any) => {
+    console.log(res.data);
     return res.data;
   })
 }

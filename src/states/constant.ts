@@ -35,6 +35,10 @@ const enText = {
   phase_2: {
     title: 'Evaluation',
     task_1: {
+      title: '',
+      description: ''
+    },
+    task_2: {
       title: 'Select a one dialogue',
       description: 'Select a dialogue you want to revise. Click the reload button to get more dialogues.',
       button_1: 'Reload',
@@ -124,6 +128,10 @@ const koText = {
   phase_2: {
     title: 'Evaluation',
     task_1: {
+      title: '',
+      description: ''
+    },
+    task_2: {
       title: '생성된 대화 선택하기',
       description: '생성된 대화 중 하나를 선택하세요. 재생성 버튼을 눌러 더 많은 대화를 확인할 수 있습니다.',
       button_1: '재생성',

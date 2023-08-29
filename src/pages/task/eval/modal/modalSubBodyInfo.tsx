@@ -26,13 +26,13 @@ const ModalSubBodyInfo = () => {
 
   return (
     <ModalSubBodyInfoWrapper>
-      <ModalInfoContainer title={text.phase_2.task_1.modal_1} gap={6}>
+      <ModalInfoContainer title={text.phase_2.task_2.modal_1} gap={6}>
         <RegularText text={dialogue.summary} color="gray350" size={14} />
       </ModalInfoContainer>
-      <ModalInfoContainer title={text.phase_2.task_1.modal_2}>
+      <ModalInfoContainer title={text.phase_2.task_2.modal_2}>
         <StrategyTag strategy={dialogue.strategy} />
       </ModalInfoContainer>
-      <ModalInfoContainer title={text.phase_2.task_1.modal_3}>
+      <ModalInfoContainer title={text.phase_2.task_2.modal_3}>
         <InfoTagWrapper>
           {dialogue.pattern.map((el, idx) => (
             <TagWrapper
@@ -48,7 +48,7 @@ const ModalSubBodyInfo = () => {
         </InfoTagWrapper>
       </ModalInfoContainer>
 
-      <ModalInfoContainer title={text.phase_2.task_1.modal_4}>
+      <ModalInfoContainer title={text.phase_2.task_2.modal_4}>
         {dialogue.level.map((lev) => (
           <LevelInfoContainer {...lev} />
         ))}
