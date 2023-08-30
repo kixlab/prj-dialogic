@@ -15,8 +15,9 @@ const userDataSlice = createSlice({
         tutee: 1,
         context: '',
         scenario: '',
-      },
-        state.rubric = null;
+      };
+      state.rubric = null;
+      state.reasons = ['', ''];
     },
     updateScript: (state, action: PayloadAction<string>) => {
       state.script = action.payload;
