@@ -26,9 +26,10 @@ const Intention = () => {
   useEffect(() => {
     //dialogue generation
     const container = document.getElementById("scriptContainer");
-    if (!container || !script) return;
+    if (!container || !script || !see) return;
+
     container.innerHTML = addMarks(script, selections);
-  }, []);
+  }, [see]);
 
   useEffect(() => {
     if (reasons[0].length !== 0 && reasons[1].length !== 0)

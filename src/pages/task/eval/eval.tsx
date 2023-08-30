@@ -41,7 +41,7 @@ const Eval = () => {
     //{full_script:string, selected_script:string, highlights:List[string], teaching_scenario:str, rubric:str}
     //scenario는 {“number_tutee”: N, “learning_context”: learning_context, “learning_scenario”: learning_scenario
     const asyncWrapper = async () => {
-      if (!script || !fullScript || !rubric) return;
+      if (!script || !fullScript) return;
       dispatch(initGeneration());
       dispatch(updateLoading(true));
 
