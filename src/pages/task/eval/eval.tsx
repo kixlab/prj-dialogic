@@ -54,7 +54,7 @@ const Eval = () => {
           learning_context: scenario.context,
           learning_scenario: scenario.scenario,
         },
-        rubric,
+        rubric: rubric ?? "",
       };
       const dialogues = await getDialogue(data);
 
