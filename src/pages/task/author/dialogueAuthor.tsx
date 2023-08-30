@@ -14,6 +14,7 @@ import { AuthorMode, UtteranceItem } from "@/states/types";
 
 const DialogueAuthor = (props: { mode: AuthorMode }) => {
   const dispatch = useDispatch();
+  const base = useSelector((state: RootState) => state.phase.base);
   const items = useSelector((state: RootState) => state.dialogue.dialogue);
   const title = useSelector((state: RootState) => state.dialogue.title);
   const [width, setWidth] = useState<number>(0);
@@ -35,7 +36,11 @@ const DialogueAuthor = (props: { mode: AuthorMode }) => {
   return (
     <DialogueAuthorWrapper>
       <DialogueTitleWrapper>
-        <RegularText text="Dialogic-Lecture" color="gray350" size={12} />
+        <RegularText
+          text={base ? "Duco-A" : "Duco-B"}
+          color="gray350"
+          size={12}
+        />
         <DialogueTitle
           value={title}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
