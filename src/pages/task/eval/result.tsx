@@ -21,6 +21,8 @@ const Result = () => {
   const dispatch = useDispatch();
 
   const loading = useSelector((state: RootState) => state.phase.loading);
+  const base = useSelector((state: RootState) => state.phase.base);
+
   const dialogue = useSelector((state: RootState) => state.dialogue.dialogue);
   const generation = useSelector((state: RootState) => state.data.generation);
 
@@ -122,7 +124,7 @@ const Result = () => {
               />
             </DialogueCardWrapper>
           )}
-          <LevelTable />
+          {!base && <LevelTable />}
         </DialogueCardContainer>
       ) : (
         <DialogueModal onClose={onClose} />

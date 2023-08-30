@@ -54,7 +54,11 @@ const MagicItemUnit = (props: VariationItem) => {
           color={"gray400"}
           size={13}
         />
-        <Tag title={props.category} theme="blue" />
+        <Tag
+          title={props.category}
+          theme={props.speaker == 0 ? "blue" : "pink"}
+          wrap={true}
+        />
       </MagicItemTitleWrapper>
       <MagicItemTextWrapper>{props.utterance} </MagicItemTextWrapper>
     </MagicItemUnitWrapper>

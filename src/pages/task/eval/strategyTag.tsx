@@ -1,12 +1,17 @@
 import styled from "styled-components";
-import { getTagTheme } from "../utils";
+import { getStrategy, getTagTheme } from "../utils";
 import Tag from "../components/tag";
 
 const StrategyTag = ({ strategy }: { strategy: string[] }) => {
   return (
     <StrategyTagWrapper>
       {strategy.map((title) => (
-        <Tag key={title} title={title} theme={getTagTheme(title)} />
+        <Tag
+          key={title}
+          title={getStrategy(title).title}
+          description={getStrategy(title).description}
+          theme={getTagTheme(title)}
+        />
       ))}
     </StrategyTagWrapper>
   );

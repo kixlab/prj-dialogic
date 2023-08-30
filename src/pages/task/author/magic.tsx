@@ -5,7 +5,7 @@ import { BoldText, RegularText } from "@/styles/text";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import FeatureButton from "../components/featureButton";
-import { BiCheck, BiCommentDots, BiSolidMagicWand } from "react-icons/bi";
+import { BiCheck, BiCommentDots, BiVial } from "react-icons/bi";
 import { LuMousePointer2 } from "react-icons/lu";
 import { dialogueToData, getTargetNum, levelToData, varToState } from "./utils";
 import { IconContext } from "react-icons";
@@ -124,7 +124,7 @@ const Magic = () => {
           disable={targets.length == 0 || targets[0] == -1 || loading == true}
           onClick={onMagic}
         >
-          <BiSolidMagicWand />
+          <BiVial />
         </FeatureButton>
       </MagicTopWrapper>
       <MagicDivider />

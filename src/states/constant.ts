@@ -101,6 +101,24 @@ const enText = {
   dialoge: {
     tutor: 'Tutor',
     tutee: 'Tutee',
+    strategies: {
+      cognitive_conflict: {
+        title: 'Cognitive conflict',
+        description: '',
+      },
+      metacognitive_prompting: {
+        title: 'Metacognitive prompting',
+        description: '',
+      },
+      cognitive_prompting: {
+        title: 'Cognitive prompting',
+        description: '',
+      },
+      deep_level_reasoning_questions: {
+        title: 'Deep-level reasoning questions',
+        description: '',
+      }
+    }
   }
 }
 
@@ -174,7 +192,7 @@ const koText = {
       title: '선택한 대화 편집하기',
       description: '각 발화를 직접 편집하거나 좌측 상단의 편집도구를 이용하여 수정하세요. 각 발화의 순서는 드래그-드랍으로 변경할 수 있습니다. 최종 대화에 제목을 지어 완성하세요.',
       button_1: '대화 설명',
-      button_2: '매직?',
+      button_2: '실험실',
       button_3: '독백 스크립트',
       button_4: {
         title: '선택 대상',
@@ -204,7 +222,25 @@ const koText = {
   },
   dialoge: {
     tutor: '교사',
-    tutee: '학생'
+    tutee: '학생',
+    strategies: {
+      cognitive_conflict: {
+        title: '인지갈등 (Cognitive conflict)',
+        description: '생각의 충돌을 통해 새로운 이해와 관점을 유발하는 전략',
+      },
+      metacognitive_prompting: {
+        title: '메타인지적 프롬프팅 (Metacognitive prompting)',
+        description: '학습자 스스로 사고 및 학습과정을 인지할 수 있도록 유도하는 전략',
+      },
+      cognitive_prompting: {
+        title: '인지적 프롬프팅 (Cognitive prompting)',
+        description: '학습자가 알고 있는 중요한 정보 또는 아이디어를 끌어내는 전략',
+      },
+      deep_level_reasoning_questions: {
+        title: '심층질문 (Deep-level reasoning questions)',
+        description: '고차원적 사고와 비판적 분석을 촉진하기 위한 질문을 제공하는 전략',
+      }
+    }
   }
 }
 export const text = en ? enText : koText;

@@ -1,3 +1,4 @@
+import { text } from "@/states/constant";
 import { LevelInfo } from "@/states/types";
 import { colors } from "@/styles/colors";
 import { BoldText, RegularText } from "@/styles/text";
@@ -8,7 +9,7 @@ export const LevelInfoContainer = (props: LevelInfo) => {
   return (
     <LevelInfoWrapper>
       <BoldText
-        text={"Level " + props.level.toString()}
+        text={text.phase_2.task_2.card_2 + " " + props.level.toString()}
         color="green300"
         size={12}
       />

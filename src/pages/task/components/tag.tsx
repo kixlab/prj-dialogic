@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import InfoBubble from "./infoBubble";
 
 const themeColors: Record<string, { text: string; background: string }> = {
   gray: {
@@ -33,12 +34,17 @@ const themeColors: Record<string, { text: string; background: string }> = {
 
 interface TagProps {
   title: string;
+  description?: string;
+  wrap?: boolean;
   theme: keyof typeof themeColors;
 }
 
 const Tag = (props: TagProps) => {
   return (
     <TagContainer {...props}>
+      {props.description && (
+        <InfoBubble text={props.description} align="center" size="small" />
+      )}
       <TagTitle {...props}>{props.title}</TagTitle>
     </TagContainer>
   );
@@ -59,11 +65,13 @@ const TagContainer = styled.div<TagProps>`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  ${(props) => props.description && `cursor: pointer;`}
 `;
 
 const TagTitle = styled.div<TagProps>`
   color: ${(props) => themeColors[props.theme].text};
 
   font-size: 12px;
-  white-space: nowrap;
+  white-space: ${(props) => (props.wrap == true ? "pre-wrap" : "nowrap")};
 `;

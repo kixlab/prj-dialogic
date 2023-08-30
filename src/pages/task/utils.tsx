@@ -18,6 +18,23 @@ const learningStrategy: string[] = [
   "Deep-level reasoning questions",
 ];
 
+export const getStrategy = (
+  title: string
+): { title: string; description: string } => {
+  switch (title) {
+    case "Cognitive conflict":
+      return text.dialoge.strategies.cognitive_conflict;
+    case "Metacognitive prompting":
+      return text.dialoge.strategies.metacognitive_prompting;
+    case "Cognitive prompting":
+      return text.dialoge.strategies.cognitive_prompting;
+    case "Deep-level reasoning questions":
+      return text.dialoge.strategies.deep_level_reasoning_questions;
+    default:
+      return { title: "", description: "" };
+  }
+};
+
 export const getTagTheme = (title: string) => {
   const idx: number = learningStrategy.findIndex(
     (strategy) => strategy == title
