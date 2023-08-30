@@ -10,8 +10,9 @@ import { RootState } from "@/states/state";
 import { addMarks } from "../gen/utils";
 import InputContainer from "../components/inputContainer";
 import { useDispatch } from "react-redux";
-import { updateReasons } from "@/states/userDataSlice";
+import { updateReasons, updateRubric } from "@/states/userDataSlice";
 import { doneTask, initTask } from "@/states/phaseSlice";
+import { getRubric } from "@/apis/lab";
 
 const Intention = () => {
   const [see, setSee] = useState<boolean>(false);
@@ -22,16 +23,27 @@ const Intention = () => {
     (state: RootState) => state.userData.selections
   );
   const reasons = useSelector((state: RootState) => state.userData.reasons);
+  const base = useSelector((state: RootState) => state.phase.base);
+  const rubric = useSelector((state: RootState) => state.userData.rubric);
 
   useEffect(() => {
+    const asyncWrapper = async () => {
+      // for baseline rubric
+      if (!script) return;
+      const rubric = await getRubric(script);
+      dispatch(updateRubric(rubric.rubric));
+      if (reasons[0].length !== 0 && reasons[1].length !== 0)
+        dispatch(doneTask());
+    };
     //dialogue generation
     const container = document.getElementById("scriptContainer");
     if (!container || !script) return;
     container.innerHTML = addMarks(script, selections);
+    if (base) asyncWrapper();
   });
 
   useEffect(() => {
-    if (reasons[0].length !== 0 && reasons[1].length !== 0)
+    if (reasons[0].length !== 0 && reasons[1].length !== 0 && rubric !== null)
       dispatch(doneTask());
     else dispatch(initTask());
   }, [reasons]);
