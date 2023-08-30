@@ -10,7 +10,7 @@ import DialogueModal from "./modal/modal";
 import { useDispatch } from "react-redux";
 import { initTask, updateLoading } from "@/states/phaseSlice";
 import { updateDialogue } from "@/states/dialogueSlice";
-import { getDialogue } from "@/apis/lab";
+import { getDialogue, getDialogueBase } from "@/apis/lab";
 import { getSelectionString } from "../gen/utils";
 import styled from "styled-components";
 import { initGeneration, updateGeneration } from "@/states/dataSlice";
@@ -50,6 +50,7 @@ const Result = () => {
     dispatch(initGeneration());
 
     if (!script) return;
+    let dialogues;
     const data = {
       full_script: fullScript,
       selected_script: script,
@@ -62,7 +63,10 @@ const Result = () => {
       rubric,
     };
 
-    const dialogues = await getDialogue(data);
+    if (base) {
+      dialogues = await getDialogueBase({ ...data, is_baseline: true });
+    } else dialogues = await getDialogue(data);
+
     dispatch(updateGeneration(dialogues));
     dispatch(updateLoading(false));
   };

@@ -12,7 +12,7 @@ import SubTask from "../components/subtask";
 import { useSelector } from "react-redux";
 import { RootState } from "@/states/state";
 
-import { getDialogue } from "@/apis/lab";
+import { getDialogue, getDialogueBase } from "@/apis/lab";
 import { getSelectionString } from "../gen/utils";
 
 import { text } from "@/states/constant";
@@ -24,6 +24,7 @@ const Eval = () => {
   const [step, setStep] = useState<number>(1);
 
   const dialogue = useSelector((state: RootState) => state.dialogue.dialogue);
+  const base = useSelector((state: RootState) => state.phase.base);
 
   const script = useSelector((state: RootState) => state.userData.script);
   const fullScript = useSelector(
@@ -45,6 +46,7 @@ const Eval = () => {
       dispatch(initGeneration());
       dispatch(updateLoading(true));
 
+      let dialogues;
       const data = {
         full_script: fullScript,
         selected_script: script,
@@ -56,7 +58,9 @@ const Eval = () => {
         },
         rubric: rubric ?? "",
       };
-      const dialogues = await getDialogue(data);
+      if (base) {
+        dialogues = await getDialogueBase({ ...data, is_baseline: true });
+      } else dialogues = await getDialogue(data);
 
       dispatch(updateGeneration(Object.values(dialogues)));
       dispatch(updateLoading(false));
@@ -90,7 +94,11 @@ const Eval = () => {
       <SubTask
         type="long"
         title={text.phase_2.task_2.title}
-        subtitle={text.phase_2.task_2.description}
+        subtitle={
+          base
+            ? text.phase_2.task_2.description_base
+            : text.phase_2.task_2.description
+        }
         status={getStatus(2, step)}
         onNext={onNext}
       >

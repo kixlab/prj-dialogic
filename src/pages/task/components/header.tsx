@@ -4,17 +4,27 @@ import { RootState } from "@/states/state";
 
 import { BlackText, BoldText, RegularText } from "@/styles/text";
 import { colors } from "@/styles/colors";
-import HeaderIconImg from "@/assets/dialogic.png";
+import HeaderIconImg from "@/assets/duco.svg";
+import HeaderIconImg1 from "@/assets/duco_a.svg";
+import HeaderIconImg2 from "@/assets/duco_b.svg";
+
 import { useNavigate } from "react-router-dom";
 import { text } from "@/states/constant";
 
 const Header = ({ disable }: { disable: boolean }) => {
   const phase: number = useSelector((state: RootState) => state.phase.phase);
+  const base: boolean = useSelector((state: RootState) => state.phase.base);
+
   const navigate = useNavigate();
 
   return (
     <HeaderWrapper>
-      <HeaderIcon src={HeaderIconImg} onClick={() => navigate("/")} />
+      <HeaderIcon
+        src={
+          phase == 0 ? HeaderIconImg : base ? HeaderIconImg1 : HeaderIconImg2
+        }
+        onClick={() => navigate("/")}
+      />
       {!disable && (
         <>
           {" "}
@@ -32,7 +42,7 @@ const Header = ({ disable }: { disable: boolean }) => {
 export default Header;
 
 const HeaderIcon = styled.img`
-  width: 75px;
+  height: 14px;
 
   position: absolute;
   top: 50%;

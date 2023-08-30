@@ -50,6 +50,7 @@ const enText = {
     },
     task_2: {
       title: 'Select a one dialogue',
+      description_base: '.',
       description: 'Select a dialogue you want to revise. Click the reload button to get more dialogues.',
       button_1: 'Reload',
       card_1: 'Dialogue',
@@ -172,6 +173,7 @@ const koText = {
     },
     task_2: {
       title: '생성된 대화 선택하기',
+      description_base: '생성된 대화 중 하나를 선택하세요. 재생성 버튼을 눌러 더 많은 대화를 확인할 수 있습니다.',
       description: '생성된 대화 중 하나를 선택하세요. 재생성 버튼을 눌러 더 많은 대화를 확인할 수 있습니다. 대화가 생성되는 동안 아래의 표를 확인하세요. 강의에 등장한 주요 개념에 대해 학습자가 가질 수 있는 수준을 정리한 내용입니다.',
       button_1: '재생성',
       card_1: '대화',

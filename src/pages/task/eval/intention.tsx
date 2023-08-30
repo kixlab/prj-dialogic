@@ -17,6 +17,7 @@ const Intention = () => {
   const [see, setSee] = useState<boolean>(false);
   const dispatch = useDispatch();
 
+  const base = useSelector((state: RootState) => state.phase.base);
   const script = useSelector((state: RootState) => state.userData.script);
   const selections = useSelector(
     (state: RootState) => state.userData.selections
@@ -32,7 +33,7 @@ const Intention = () => {
   }, [see]);
 
   useEffect(() => {
-    if (reasons[0].length !== 0 && reasons[1].length !== 0)
+    if (reasons[0].length !== 0 && (base || reasons[1].length !== 0))
       dispatch(doneTask());
     else dispatch(initTask());
   }, [reasons]);
@@ -58,16 +59,18 @@ const Intention = () => {
               dispatch(updateReasons({ idx: 0, reason: e.target.value }));
             }}
           />
-          <InputContainer
-            title={text.phase_2.task_1.button_4.title}
-            description={text.phase_2.task_1.button_4.description}
-            value={reasons[1]}
-            option={false}
-            hover={true}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              dispatch(updateReasons({ idx: 1, reason: e.target.value }));
-            }}
-          />
+          {!base && (
+            <InputContainer
+              title={text.phase_2.task_1.button_4.title}
+              description={text.phase_2.task_1.button_4.description}
+              value={reasons[1]}
+              option={false}
+              hover={true}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                dispatch(updateReasons({ idx: 1, reason: e.target.value }));
+              }}
+            />
+          )}
         </IntentionContainer>
       </IntentionWrapper>
     </TaskContainer>

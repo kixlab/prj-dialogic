@@ -16,6 +16,13 @@ export const getDialogue = async (data: any): Promise<any[]> => {
   return axios.post(VITE_LAB_HOST + '/dialogue_generation', data).then((res: any) => {
     return res.data;
   })
+}
+
+export const getDialogueBase = async (data: any): Promise<any[]> => {
+
+  return axios.post(VITE_LAB_HOST + '/dialogue_generation_baseline', data).then((res: any) => {
+    return res.data;
+  })
 
 }
 
