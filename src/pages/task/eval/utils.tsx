@@ -2,7 +2,7 @@ import { LevelInfo, PatternInfo, UtteranceItem } from "@/states/types";
 import { v4 as uuid } from "uuid";
 
 export const rubricToState = (rubric: string) => {
-  const parse = rubric.split(">> ");
+  const parse = rubric.split("개념 ");
   const result: { concept: string; level: string[] }[] = [];
   parse.splice(0, 1); // remove instruction
 
@@ -10,10 +10,8 @@ export const rubricToState = (rubric: string) => {
     const concept = el.split("[")[1].split("]")[0];
 
     const level = [];
-    for (let i = 0; i < 3; i++)
-      level.push(el.split("> ")[i + 1].split("\n")[0]);
-
-    level.push(el.split("> ")[4]);
+    for (let i = 1; i < 5; i++)
+      level.push(el.split(i + " > ")[1].split("\n")[0]);
 
     result.push({ concept, level });
   });
