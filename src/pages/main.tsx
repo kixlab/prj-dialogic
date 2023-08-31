@@ -7,11 +7,14 @@ import Header from "./task/components/header";
 import styled from "styled-components";
 import { colors } from "@/styles/colors";
 import { transition } from "@/styles/animation";
-import { BoldText } from "@/styles/text";
+
 import { initAuthor } from "@/states/authorSlice";
 import { initData } from "@/states/dataSlice";
 import { initDialoue } from "@/states/dialogueSlice";
 import { initUserData } from "@/states/userDataSlice";
+
+import DucoAImg from "@/assets/duco_a.svg";
+import DucoBImg from "@/assets/duco_b.svg";
 
 const Main = () => {
   const navigate = useNavigate();
@@ -40,10 +43,10 @@ const Main = () => {
       <Header disable={true} />
       <MainBody>
         <MainButton onClick={() => onStart(true)}>
-          <BoldText text="Baseline" color="gray400" size={20} />
+          <img src={DucoAImg} style={{ width: "72px" }} />
         </MainButton>
         <MainButton onClick={() => onStart(false)}>
-          <BoldText text="System" color="gray400" size={20} />
+          <img src={DucoBImg} style={{ width: "70px" }} />
         </MainButton>
       </MainBody>
     </MainPage>
