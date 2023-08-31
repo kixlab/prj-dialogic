@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import InfoBubble from "./infoBubble";
+import { useState } from "react";
 
 const themeColors: Record<string, { text: string; background: string }> = {
   gray: {
@@ -40,9 +41,15 @@ interface TagProps {
 }
 
 const Tag = (props: TagProps) => {
+  const [hover, setHover] = useState<boolean>(false);
+
   return (
-    <TagContainer {...props}>
-      {props.description && (
+    <TagContainer
+      {...props}
+      onPointerEnter={() => setHover(true)}
+      onPointerLeave={() => setHover(false)}
+    >
+      {props.description && hover && (
         <InfoBubble text={props.description} align="center" size="small" />
       )}
       <TagTitle {...props}>{props.title}</TagTitle>

@@ -4,9 +4,8 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/states/state";
 import { useDispatch } from "react-redux";
 import { updateRubric, updateScenario } from "@/states/userDataSlice";
-import { tuteeToNumber } from "./utils";
-import { useEffect } from "react";
-import { doneTask, updateLoading } from "@/states/phaseSlice";
+import { useEffect, useState } from "react";
+import { doneTask, initTask, updateLoading } from "@/states/phaseSlice";
 import { text } from "@/states/constant";
 import InputContainer from "../components/inputContainer";
 import { getRubric } from "@/apis/lab";
@@ -14,13 +13,27 @@ import Loading from "../components/loading";
 
 const Scenario = () => {
   const dispatch = useDispatch();
+  const [tutee, setTutee] = useState<string>("");
 
   const scenario: { tutee: number; context: string; scenario: string } =
     useSelector((state: RootState) => state.userData.scenario);
   const script: string | null = useSelector(
     (state: RootState) => state.userData.script
   );
+  const rubric = useSelector((state: RootState) => state.userData.rubric);
   const loading = useSelector((state: RootState) => state.phase.loading);
+
+  const onTuteeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    if (value.length == 0) {
+      setTutee(value);
+      dispatch(initTask());
+    } else if (!Number.isNaN(parseInt(value))) {
+      setTutee(parseInt(value).toString());
+      dispatch(updateScenario({ ...scenario, tutee: parseInt(value) }));
+      if (rubric !== null) dispatch(doneTask());
+    }
+  };
 
   useEffect(() => {
     const asyncWrapper = async () => {
@@ -28,7 +41,7 @@ const Scenario = () => {
       if (!script) return;
       const rubric = await getRubric(script);
       dispatch(updateRubric(rubric.rubric));
-      dispatch(doneTask());
+      if (tutee.length !== 0) dispatch(doneTask());
       dispatch(updateLoading(false));
     };
     asyncWrapper();
@@ -40,15 +53,8 @@ const Scenario = () => {
         <InputContainer
           title={text.phase_1.task_4.button_1}
           description=""
-          value={scenario.tutee.toString()}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            dispatch(
-              updateScenario({
-                ...scenario,
-                tutee: tuteeToNumber(e.target.value),
-              })
-            );
-          }}
+          value={tutee}
+          onChange={onTuteeChange}
           option={false}
           hover={false}
         />

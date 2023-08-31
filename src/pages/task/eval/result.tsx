@@ -15,7 +15,6 @@ import { getSelectionString } from "../gen/utils";
 import styled from "styled-components";
 import { initGeneration, updateGeneration } from "@/states/dataSlice";
 import LevelTable from "./levelTable";
-import { useEffect } from "react";
 
 const Result = () => {
   const dispatch = useDispatch();
@@ -35,10 +34,6 @@ const Result = () => {
   const selections = useSelector(
     (state: RootState) => state.userData.selections
   );
-
-  useEffect(() => {
-    console.log("generation", generation);
-  }, [generation]);
 
   const onClose = () => {
     dispatch(updateDialogue([]));
