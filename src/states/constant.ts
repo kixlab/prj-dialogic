@@ -47,6 +47,10 @@ const enText = {
         title: '',
         description: ''
       },
+      button_5: {
+        title: '',
+        description: ''
+      },
     },
     task_2: {
       title: 'Select a one dialogue',
@@ -163,10 +167,14 @@ const koText = {
       button_1: '독백 스크립트 숨기기',
       button_2: '독백 스크립트 보기',
       button_3: {
+        title: '학습자 수준 상정 이유',
+        description: '강의를 보는 학생들을 어떤 기준으로 나누어 어떤 수준의 학생들을 고려하였나요?'
+      },
+      button_4: {
         title: '독백 스크립트 구간을 선택한 이유',
         description: '전체 강의 영상 중 해당 구간을 대화형으로 전환하는 이유가 무엇인가요?'
       },
-      button_4: {
+      button_5: {
         title: '하이라이트 구간을 선택한 이유',
         description: '독백 스크립트 중 해당 구간에서 학습자가 어떤 학습적 어려움을 겪을 수 있나요?'
       },

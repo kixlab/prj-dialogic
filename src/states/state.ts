@@ -20,7 +20,7 @@ export const rootState: RootState = {
       scenario: '',
     },
     rubric: null,
-    reasons: ['', '']
+    reasons: ['', '', '']
   },
   data: {
     video: null,

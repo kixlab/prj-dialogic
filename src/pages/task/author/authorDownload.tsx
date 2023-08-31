@@ -77,17 +77,23 @@ const AuthorDownload = () => {
             <AuthorTableWrapper>
               <AuthorTableContainer>
                 <tr>
-                  <AuthorTableHeader last={base}>
+                  <AuthorTableHeader last={false}>
                     {text.phase_2.task_1.button_3.title}
                   </AuthorTableHeader>
-                  <AuthorTableData last={base}>{reasons[0]}</AuthorTableData>
+                  <AuthorTableData last={false}>{reasons[0]}</AuthorTableData>
+                </tr>
+                <tr>
+                  <AuthorTableHeader last={base}>
+                    {text.phase_2.task_1.button_4.title}
+                  </AuthorTableHeader>
+                  <AuthorTableData last={base}>{reasons[1]}</AuthorTableData>
                 </tr>
                 {!base && (
                   <tr>
                     <AuthorTableHeader last={true}>
-                      {text.phase_2.task_1.button_4.title}
+                      {text.phase_2.task_1.button_5.title}
                     </AuthorTableHeader>
-                    <AuthorTableData last={true}>{reasons[1]}</AuthorTableData>
+                    <AuthorTableData last={true}>{reasons[2]}</AuthorTableData>
                   </tr>
                 )}
               </AuthorTableContainer>

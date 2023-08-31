@@ -59,15 +59,25 @@ const Intention = () => {
               dispatch(updateReasons({ idx: 0, reason: e.target.value }));
             }}
           />
+          <InputContainer
+            title={text.phase_2.task_1.button_4.title}
+            description={text.phase_2.task_1.button_4.description}
+            value={reasons[1]}
+            option={false}
+            hover={true}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              dispatch(updateReasons({ idx: 1, reason: e.target.value }));
+            }}
+          />
           {!base && (
             <InputContainer
-              title={text.phase_2.task_1.button_4.title}
-              description={text.phase_2.task_1.button_4.description}
-              value={reasons[1]}
+              title={text.phase_2.task_1.button_5.title}
+              description={text.phase_2.task_1.button_5.description}
+              value={reasons[2]}
               option={false}
               hover={true}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                dispatch(updateReasons({ idx: 1, reason: e.target.value }));
+                dispatch(updateReasons({ idx: 2, reason: e.target.value }));
               }}
             />
           )}
