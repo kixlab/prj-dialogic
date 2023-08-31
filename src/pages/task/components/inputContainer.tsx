@@ -13,6 +13,7 @@ interface InputContainerProps {
   option: boolean;
   hover: boolean;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  disable?: boolean;
 }
 
 const InputContainer = (props: InputContainerProps) => {
@@ -50,7 +51,11 @@ const InputContainer = (props: InputContainerProps) => {
           </IconContext.Provider>
         )}
       </InputContainerTitleWrapper>
-      <InputContainerField value={props.value} onChange={props.onChange} />
+      <InputContainerField
+        value={props.value}
+        onChange={props.onChange}
+        disabled={props.disable ?? false}
+      />
     </InputContainerWrapper>
   );
 };
