@@ -6,10 +6,11 @@ import { useDispatch } from "react-redux";
 import { updateRubric, updateScenario } from "@/states/userDataSlice";
 import { tuteeToNumber } from "./utils";
 import { useEffect } from "react";
-import { doneTask } from "@/states/phaseSlice";
+import { doneTask, updateLoading } from "@/states/phaseSlice";
 import { text } from "@/states/constant";
 import InputContainer from "../components/inputContainer";
 import { getRubric } from "@/apis/lab";
+import Loading from "../components/loading";
 
 const Scenario = () => {
   const dispatch = useDispatch();
@@ -19,13 +20,16 @@ const Scenario = () => {
   const script: string | null = useSelector(
     (state: RootState) => state.userData.script
   );
+  const loading = useSelector((state: RootState) => state.phase.loading);
 
   useEffect(() => {
     const asyncWrapper = async () => {
+      dispatch(updateLoading(true));
       if (!script) return;
       const rubric = await getRubric(script);
       dispatch(updateRubric(rubric.rubric));
       dispatch(doneTask());
+      dispatch(updateLoading(false));
     };
     asyncWrapper();
   }, []);
@@ -71,6 +75,7 @@ const Scenario = () => {
           hover={true}
         />
       </ScenarioRowWrapper>
+      {loading && <Loading />}
     </TaskContainer>
   );
 };
