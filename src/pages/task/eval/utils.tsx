@@ -7,7 +7,7 @@ export const rubricToState = (rubric: string) => {
   parse.splice(0, 1); // remove instruction
 
   parse.forEach((el) => {
-    const concept = el.split("[")[1].split("]")[0];
+    const concept = el.split(": ")[1].split("\n")[0];
 
     const level = [];
     for (let i = 1; i < 5; i++)

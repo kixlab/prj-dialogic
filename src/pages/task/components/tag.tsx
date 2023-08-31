@@ -50,7 +50,12 @@ const Tag = (props: TagProps) => {
       onPointerLeave={() => setHover(false)}
     >
       {props.description && hover && (
-        <InfoBubble text={props.description} align="center" size="small" />
+        <InfoBubble
+          text={props.description}
+          align="center"
+          size="small"
+          bottom={20}
+        />
       )}
       <TagTitle {...props}>{props.title}</TagTitle>
     </TagContainer>
@@ -66,6 +71,7 @@ const TagContainer = styled.div<TagProps>`
   box-sizing: border-box;
   padding: 4px 8px;
 
+  position: relative;
   background-color: ${(props) => themeColors[props.theme].background};
   border-radius: 5px;
 

@@ -34,6 +34,10 @@ const Scenario = () => {
       if (rubric !== null) dispatch(doneTask());
     }
   };
+  useEffect(() => {
+    // after rubric loading check whether task is done or not
+    if (!loading && tutee.length !== 0) dispatch(doneTask());
+  }, [loading]);
 
   useEffect(() => {
     const asyncWrapper = async () => {
@@ -41,7 +45,6 @@ const Scenario = () => {
       if (!script) return;
       const rubric = await getRubric(script);
       dispatch(updateRubric(rubric.rubric));
-      if (tutee.length !== 0) dispatch(doneTask());
       dispatch(updateLoading(false));
     };
     asyncWrapper();
