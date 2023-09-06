@@ -112,15 +112,6 @@ const Result = () => {
                 level={generation[2].understanding_states}
                 dialogue={generation[2].uttrs}
               />
-              <DialogueCard
-                idx={4}
-                strategy={generation[3].teaching_strategies}
-                summary={generation[3].learning_objective}
-                patterns={generation[3].patterns}
-                scenario={generation[3].teaching_scenario}
-                level={generation[3].understanding_states}
-                dialogue={generation[3].uttrs}
-              />
             </DialogueCardWrapper>
           )}
           {!base && <LevelTable />}
