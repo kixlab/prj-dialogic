@@ -5,7 +5,6 @@ import { colors } from "@/styles/colors";
 import { UtteranceItem } from "@/states/types";
 
 import { v4 as uuid } from "uuid";
-import { BoldText } from "@/styles/text";
 import CaptureItem from "./captureItem";
 import { useNavigate } from "react-router-dom";
 
