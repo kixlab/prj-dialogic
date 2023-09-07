@@ -15,6 +15,7 @@ import { initUserData } from "@/states/userDataSlice";
 
 import DucoAImg from "@/assets/duco_a.svg";
 import DucoBImg from "@/assets/duco_b.svg";
+import { BoldText } from "@/styles/text";
 
 const Main = () => {
   const navigate = useNavigate();
@@ -47,6 +48,9 @@ const Main = () => {
         </MainButton>
         <MainButton onClick={() => onStart(false)}>
           <img src={DucoBImg} style={{ width: "70px" }} />
+        </MainButton>
+        <MainButton onClick={() => navigate("/cap")}>
+          <BoldText text="Duco-C" size={20} color="black" />
         </MainButton>
       </MainBody>
     </MainPage>

@@ -39,7 +39,7 @@ interface DialogueViewItemProps extends UtteranceItem {
   highlight: boolean;
 }
 
-const DialogueViewItem = (props: DialogueViewItemProps) => {
+export const DialogueViewItem = (props: DialogueViewItemProps) => {
   return (
     <DialogueViewItemWrapper>
       <DialogueViewSpeaker>

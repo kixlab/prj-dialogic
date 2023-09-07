@@ -10,6 +10,7 @@ import "./styles/index.css";
 import Gen from "./pages/task/gen/gen";
 import Eval from "./pages/task/eval/eval";
 import Author from "./pages/task/author/author";
+import Capture from "./pages/task/capture/capture";
 
 const router = createBrowserRouter([
   { path: "/", element: <Main /> },
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
         element: <Author />,
       },
     ],
+  },
+  {
+    path: "/cap",
+    element: <Capture />,
   },
 ]);
 
