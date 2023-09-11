@@ -74,7 +74,7 @@ const enText = {
       title: 'Revise the selected dialogue',
       description: 'Directly modify or utilize the toolbox on the left for each utterance. Alter the sequence of utterances through drag-and-drop. Provide a title for the final dialogue.',
       button_1: 'Description',
-      button_2: 'Magic',
+      button_2: 'Lab',
       button_3: 'Transcript',
       button_4: {
         title: 'Target',
