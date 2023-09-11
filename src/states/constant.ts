@@ -1,4 +1,4 @@
-export const en = false;
+export const en = true;
 
 const enText = {
   phase_1: {
@@ -26,7 +26,7 @@ const enText = {
     },
     task_4: {
       title: 'Write the dialogue scenario',
-      description: 'Make sure to fill the number of tutees, while the remaining fields are optional.',
+      description: 'Check the descriptions by hovering each field.',
       button_1: 'Number of Tutee',
       button_2: { title: 'Learning Context', description: "[example]\nThis is a science class in the 2nd grade of middle school.\nThis is a physics class for the third year of high school." },
       button_3: { title: 'Learning Scenario', description: "[example]\nas if a tutor deliberately present incorrect problem scenarios and asking a tutee to explain where the error lies\nas if a tutor collaboratively worked through problems that the tutee initially struggled with.\nas if a tutor is guiding two tutees, Tom and Emily." }
@@ -109,19 +109,19 @@ const enText = {
     strategies: {
       cognitive_conflict: {
         title: 'Cognitive conflict',
-        description: '',
+        description: 'A strategy that triggers new understanding and perspectives through conflicts of thought',
       },
       metacognitive_prompting: {
         title: 'Metacognitive prompting',
-        description: '',
+        description: 'A strategy that encourages learners to be aware of their own thinking and learning processes',
       },
       cognitive_prompting: {
         title: 'Cognitive prompting',
-        description: '',
+        description: 'A strategy that draws out important information or ideas that learners already know',
       },
       deep_level_reasoning_questions: {
         title: 'Deep-level reasoning questions',
-        description: '',
+        description: 'A strategy that provides questions to stimulate higher-order thinking and critical analysis',
       }
     }
   }

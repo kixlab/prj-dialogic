@@ -16,7 +16,6 @@ import { getDialogue, getDialogueBase } from "@/apis/lab";
 import { getSelectionString } from "../gen/utils";
 
 import { text } from "@/states/constant";
-import Intention from "./intention";
 import Result from "./result";
 import { initGeneration, updateGeneration } from "@/states/dataSlice";
 
@@ -74,7 +73,7 @@ const Eval = () => {
   }, [dialogue]);
 
   const onNext = () => {
-    if (step == 2) {
+    if (step == 1) {
       dispatch(donePhase());
     }
     setStep((prevStep) => prevStep + 1);
@@ -82,7 +81,7 @@ const Eval = () => {
 
   return (
     <>
-      <SubTask
+      {/* <SubTask
         type="long"
         title={text.phase_2.task_1.title}
         subtitle={text.phase_2.task_1.description}
@@ -90,7 +89,7 @@ const Eval = () => {
         onNext={onNext}
       >
         <Intention />
-      </SubTask>
+      </SubTask> */}
       <SubTask
         type="long"
         title={text.phase_2.task_2.title}
@@ -99,7 +98,7 @@ const Eval = () => {
             ? text.phase_2.task_2.description_base
             : text.phase_2.task_2.description
         }
-        status={getStatus(2, step)}
+        status={getStatus(1, step)}
         onNext={onNext}
       >
         <Result />

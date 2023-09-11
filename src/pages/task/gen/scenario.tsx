@@ -36,7 +36,7 @@ const Scenario = () => {
   return (
     <TaskContainer gap={10} padding={true} align="start">
       <ScenarioRowWrapper>
-        <InputContainer
+        {/* <InputContainer
           title={text.phase_1.task_4.button_1}
           description=""
           value={scenario.tutee.toString()}
@@ -44,7 +44,7 @@ const Scenario = () => {
           disable={true}
           option={true}
           hover={false}
-        />
+        /> */}
         <InputContainer
           title={text.phase_1.task_4.button_2.title}
           description={text.phase_1.task_4.button_2.description}

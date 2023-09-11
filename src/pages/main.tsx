@@ -13,8 +13,6 @@ import { initData } from "@/states/dataSlice";
 import { initDialoue } from "@/states/dialogueSlice";
 import { initUserData } from "@/states/userDataSlice";
 
-import DucoAImg from "@/assets/duco_a.svg";
-import DucoBImg from "@/assets/duco_b.svg";
 import { BoldText } from "@/styles/text";
 
 const Main = () => {
@@ -43,14 +41,8 @@ const Main = () => {
     <MainPage>
       <Header disable={true} />
       <MainBody>
-        <MainButton onClick={() => onStart(true)}>
-          <img src={DucoAImg} style={{ width: "72px" }} />
-        </MainButton>
         <MainButton onClick={() => onStart(false)}>
-          <img src={DucoBImg} style={{ width: "70px" }} />
-        </MainButton>
-        <MainButton onClick={() => navigate("/cap")}>
-          <BoldText text="Duco-C" size={20} color="black" />
+          <BoldText text="Start" size={20} color="black" />
         </MainButton>
       </MainBody>
     </MainPage>

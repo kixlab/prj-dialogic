@@ -18,14 +18,10 @@ import { text } from "@/states/constant";
 import { addMarks } from "../gen/utils";
 
 const AuthorDownload = () => {
-  const base = useSelector((state: RootState) => state.phase.base);
-
   const script = useSelector((state: RootState) => state.userData.script);
   const selections = useSelector(
     (state: RootState) => state.userData.selections
   );
-  const reasons = useSelector((state: RootState) => state.userData.reasons);
-
   const title = useSelector((state: RootState) => state.dialogue.title);
 
   const description = useSelector((state: RootState) => state.data.description);
@@ -55,11 +51,7 @@ const AuthorDownload = () => {
         <AuthorDialogueWrapper>
           <AuthorTitleWrapper>
             <AuthorDescriptionWrapper>
-              <RegularText
-                text={base ? "Duco-A" : "Duco-B"}
-                color="gray350"
-                size={12}
-              />
+              <RegularText text={"Duco"} color="gray350" size={12} />
               <RegularText
                 text={description == null ? "Sample Description" : description}
                 color="gray350"
@@ -74,7 +66,7 @@ const AuthorDownload = () => {
         <AuthorDialogueWrapper>
           <AuthorInfoWrapper>
             <AuthorScriptContainer id="authorScriptContainer" />
-            <AuthorTableWrapper>
+            {/* <AuthorTableWrapper>
               <AuthorTableContainer>
                 <tr>
                   <AuthorTableHeader last={false}>
@@ -97,7 +89,7 @@ const AuthorDownload = () => {
                   </tr>
                 )}
               </AuthorTableContainer>
-            </AuthorTableWrapper>
+            </AuthorTableWrapper> */}
           </AuthorInfoWrapper>
         </AuthorDialogueWrapper>
       </AuthorDownloadWrapper>
@@ -173,43 +165,43 @@ const AuthorScriptContainer = styled.div`
   line-height: 1.6;
 `;
 
-const AuthorTableWrapper = styled.div`
-  flex: 1;
+// const AuthorTableWrapper = styled.div`
+//   flex: 1;
 
-  box-sizing: border-box;
-  border: 1px solid ${colors["gray200"]};
-  border-radius: 5px;
-`;
+//   box-sizing: border-box;
+//   border: 1px solid ${colors["gray200"]};
+//   border-radius: 5px;
+// `;
 
-const AuthorTableContainer = styled.table`
-  width: 100%;
-  overflow: scroll;
+// const AuthorTableContainer = styled.table`
+//   width: 100%;
+//   overflow: scroll;
 
-  border: 0px;
-  outline: 0px;
-  border-collapse: collapse;
-`;
+//   border: 0px;
+//   outline: 0px;
+//   border-collapse: collapse;
+// `;
 
-const AuthorTableHeader = styled.th<{ last: boolean }>`
-  width: 150px;
+// const AuthorTableHeader = styled.th<{ last: boolean }>`
+//   width: 150px;
 
-  box-sizing: border-box;
-  padding: 15px 20px;
-  ${(props) => !props.last && `border-bottom: 1px solid ${colors["gray200"]};`}
+//   box-sizing: border-box;
+//   padding: 15px 20px;
+//   ${(props) => !props.last && `border-bottom: 1px solid ${colors["gray200"]};`}
 
-  font-size: 14px;
-  font-weight: 700;
-  text-align: center;
+//   font-size: 14px;
+//   font-weight: 700;
+//   text-align: center;
 
-  background-color: ${colors["gray100"]};
-`;
+//   background-color: ${colors["gray100"]};
+// `;
 
-const AuthorTableData = styled.td<{ last: boolean }>`
-  box-sizing: border-box;
-  padding: 15px 20px;
-  border-left: 1px solid ${colors["gray200"]};
-  ${(props) => !props.last && `border-bottom: 1px solid ${colors["gray200"]};`}
+// const AuthorTableData = styled.td<{ last: boolean }>`
+//   box-sizing: border-box;
+//   padding: 15px 20px;
+//   border-left: 1px solid ${colors["gray200"]};
+//   ${(props) => !props.last && `border-bottom: 1px solid ${colors["gray200"]};`}
 
-  font-size: 14px;
-  font-weight: 400;
-`;
+//   font-size: 14px;
+//   font-weight: 400;
+// `;
