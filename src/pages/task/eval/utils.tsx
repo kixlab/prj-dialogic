@@ -2,7 +2,7 @@ import { LevelInfo, PatternInfo, UtteranceItem } from "@/states/types";
 import { v4 as uuid } from "uuid";
 
 export const rubricToState = (rubric: string) => {
-  const parse = rubric.split("개념 ");
+  const parse = rubric.split("Concept ");
   const result: { concept: string; level: string[] }[] = [];
   parse.splice(0, 1); // remove instruction
 
