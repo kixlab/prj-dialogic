@@ -35,7 +35,7 @@ const DialogueAuthor = (props: { mode: AuthorMode }) => {
   return (
     <DialogueAuthorWrapper>
       <DialogueTitleWrapper>
-        <RegularText text={"Duco"} color="gray350" size={12} />
+        <RegularText text={"VIVID"} color="gray350" size={12} />
         <DialogueTitle
           value={title}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>

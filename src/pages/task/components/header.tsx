@@ -4,7 +4,7 @@ import { RootState } from "@/states/state";
 
 import { BlackText, BoldText, RegularText } from "@/styles/text";
 import { colors } from "@/styles/colors";
-import HeaderIconImg from "@/assets/duco.svg";
+import HeaderIconImg from "@/assets/VIVID.svg";
 
 import { useNavigate } from "react-router-dom";
 import { text } from "@/states/constant";

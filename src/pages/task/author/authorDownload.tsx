@@ -51,7 +51,7 @@ const AuthorDownload = () => {
         <AuthorDialogueWrapper>
           <AuthorTitleWrapper>
             <AuthorDescriptionWrapper>
-              <RegularText text={"Duco"} color="gray350" size={12} />
+              <RegularText text={"VIVID"} color="gray350" size={12} />
               <RegularText
                 text={description == null ? "Sample Description" : description}
                 color="gray350"
