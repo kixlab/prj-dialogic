@@ -30,7 +30,7 @@ const AuthorModeSelector = (props: AuthorModeSelectorProps) => {
       </ModeButton>
       <ModeButton
         text={text.phase_3.task_1.button_2}
-        width="short"
+        width="long"
         active={props.mode == "magic"}
         onClick={() => {
           props.setMode("magic");

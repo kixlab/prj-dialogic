@@ -53,7 +53,7 @@ const enText = {
       },
     },
     task_2: {
-      title: 'Select a one dialogue',
+      title: 'Select a dialogue',
       description_base: '.',
       description: 'Select a dialogue you want to revise. Click the reload button to get more dialogues.',
       button_1: 'Reload',
@@ -74,7 +74,7 @@ const enText = {
       title: 'Revise the selected dialogue',
       description: 'Directly modify or utilize the toolbox on the left for each utterance. Alter the sequence of utterances through drag-and-drop. Provide a title for the final dialogue.',
       button_1: 'Description',
-      button_2: 'Lab',
+      button_2: 'Laboratory',
       button_3: 'Transcript',
       button_4: {
         title: 'Target',
